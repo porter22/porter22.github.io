@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D3 Page Template 3</title>
+<script type="text/javascript" src="d3.js"></script>
+<style>
+div.bar {
+  display: inline-block;
+  width: 20px;
+  height: 75px; /* We'll override height later */
+  background-color: teal;
+  margin-right: 2px;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+// Your beautiful D3 code will go here
+var dataset = []; //Initialize empty array
+for (var i = 0; i < 25; i++) { //Loop 25 times
+  var newNumber = Math.random() * 30; //New random number (0-30)
+  dataset.push(newNumber); //Add new number to array
+}
+d3.select("body").selectAll("div")
+  .data(dataset)
+  .enter()
+  .append("div")
+  .attr("class", "bar")
+  .style("height", function(d) {
+    var barHeight = d * 5; //Scale up by factor of 5
+    return barHeight + "px";
+  });
+//Creating SVG
+//Width and height
+var w = 500;
+var h = 50;
+var svg = d3.select("body").append("svg"); //define it to save time later, when using it
+svg.attr("width", w)
+   .attr("height", h);
+
+var dataset = [ 5, 10, 15, 20, 25 ];
+
+var circles  = svg.selectAll("circle")
+.data(dataset)
+.enter()
+.append("circle");
+
+circles.attr("cx", function(d, i) {
+          return (i * 50) + 25;
+        })
+        .attr("cy", h/2)
+        .attr("r", function(d) {
+          return d;
+        })
+        .attr("fill", "yellow")
+        .attr("stroke", "orange")
+        .attr("stroke-width", function(d) {
+          return d/2;
+        });
+
+
+
+</script>
+
+
+
+</body>
+</html>
