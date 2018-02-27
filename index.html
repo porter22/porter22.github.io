@@ -22,94 +22,65 @@ var generateVis = function() {
     console.log(dataset); //Log the data.
     var w = 800;
     var h = 600;
+    var bins = [0, 30.02835848, 60.05671695, 90.08507543, 120.1134339, 150.1417924];
     //Create SVG element
     var svg = d3.select("body")
                 .append("svg")
                 .attr("width", w)
                 .attr("height", h);
 
-    svg.selectAll("circle") // <-- No longer "rect"
-        .data(dataset)
-        .enter()
-        .append("circle") // <-- No longer "rect"
-        .attr("cx", function(d) {
-          return 50 + d["tenure"] * 4;
-        })
-        .attr("cy", function(d) {
-          return (h/2) + parseFloat(d["number"])*5;
-        })
-        .attr("r", 10)
-        //stroke="black" stroke-width="2"
-        .attr("stroke","black")
-        .attr("stroke-width",1)
-        .attr("fill","none");
-
-    svg.selectAll("circle") // now let's put those little dots at the centre
-        .data(dataset, function(d) { return d; }) //this is crucial - https://stackoverflow.com/questions/20364023/d3js-adding-same-type-of-elements-with-different-data?rq=1
-        .enter()
-        .append("circle") // <-- No longer "rect"
-        .attr("cx", function(d) {
-          return 50 + d["tenure"] * 4;
-        })
-        .attr("cy", function(d) {
-          return (h/2) + parseFloat(d["number"])*5;
-        })
-        .attr("r", 1)
-        //stroke="black" stroke-width="2"
-        .attr("stroke","teal")
-        .attr("stroke-width",1)
-        .attr("fill","none");
-
-      //drawing crosses on top
-    svg.selectAll("line")
-        .data(dataset, function(d) { return d; })
-        .enter()
-        .append("line")
-        .attr("x1", function(d) {
-          return 40 + d["tenure"] * 4;
-        })
-        .attr("y1", 100)
-        .attr("x2", function(d) {
-          return 50 + d["tenure"] * 4;
-        })
-        .attr("y2", 110)
-        .attr("stroke-width", 1)
-        .attr("stroke", "grey");
-
-      svg.selectAll("line")
-          .data(dataset, function(d) { return d; })
-          .enter()
-          .append("line")
-          .attr("x1", function(d) {
-            return 50 + d["tenure"] * 4;
-          })
-          .attr("y1", 100)
-          .attr("x2", function(d) {
-            return 40 + d["tenure"] * 4;
-          })
-          .attr("y2", 110)
-          .attr("stroke-width", 1)
-          .attr("stroke", "grey");
-
-
-
 //drawing axis
     svg.append("line") //x axis
        .attr("x1", 10)
-       .attr("y1", h-5)
+       .attr("y1", h-15)
        .attr("x2", w)
-       .attr("y2", h-5)
+       .attr("y2", h-15)
        .attr("stroke-width", 1)
        .attr("stroke", "black");
      svg.append("line") //y axis
         .attr("x1", 10)
-        .attr("y1", h-5)
+        .attr("y1", h-15)
         .attr("x2", 10)
         .attr("y2", 10)
         .attr("stroke-width", 1)
         .attr("stroke", "black");
 
-};
+var xlabels = [];
+var max = 160;
+for (i = 0; i <= max; i++){
+  if (i % 20 == 0)
+    xlabels.push(i);
+}
+console.log("Array: " + xlabels);
+  //labels for axis
+      svg.selectAll("text")
+          .data(xlabels, function(d) { return d; })
+          .enter()
+          .append("text")
+          .text(function(d) {
+            return d;
+          })
+          .attr("x", function(d) {
+            console.log(50 + d * 4);
+            return 50 + d * 4;
+          })
+          .attr("y", h);
+
+};//end function generateVis
+
+/*var findMaxTenure = function(data) {
+  console.log("Data " + data);
+  var max = data[0]["tenure"];
+  console.log("Max " + max);
+  for (var i = 0; i < data.length; i++) {
+    if (data[i]["tenure"] > max) {
+      max = data[i]["tenure"];
+      console.log(max);
+    }
+  }
+  return max;
+};*/
+
 </script>
 
 
