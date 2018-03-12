@@ -44,147 +44,177 @@ To show the current offerings, we charted how many types of fruits and vegetable
 
     var w = 600;
     var h = 400;
-    var barPadding = 1;
+    var barPadding = 2;
     var padding = 40;
+
+    var monthsArray = ["Jan","Feb","Mar","Apr", "May", "Jun", "Jul","Aug","Sep","Oct", "Nov", "Dec"];
+
+    var formSubselection = function(counter) {
+      selected = [];
+      for (i = 0; i < dataset.length; i++) {
+        if (dataset[i]["Index"] == counter)
+          selected.push(dataset[i]);//push the whole record
+      }
+    }
 
     var prepareDataset = function() {
 
       //takes an index and creates global subselecton array
-      var formSubselection = function(counter) {
-        selected = [];
-        for (i = 0; i < dataset.length; i++){
-          if (dataset[i]["Index"] == counter)
-            selected.push(dataset[i]);//push the whole record
-        }
-        //alert("index = ", counter);
-        console.log(selected);
-        if (first) { //if first viz, then draw, if not, only update
-          generateNewVis();
-          first = false;
-        }
+      //draw initial graph
+      formSubselection(0);
+      console.log("generateNewVis is called");
+      //Create SVG element
+      var svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h);
+
+      var monthsNumArray = [];
+      for (i=0; i<selected.length; i++) {
+          monthsNumArray.push((i+1) * (w - padding)/selected.length);
       }
+      console.log(monthsNumArray);
+
+      var xScale = d3.scaleOrdinal()
+                      .range(monthsNumArray);
+
+      var yScale = d3.scaleLinear()
+                     .domain([0, d3.max(selected, function(d) {
+                       //console.log("max = " + d["Count"]);
+                        return d["Count"] })])
+                     .range([h-padding, padding]);
+
+      var xAxis = d3.axisBottom(xScale);
+
+      //Define Y axis
+      var yAxis = d3.axisLeft()
+                   .scale(yScale);
+
+    svg.selectAll("rect")
+        .data(selected)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {
+            //return i * (w / selected.length) + padding;
+            //console.log(d["Month"]);
+            //console.log(xScale(d["Month"]));
+            return xScale(d["Month"]);
+        })
+        .attr("y", function(d) {
+            //console.log(selected);
+            //console.log("h" + h + "- yScale " + yScale(d["Count"]) + " while dcount is " + d["Count"]);
+            return yScale(d["Count"]); //
+        })
+        .attr("width", (w-padding)/selected.length - barPadding)
+        .attr("height", function(d) {
+            //console.log("yScale is " + yScale(d["Count"]));
+            return h - yScale(d["Count"]) - padding;
+        })
+        .attr("fill", function(d) {
+            return "rgb(0, 0, " + Math.round(d["Index"] * 100) + ")";
+    });
+
+    svg.selectAll("text")
+        .data(selected)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            console.log(d["Count"]);
+            return d["Count"];
+        })
+        .attr("x", function(d, i) {
+            return xScale(d["Month"]) + (w-padding) / selected.length / 2;
+        })
+        .attr("y", function(d) {
+            return yScale(d["Count"]) - 14;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "red");
+
+    svg.append("g")
+       .attr("class", "y axis")
+       .attr("transform", "translate(" + padding + ",0)")
+       .call(yAxis);
+
+    svg.append("g")
+       .attr("class", "x axis") //Assign "axis" class
+       .attr("transform", "translate(0," + (h - padding) + ")")
+       .call(xAxis);
 
       d3.select(".fresh_fruit")
         .on("click", function() {
           formSubselection(0);
-          updateBars();
+          updateData(xAxis, yAxis);
         });
 
       d3.select(".fresh_vegetable")
         .on("click", function() {
           formSubselection(1);
-          updateBars();
+          updateData(xAxis, yAxis);
       });
       d3.select(".storage_fruit")
         .on("click", function() {
           formSubselection(2);
-          updateBars();
+          updateData(xAxis, yAxis);
       });
       d3.select(".storage_vegetable")
         .on("click", function() {
           formSubselection(3);
-          updateBars();
+          updateData(xAxis, yAxis);
       });
     }
 
-    var updateBars = function() {
+    function updateData(xAxis, yAxis) {
+      console.log("Rescaling data range");
+      var monthsNumArray = [];
+      for (i=0; i<selected.length; i++) {
+          monthsNumArray.push((i+1) * (w - padding)/selected.length);
+      }
+      console.log(monthsNumArray);
 
+      //console.log("Rescaling data range");
       var xScale = d3.scaleOrdinal()
-                     .domain(["apple", "orange", "banana", "grapefruit"])
-                     .range([0, w]);
+                      .range(monthsNumArray);
 
       var yScale = d3.scaleLinear()
-                     .domain([0, d3.max(selected, function(d) { return d["Count"] })])
-                     .range([0, h]);
+                     .domain([0, d3.max(selected, function(d) {
+                       //console.log("max = " + d["Count"]);
+                        return d["Count"] })])
+                     .range([h-padding, padding]);
+     // Select the section we want to apply our changes to
+     var svg = d3.select("body").transition();
 
-    var xAxis = d3.axisBottom(xScale);
+     //make the changes
+     console.log(selected);
+     svg.selectAll("rect")
+         .attr("x", function(d, i) {
+             //return i * (w / selected.length) + padding;
+             //console.log(d["Month"]);
+             //console.log(xScale(d["Month"]));
+             return xScale(d["Month"]);
+         })
+         .attr("y", function(d) {
+             //console.log(selected);
+             //console.log("h" + h + "- yScale " + yScale(d["Count"]) + " while dcount is " + d["Count"]);
+             return yScale(d["Count"]); //
+         })
+         .attr("width", (w-padding)/selected.length - barPadding)
+         .attr("height", function(d) {
+             //console.log("yScale is " + yScale(d["Count"]));
+             return h - yScale(d["Count"]) - padding;
+         })
+         .attr("fill", function(d) {
+             return "rgb(0, 0, " + Math.round(d["Index"] * 100) + ")";
+         });
 
-     //Define Y axis
-     var yAxis = d3.axisLeft()
-                   .scale(yScale)
-                   .ticks(5);
-
-      var svg = d3.selectAll("rect")
-                  .data(selected)
-                  .attr("x", function(d, i) {
-                      return i * (w / selected.length);
-                  })
-                  .attr("y", function(d) {
-                      return h - (yScale(d["Count"])); //height minus data - to inverse bar chart
-                  })
-                  .attr("width", w / selected.length - barPadding)
-                  .attr("height", function(d) {
-                      console.log(yScale(d["Count"]));
-                      return yScale(d["Count"]);
-                  })
-                  .attr("fill", function(d) {
-                      return "rgb(0, 0, " + Math.round(d * 10) + ")";
-              });
-      console.log(svg);
-
-      svg.append("g")
-         .attr("class", "axis")
-         .attr("transform", "translate(" + padding + ",0)")
-         .call(yAxis);
-
-         svg.append("g")
-            .attr("class", "axis") //Assign "axis" class
-            .call(xAxis);
-    }
-
-    var generateNewVis = function() {
-
-        //Create SVG element
-        var svg = d3.select("body")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-
-                    var xScale = d3.scaleOrdinal()
-                                   .domain(["apple", "orange", "banana", "grapefruit"])
-                                   .range([0 + padding, w]);
-
-                    var yScale = d3.scaleLinear()
-                                   .domain([0, d3.max(selected, function(d) { return d["Count"] })])
-                                   .range([0, h]);
-
-                  var xAxis = d3.axisBottom(xScale);
-
-                   //Define Y axis
-                   var yAxis = d3.axisLeft()
-                                 .scale(yScale)
-                                 .ticks(5);
-
-          svg.selectAll("rect")
-              .data(selected)
-              .enter()
-              .append("rect")
-              .attr("x", function(d, i) {
-                  return i * (w / selected.length);
-              })
-              .attr("y", function(d) {
-                  //return h - (d["Count"] * 4); //height minus data - to inverse bar chart
-                  return h - (yScale(d["Count"]));
-              })
-              .attr("width", w / selected.length - barPadding)
-              .attr("height", function(d) {
-                  console.log("first " + yScale(d["Count"]));
-                  return yScale(d["Count"]);
-              })
-              .attr("fill", function(d) {
-                  return "rgb(0, 0, " + Math.round(d * 10) + ")";
-          });
-
-          svg.append("g")
-             .attr("class", "axis")
-             .attr("transform", "translate(" + padding + ",0)")
+     svg.select(".x.axis") // change the x axis
+             .duration(750)
+             .call(xAxis);
+     svg.select(".y.axis") // change the y axis
+             .duration(750)
              .call(yAxis);
-
-             svg.append("g")
-                .attr("class", "axis") //Assign "axis" class
-                .call(xAxis);
-
-    }
+    }//end updateData
 
 		</script>
 	</body>
