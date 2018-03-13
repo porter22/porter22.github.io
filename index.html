@@ -6,7 +6,10 @@
 		<script type="text/javascript" src="d3.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
-
+      span {
+        margin-right: 5%;
+        font-weight: 600;
+      }
 		</style>
 	</head>
   <!-- TODO: - fix overflowing yscale - returns 500, when max height is 400  -->
@@ -19,10 +22,11 @@
 You probably know that farmers markets are a staple across all five boroughs of New York City, but September happens to be a very special month. Why is that?  Well, it turns out September is the month with the most unique types of fresh produce- forty three to be exact.
 To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if they were fresh or from storage. </p>
 
-<p class = "fresh_fruit">Fresh Fruit</p>
-<p class = "fresh_vegetable">Fresh Vegetable</p>
-<p class = "storage_fruit">Storage Fruit</p>
-<p class = "storage_vegetable">Storage Vegetable</p>
+<span class = "fresh_fruit">Fresh Fruit</span>
+<span class = "fresh_vegetable">Fresh Vegetable</span>
+<span class = "storage_fruit">Storage Fruit</span>
+<span class = "storage_vegetable">Storage Vegetable</span>
+<br/>
 
     <script type="text/javascript">
 
@@ -73,7 +77,7 @@ To show the current offerings, we charted how many types of fruits and vegetable
       for (i=0; i<selected.length; i++) {
           monthsNumArray.push((i+1) * (w - padding)/selected.length);
       }
-      console.log(monthsNumArray);
+      //console.log(monthsNumArray);
 
       var xScale = d3.scaleOrdinal()
                       .range(monthsNumArray);
@@ -81,8 +85,10 @@ To show the current offerings, we charted how many types of fruits and vegetable
       var yScale = d3.scaleLinear()
                      .domain([0, d3.max(selected, function(d) {
                        //console.log("max = " + d["Count"]);
-                        return d["Count"] })])
+                        return +d["Count"] })])
                      .range([h-padding, padding]);
+
+      console.log("max = " + d3.max(selected, function(d) { return +d["Count"]; } ));
 
       var xAxis = d3.axisBottom(xScale);
 
@@ -111,7 +117,7 @@ To show the current offerings, we charted how many types of fruits and vegetable
             return h - yScale(d["Count"]) - padding;
         })
         .attr("fill", function(d) {
-            return "rgb(0, 0, " + Math.round(d["Index"] * 100) + ")";
+            return pickColor(+d["Index"]);
     });
 
     svg.selectAll("text")
@@ -142,56 +148,76 @@ To show the current offerings, we charted how many types of fruits and vegetable
        .attr("transform", "translate(0," + (h - padding) + ")")
        .call(xAxis);
 
+       //need rewrite - iterate through class
       d3.select(".fresh_fruit")
         .on("click", function() {
           formSubselection(0);
-          updateData(xAxis, yAxis);
+          updateData();
         });
 
       d3.select(".fresh_vegetable")
         .on("click", function() {
           formSubselection(1);
-          updateData(xAxis, yAxis);
+          updateData();
       });
       d3.select(".storage_fruit")
         .on("click", function() {
           formSubselection(2);
-          updateData(xAxis, yAxis);
+          updateData();
       });
       d3.select(".storage_vegetable")
         .on("click", function() {
           formSubselection(3);
-          updateData(xAxis, yAxis);
+          updateData();
       });
     }
 
-    function updateData(xAxis, yAxis) {
+    function updateData() {
       console.log("Rescaling data range");
+
       var monthsNumArray = [];
       for (i=0; i<selected.length; i++) {
           monthsNumArray.push((i+1) * (w - padding)/selected.length);
       }
-      console.log(monthsNumArray);
+      //console.log(monthsNumArray);
 
       //console.log("Rescaling data range");
       var xScale = d3.scaleOrdinal()
                       .range(monthsNumArray);
 
+      console.log("max = " + d3.max(selected, function(d) { return +d["Count"]; } ));
+
       var yScale = d3.scaleLinear()
                      .domain([0, d3.max(selected, function(d) {
-                       //console.log("max = " + d["Count"]);
-                        return d["Count"] })])
+                       //don't forget to put + to convert string to number
+                      return +d["Count"] })])
                      .range([h-padding, padding]);
-     // Select the section we want to apply our changes to
-     var svg = d3.select("body").transition();
 
-     //make the changes
-     console.log(selected);
-     svg.selectAll("rect")
+      // Select the section we want to apply our changes to
+      var svg = d3.select("svg");
+
+    //  svg.selectAll("text").remove();
+
+      //redraw labels
+      svg.selectAll("text")
+          .data(selected)
+          .text(function(d) {
+              console.log(d["Count"]);
+              return d["Count"];
+          })
+          .attr("x", function(d, i) {
+              return xScale(d["Month"]) + (w-padding) / selected.length / 2; //place label at the center of each bar
+          })
+          .attr("y", function(d) {
+              return yScale(d["Count"]) - 14;
+          });
+
+
+     //redraw bars
+     var rect = d3.selectAll("rect")
+         .data(selected)
+         .transition()
          .attr("x", function(d, i) {
-             //return i * (w / selected.length) + padding;
-             //console.log(d["Month"]);
-             //console.log(xScale(d["Month"]));
              return xScale(d["Month"]);
          })
          .attr("y", function(d) {
@@ -199,22 +225,43 @@ To show the current offerings, we charted how many types of fruits and vegetable
              //console.log("h" + h + "- yScale " + yScale(d["Count"]) + " while dcount is " + d["Count"]);
              return yScale(d["Count"]); //
          })
-         .attr("width", (w-padding)/selected.length - barPadding)
+         //.attr("width", (w-padding)/selected.length - barPadding)
          .attr("height", function(d) {
              //console.log("yScale is " + yScale(d["Count"]));
              return h - yScale(d["Count"]) - padding;
          })
          .attr("fill", function(d) {
-             return "rgb(0, 0, " + Math.round(d["Index"] * 100) + ")";
+             return pickColor(+d["Index"]);
          });
 
-     svg.select(".x.axis") // change the x axis
-             .duration(750)
-             .call(xAxis);
-     svg.select(".y.axis") // change the y axis
-             .duration(750)
-             .call(yAxis);
+    //update only Y axis
+     var yAxis = d3.axisLeft()
+                      .scale(yScale);
+
+     svg.selectAll(".y.axis")
+                  .transition()
+                  .duration(750)
+                  .call(yAxis);
     }//end updateData
+
+    var pickColor = function (index){
+      switch(index) {
+        case 0:
+            return "green"
+            break;
+        case 1:
+            return "olive"
+            break;
+        case 2:
+            return "blue"
+            break;
+        case 3:
+            return "orange"
+            break;
+        default:
+            return "green"
+      }//end switch
+    }// end pickColor
 
 		</script>
 	</body>
