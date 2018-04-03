@@ -1,5 +1,8 @@
 import csv
+import pandas
+data = pandas.read_csv("NYPD_Complaint_Data_Historic.csv", usecols=[1,3])
 
+'''
 def time_to_minutes(mylist):
     index = 0
     minutes = 0
@@ -27,3 +30,4 @@ print result
 
 with open("marathon_times_men_minutes.csv", "a") as text_file:
         text_file.write(result)
+'''

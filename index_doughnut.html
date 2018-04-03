@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Pie Chart</title>
+		<script type="text/javascript" src="d3.js"></script>
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+
+
+		<script type="text/javascript">
+
+		//Width and height
+		var w = 300;
+		var h = 300;
+
+		var outerRadius = w / 2;
+		var innerRadius = w / 3;
+		var arc = d3.arc()
+					.innerRadius(innerRadius)
+					.outerRadius(outerRadius);
+
+		var pie = d3.pie()
+								.value(function(d) { return d.fraction; });
+
+		//Easy colors accessible via a 10-step ordinal scale
+		var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+		//Create SVG element
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+
+		d3.csv("data_boroughs.csv", function(error, data) {
+		  if (error) throw error;
+
+			console.log(data);
+			//Set up groups
+			var arcs = svg.selectAll("g.arc")
+							.data(pie(data))
+							.enter()
+							.append("g")
+							.attr("class", "arc")
+							.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+
+			//Draw arc paths
+			arcs.append("path")
+					.style("fill", function(d) { return color(d.data.borough); })
+					.attr("d", arc);
+
+			//Labels
+			arcs.append("text")
+					.attr("transform", function(d) {
+						return "translate(" + arc.centroid(d) + ")";
+					})
+					.attr("text-anchor", "middle")
+					.text(function(d) {
+						return d.data.borough;
+					});
+
+			//Fraction labels
+			arcs.append("text")
+					.attr("transform", function(d) {
+						console.log(arc.centroid(d)[1]);
+						shift = arc.centroid(d)[1] + 20;
+						noshift = arc.centroid(d)[0];
+						return "translate(" + noshift + "," + shift + ")";
+					})
+					.attr("class", "fraction")
+					.attr("text-anchor", "middle")
+					.text(function(d) {
+						return d.data.fraction;
+					});
+
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Sorting visual elements</title>
+		<script type="text/javascript" src="d3.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */
+			#tooltip {
+				position: absolute;
+				width: 200px;
+				height: auto;
+				padding: 10px;
+				background-color: white;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				pointer-events: none;
+			}
+			#tooltip.hidden {
+				display: none;
+			}
+			#tooltip p {
+				margin: 0;
+				font-family: sans-serif;
+				font-size: 16px;
+				line-height: 20px;
+			}
+
+			.line {
+				fill: none;
+				stroke: teal;
+				stroke-width: 0.5;
+			}
+		</style>
+	</head>
+	<body>
+	<div id="tooltip" class="hidden">
+				<p><strong>Important Label Heading</strong></p>
+				<p><span id="value">100</span>%</p>
+	</div>
+
+	<span class = "choice all_data" style="color:green">all data</span>
+	<span class = "choice men_only" style="color:olive">men only</span>
+	<span class = "choice women_only" style="color:blue">women only</span>
+	<p></p>
+
+
+		<script type="text/javascript">
+
+//TODO first female record not showing up
+
+			//Width and height
+			var w = 800;
+			var h = 600;
+			var padding = 40;
+
+			var sortOrder = false;
+			var selected_data = [];
+
+
+
+			var getMales = function (dataset) {
+				var males = [];
+				for (var i = 0; i < dataset.length; i++){
+					if (dataset[i].sex === "male") {
+						males.push(dataset[i]);
+					}
+				}
+				return males;
+			}
+
+			var getFemales = function (dataset) {
+				var females = [];
+				for (var i = 0; i < dataset.length; i++){
+					if (dataset[i].sex === "female") {
+						females.push(dataset[i]);
+					}
+				}
+				return females;
+			}
+
+			var cropDataset = function(dataset, choice) {
+				//get female, male or full portion of the dataset
+				selected_data = [];
+				other_data = [];
+				console.log(choice);
+				if (choice === "choice all_data") {
+					selected_data = dataset;
+				}
+				else if (choice === "choice men_only") {
+					for (var i = 0; i < dataset.length; i++){
+						if (dataset[i].sex === "male") {
+							selected_data.push(dataset[i]);
+							//console.log(dataset[i]);
+						} else other_data.push(dataset[i]);
+					}
+				}
+				else if (choice === "choice women_only") {
+					for (var i = 0; i < dataset.length; i++){
+						if (dataset[i].sex === "female") {
+							selected_data.push(dataset[i]);
+							//console.log(dataset[i]);
+						} else other_data.push(dataset[i]);
+					}
+				}
+				return selected_data;
+			}
+
+			var getCoef = function(data) {
+				var result = [];
+				console.log(data);
+				if (data[0].sex === "female") {
+					console.log("female selected");
+					result[0] = -0.9357;
+					result[1] = 2018.7;
+					result[2] = "orange";
+				} else if (selected_data[0].sex === "male") {
+					console.log("male selected");
+					result[0] = -0.2904;
+					result[1] = 709.71;
+					result[2] = "blue";
+				}
+				return result;
+			}
+
+			var getFit = function(xScale, yScale, a, b) {
+				fit = d3.line()
+							//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+							.x(function(d) { return xScale(d.year); })
+							.y(function(d) { return yScale(a*d.year + b); });
+				return fit;
+			}
+
+			var updateData = function(dataset, choice) {
+
+				var selected_data = cropDataset(dataset, choice);
+				console.log(selected_data);
+				//rescale
+				xScale = d3.scaleLinear()
+								 .domain([
+									d3.min(selected_data, function(d) { return d.year; }),
+									d3.max(selected_data, function(d) { return d.year; })
+								])
+								 .range([padding, w]);
+
+				yScale = d3.scaleLinear()
+								 .domain([
+									d3.min(selected_data, function(d) { return d.time; }),
+									d3.max(selected_data, function(d) { return d.time; })
+								])
+								 .range([h-padding, 0]);
+
+				 //Define axes
+				xAxis = d3.axisBottom()
+							 .scale(xScale)
+							 .ticks(10);
+
+				//Define Y axis
+				yAxis = d3.axisLeft()
+							 .scale(yScale)
+							 .ticks(10);
+
+				 // Select the section we want to apply our changes to
+ 	      var svg = d3.select("svg");
+
+				svg.selectAll("*").remove();
+
+				svg.selectAll("circle") // <-- No longer "rect"
+						.data(selected_data, function(d) { return d; })
+						.enter()
+						.append("circle") // <-- No longer "rect"
+						.attr("cx", function(d) {
+							return xScale(d.year);
+						})
+						.attr("cy", function(d) {
+							return yScale(d.time);
+						})
+						.attr("r", 3)
+						.attr("stroke", function(d) {
+							if (d.sex === "male"){
+								return "blue";
+							} else if (d.sex === "female"){
+								return "orange";
+							}
+							})
+						.attr("stroke-width",1)
+						.attr("fill","none");
+
+						//Define line generator
+						line = d3.line()
+									//.defined(function(d) { return d.average >= 0; }) //will check if value is below zero, if yes, then do not use this value
+									.x(function(d) { return xScale(d.year); })
+									.y(function(d) { return yScale(d.time); });
+
+						//Create line
+						svg.append("path")
+						.datum(selected_data.filter(function(d){return d.sex === 'female'}))
+						.attr("class", "line")
+						.attr("d", line);
+
+						svg.append("path")
+						.datum(selected_data.filter(function(d){return d.sex === 'male'}))
+						.attr("class", "line")
+						.attr("d", line);
+
+						var a = 0;
+						var b = 0;
+						var color = "";
+
+						/*if (selected_data[0].sex === "female") {
+							console.log("female selected");
+							a = -0.9357;
+							b = 2018.7;
+							color = "orange";
+						} else if (selected_data[0].sex === "male") {
+							console.log("male selected");
+							a = -0.2904;
+							b = 709.71;
+							color = "blue";
+						}*/
+						coef = getCoef(selected_data);
+						fit = getFit(xScale, yScale, coef[0], coef[1]);
+
+						/*fit = d3.line()
+									//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+									.x(function(d) { return xScale(d.year); })
+									.y(function(d) { return yScale(a*d.year + b); });*/
+
+						//define straight Fit
+					/*	menfit = d3.line()
+									//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+									.x(function(d) { return xScale(d.year); })
+									.y(function(d) { return yScale(-0.2904*d.year + 709.71); });
+*/
+						//y = -0.9357x + 2018.7
+					/*	womenfit = d3.line()
+									//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+									.x(function(d) { return xScale(d.year); })
+									.y(function(d) { return yScale(-0.9357*d.year + 2018.7); });*/
+
+						//Create fit lines
+						if (selected_data != dataset) {
+							console.log("selected not equal to dataset");
+							svg.append("path")
+							.datum(selected_data)
+							.attr("class", "line")
+							.style("stroke-dasharray", ("3, 3"))
+							.style("stroke", coef[2])
+							.attr("d", fit);
+						} else {
+							females = getFemales(dataset);
+							console.log(females);
+							coef = getCoef(females);
+							fit = getFit(xScale, yScale, coef[0], coef[1]);
+							svg.append("path")
+							.datum(females)
+							.attr("class", "line")
+							.style("stroke-dasharray", ("3, 3"))
+							.style("stroke", coef[2])
+							.attr("d", fit);
+
+							males = getMales(dataset);
+							console.log(males);
+							coef = getCoef(males);
+							fit = getFit(xScale, yScale, coef[0], coef[1]);
+							svg.append("path")
+							.datum(males)
+							.attr("class", "line")
+							.style("stroke-dasharray", ("3, 3"))
+							.style("stroke", coef[2])
+							.attr("d", fit);
+						}
+
+
+							/*if (selected_data === dataset) {
+									console.log("selected equal to dataset");
+									svg.append("path")
+									.datum(other_data)
+									.attr("class", "line")
+									.style("stroke-dasharray", ("3, 3"))
+									.style("stroke", "orange")
+									.attr("d", womenfit);
+							}*/
+
+						//Create axis
+						svg.append("g")
+							.attr("class", "axis")
+							.attr("transform", "translate(0," + (h - padding) + ")")
+							.call(xAxis);
+
+						svg.append("g")
+							.attr("class", "axis")
+							.attr("transform", "translate(" + padding + ",0)")
+							.call(yAxis);
+
+			}//end updateData
+
+			d3.csv("marathon_times_minutes.csv", function(error, data) {
+				if (error) { //If error is not null, something went wrong.
+					console.log(error); //Log the error.
+			} else { //If no error, the file loaded correctly. Yay!
+					dataset = data;
+					//console.table(dataset, ["year", "athlete", "time"]);
+					console.log(dataset.year);
+
+					xScale = d3.scaleLinear()
+									 .domain([
+										d3.min(dataset, function(d) { return d.year; }),
+										d3.max(dataset, function(d) { return d.year; })
+									])
+									 .range([padding, w]);
+
+				  yScale = d3.scaleLinear()
+									 .domain([
+										d3.min(dataset, function(d) { return d.time; }),
+										d3.max(dataset, function(d) { return d.time; })
+									])
+									 .range([h-padding, 0]);
+
+					 //Define axes
+ 					xAxis = d3.axisBottom()
+ 								 .scale(xScale)
+ 								 .ticks(10);
+
+ 					//Define Y axis
+ 					yAxis = d3.axisLeft()
+ 								 .scale(yScale)
+ 								 .ticks(10);
+
+				 //Create SVG element
+			 	 var svg = d3.select("body")
+			 							 .append("svg")
+			 							 .attr("width", w)
+			 							 .attr("height", h);
+
+
+				 svg.selectAll("circle") // <-- No longer "rect"
+				     .data(dataset)
+				     .enter()
+				     .append("circle") // <-- No longer "rect"
+				     .attr("cx", function(d) {
+				       return xScale(d.year);
+				     })
+				     .attr("cy", function(d) {
+				       return yScale(d.time);
+				     })
+				     .attr("r", 3)
+						 .attr("stroke", function(d) {
+ 							if (d.sex === "male"){
+ 								return "blue";
+ 							} else if (d.sex === "female"){
+ 								return "orange";
+ 							}
+ 							})
+						 .attr("stroke-width",1)
+						 .attr("fill","none");
+
+				//Define line generator
+				line = d3.line()
+							//.defined(function(d) { return d.average >= 0; }) //will check if value is below zero, if yes, then do not use this value
+							.x(function(d) { return xScale(d.year); })
+							.y(function(d) { return yScale(d.time); });
+
+				//Create line
+				svg.append("path")
+				.datum(dataset.filter(function(d){return d.sex === 'female'}))
+				.attr("class", "line")
+				.attr("d", line);
+
+				svg.append("path")
+				.datum(dataset.filter(function(d){return d.sex === 'male'}))
+				.attr("class", "line")
+				.attr("d", line);
+
+				//define straight Fit
+				menfit = d3.line()
+							//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+							.x(function(d) { return xScale(d.year); })
+							.y(function(d) { return yScale(-0.2904*d.year + 709.71); });
+
+				//y = -0.9357x + 2018.7
+				womenfit = d3.line()
+							//.defined(function(d) { return y = -0.2904*d. + 709.71; }) //will check if value is below zero, if yes, then do not use this value
+							.x(function(d) { return xScale(d.year); })
+							.y(function(d) { return yScale(-0.9357*d.year + 2018.7); });
+
+				//Create fit lines
+				svg.append("path")
+				.datum(dataset.filter(function(d){return d.sex === 'male'}))
+				.attr("class", "line")
+				.style("stroke-dasharray", ("3, 3"))
+				.attr("d", menfit);
+
+				svg.append("path")
+				.datum(dataset.filter(function(d){return d.sex === 'female'}))
+				.attr("class", "line")
+				.style("stroke-dasharray", ("3, 3"))
+				.style("stroke", "orange") //somehow stronger than attr
+				.attr("d", womenfit);
+
+				 //Create axis
+	 			 svg.append("g")
+	 				 .attr("class", "axis")
+	 				 .attr("transform", "translate(0," + (h - padding) + ")")
+	 				 .call(xAxis);
+
+	 			 svg.append("g")
+	 				 .attr("class", "axis")
+	 				 .attr("transform", "translate(" + padding + ",0)")
+	 				 .call(yAxis);
+
+				//INTERACTION
+
+				d3.selectAll(".choice")
+					.on("click", function() {
+						//console.log(d3.select(this).attr("class"));
+						choice = d3.select(this).attr("class");
+						updateData(dataset, choice);
+					});
+
+					//dummy data
+					//dataset = [1,4,7,8,15]
+			}
+		});
+
+		</script>
+	</body>
+</html>
