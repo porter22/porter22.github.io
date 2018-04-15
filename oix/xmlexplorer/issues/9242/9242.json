@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "This issue is resolved in the latest development version (3.0.2 Alpha):\r\n\r\nhttp://xmlexplorer.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34234\r\n\r\nXPath support in the .NET Framework does not allow selection of elements in a 'default' namespace (a namespace where no prefix is provided).  See this article for a more in-depth discussion:\r\n\r\nhttp://www.topxml.com/people/bosley/defaultns.asp \r\n\r\nThis is a duplicate issue, please use the Discussions tab or comment on the existing issue:\r\n\r\nhttp://xmlexplorer.codeplex.com/WorkItem/View.aspx?WorkItemId=3783 \r\n\r\nThanks!\r\n\r\nJason",
+    "ClosedDate": "2009-11-24T06:17:58.607-08:00",
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "In file like this '//s:Double' is working\r\nBut '//Setter' does not work.\r\n \r\n<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<Path ToolTip=\"Process\" xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:s=\"clr-namespace:System;assembly=mscorlib\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:dd=\"clr-namespace:DiagramDesigner;assembly=DiagramDesigner\">\r\n\t<Path.Style>\r\n\t\t<Style TargetType=\"Path\">\r\n\t\t\t<Style.BasedOn>\r\n\t\t\t\t<Style TargetType=\"Path\">\r\n\t\t\t\t\t<Style.Resources>\r\n\t\t\t\t\t\t<ResourceDictionary />\r\n\t\t\t\t\t</Style.Resources>\r\n\t\t\t\t\t<Setter Property=\"Shape.Fill\">\r\n\t\t\t\t\t\t<Setter.Value>\r\n\t\t\t\t\t\t\t<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\">\r\n\t\t\t\t\t\t\t\t<LinearGradientBrush.GradientStops>\r\n\t\t\t\t\t\t\t\t\t<GradientStop Color=\"#FFFAFBE9\" Offset=\"0\" />\r\n\t\t\t\t\t\t\t\t\t<GradientStop Color=\"#FFFFA500\" Offset=\"1\" />\r\n\t\t\t\t\t\t\t\t</LinearGradientBrush.GradientStops>\r\n\t\t\t\t\t\t\t</LinearGradientBrush>\r\n\t\t\t\t\t\t</Setter.Value>\r\n\t\t\t\t\t</Setter>\r\n\t\t\t\t\t<Setter Property=\"Shape.Stroke\">\r\n\t\t\t\t\t\t<Setter.Value>\r\n\t\t\t\t\t\t\t<SolidColorBrush>#FFD69436</SolidColorBrush>\r\n\t\t\t\t\t\t</Setter.Value>\r\n\t\t\t\t\t</Setter>\r\n\t\t\t\t\t<Setter Property=\"Shape.StrokeThickness\">\r\n\t\t\t\t\t\t<Setter.Value>\r\n\t\t\t\t\t\t\t<s:Double>1</s:Double>\r\n\t\t\t\t\t\t</Setter.Value>\r\n\t\t\t\t\t</Setter>\r\n \r\n........\r\n \r\n</Path>",
+    "LastUpdatedDate": "2016-08-10T19:51:25.12-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2009-11-24T00:40:38.507-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Why I can't find node if there is no namespace?",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 9242
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

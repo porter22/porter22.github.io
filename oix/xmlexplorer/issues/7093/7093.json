@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-02-16T07:32:15.22-08:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "Windows reports an error when launching an associated (XML) file from Windows Explorer when XML Explorer is already running.  The error apparently happens in the new instance, after the command line parameters are passed to the existing instance.  The existing instance opens the new file, then the new instance crashes.  The existing instance is unaffected by the error.",
+    "LastUpdatedDate": "2013-05-16T04:50:21.957-07:00",
+    "PlannedForRelease": "2.0.2 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2009-02-16T07:31:17.127-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Windows reports an error when launching an associated file from Windows Explorer when XML Explorer is already running.",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 7093
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

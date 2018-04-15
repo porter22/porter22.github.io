@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "476937",
+    "ThreadId": "222593",
+    "Html": "I wanted to bring attention to the fact that XML Explorer does support schema validation.  If your document specifies a schema (using xsi:schemaLocation or xsi:noNamespaceSchemaLocation), it will automatically be validated, and any errors will show up in the Errors pane.\r\n\r\nAlso, in the latest source I've added a 'hack' to manually add schemas.  Just double-click the no schema warning (&quot;The document does not have a schema specified&quot;), and you can browse to one or more XSD schema files.  I will make this a more fully-featured part of the app and include it in a future build the next chance I get.",
+    "PostedDate": "2010-08-05T08:00:15.557-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1311174",
+    "ThreadId": "222593",
+    "Html": "Hi Jcoon,\r<br />\n<br />\nThanks but I have a question. I am using XML Explorer to explore some xml document, it is throwing some schema validation error and is not opening it. The same document is working fine in Notepad++ in XML View. There is no documentation. How to go about it.<br />\n",
+    "PostedDate": "2014-10-07T06:25:46.25-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1311184",
+    "ThreadId": "222593",
+    "Html": "Sorry, not sure without more details.  Can you provide the full error and/or document?<br />\n",
+    "PostedDate": "2014-10-07T06:33:41.23-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

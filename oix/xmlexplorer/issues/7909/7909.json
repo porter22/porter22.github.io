@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "I open a xml and attach a xsd, click on validate and nothing append.\nSo I only open xml without xsd and clicked on validate I get a message saying url can not be empty.\nI attached a screenshot.\n \nThank you",
+    "LastUpdatedDate": "2013-06-14T00:32:55.573-07:00",
+    "PlannedForRelease": "XML Explorer 4.0.0 Beta (WinForms)",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2009-06-19T11:41:49.423-07:00",
+    "Status": {
+      "Name": "Resolved",
+      "Id": 7
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "url canot be empty",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 7909
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1600536,
+      "FileName": "xmlexplorer.JPG",
+      "DownloadUrl": ".\\1600536"
+    }
+  ],
+  "Comments": []
+}

@@ -1,0 +1,61 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "Available in the 4.0.5 release",
+    "ClosedDate": "2011-10-21T17:43:36.46-07:00",
+    "CommentCount": 3,
+    "Custom": "",
+    "Description": "'Copy Node XPath to Address Bar' - The generated XPath does not include the attributes \nExample:\n \n<root>\n<child Name=\"label\" />\n</root>\n \nCurrently it generates the XPath for child element as,\n/root/child\n \nExpecting it to generate,\n/roor/child[@Name='label']",
+    "LastUpdatedDate": "2013-05-16T04:50:21.02-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Medium",
+      "Severity": 100,
+      "Id": 2
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2010-06-02T11:24:42.493-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Copy Node XPath - No attributes",
+    "Type": {
+      "Name": "Feature",
+      "Id": 1
+    },
+    "VoteCount": 2,
+    "Id": 11011
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1600537,
+      "FileName": "Attribute XPaths.png",
+      "DownloadUrl": ".\\1600537"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks for the feedback.  There are several different XPath expressions that could be copied for the example element given, such as:\r\n\r\n/root/child\r\n/root/child[1]\r\n/root/child[@Name='label']\r\n//child\r\n\r\nAll would result in the selection of the node.  I'm sure I could provide all of the above, just not sure how best to expose them in the UI.  I also just noticed that the copied XPath doesn't include namespace prefixes, if any.  I'll see what I can do.\r\n\r\nThanks!",
+      "PostedDate": "2010-06-02T19:56:29.527-07:00",
+      "Id": 203508
+    },
+    {
+      "Message": "Guys,\r\n\r\nI just committed a change that adds a new menu to the node's context menu. Each attribute will show up as an item, allowing you to copy it's path to the address bar, with current attribute value.\r\n\r\nThe XPath will be in the format: /a/b/c[@foo='bar']\r\n\r\nI made a decision to make the default use attribute name and value as the predicate. I've seen indices misused too often, and hopefully this will guide users away from them. :)\r\n\r\nThanks!",
+      "PostedDate": "2011-05-19T19:37:22.86-07:00",
+      "Id": 203509
+    },
+    {
+      "Message": "Well, done, Mark!  Thanks for contributing.  I was hung up on how to detect which attribute had been right-clicked, but this is a much simpler implementation.  This will be very useful.",
+      "PostedDate": "2011-05-19T20:13:24.56-07:00",
+      "Id": 203510
+    }
+  ]
+}

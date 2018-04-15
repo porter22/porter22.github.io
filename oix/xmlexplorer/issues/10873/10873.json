@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "I ran the installer directly from the download (Firefox) - and it installed a newer .net runtime for which it required a reboot.\nI rebooted (manually a little later), after rebooting I got an error stating that the attempt to start XmlExplorer.Setup.msi failed cause it could not be found.\nManually continuing the installation worked (xml Explorer Setup.exe).\nAfter installation, I started XML Exlorer, and windows installer wanted to configure it at which point it failed again to find XmlExplorer.Setup.msi (I had manually extract the .exe and pointed windows installer towards the location I extracted it)\n \nOS: Windows 7 x64\nRelease: 4.0.0.0 Beta",
+    "LastUpdatedDate": "2013-02-21T17:35:42.03-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2010-05-14T02:40:37.937-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Installer: Missing XmlExplorer.Setup.msi after required reboot",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 10873
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

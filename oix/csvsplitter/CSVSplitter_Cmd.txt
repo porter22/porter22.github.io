@@ -1,0 +1,9 @@
+filename=[csv file]
+outputfolder=[Output folder, ignore this setting to use the same folder as the source file]
+rowcount=[Number of rows per file]
+firstrowheader = 0 or 1 (default 0)
+repeatheader = 0 or 1 (default 0)
+
+
+eg. 
+CSVSplitter filename="c:\data\big.csv" outputfolder="c:\data\output" rowcount=10000 firstrowheader=1 repeatheader=0

@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "539920",
+    "ThreadId": "239407",
+    "Html": "\r\n<p>Greetings :-)</p>\r\n<p>&nbsp;</p>\r\n<p>When I have an XML file open in XML explorer that has nodes with many attributes and I hover the mouse over an attribute to get the xpath for the attribute a tooltip pops up showing the XML node contents that blocks my entire view of the node. My suggestion\r\n would be to remove the tooltip pop up.</p>\r\n",
+    "PostedDate": "2010-12-23T07:29:44.753-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "615546",
+    "ThreadId": "239407",
+    "Html": "<p>Just a quick update on this, there should be an update soon which will contain an option 'Format &gt; Show Node Tooltips' which will shift the tooltip down below the cursor like you would normally expect. This has been bothering me as well.</p>",
+    "PostedDate": "2011-05-19T14:18:42.307-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,37 @@
+city,latitude,country,citations,longitude
+Baltimore,39.2903848,United States,4044,-76.6121902
+Birmingham,52.4666667,United Kingdom,3739,-1.9166667
+Bologna,44.4938115,Italy,4311,11.3387489
+Boston,42.3584308,United States,5151,-71.0597763
+Buenos Aires,-34.5761256,Argentina,2852,-58.4088135
+Canberra,-35.2834625,Australia,3975,149.128067
+Catania,37.502134,Italy,2456,15.0871897
+Charlotte,35.2270869,United States,5454,-80.8431244
+Chicago,41.850033,United States,3569,-87.6500549
+Cleveland,41.4994954,United States,13441,-81.6954117
+Durham,35.9940329,United States,6385,-78.8986206
+Houston,29.7632836,United States,6311,-95.3632736
+Indianapolis,39.7683765,United States,3837,-86.1580429
+Innsbruck,47.2666667,Austria,2901,11.3999996
+Kanazawa,36.5666667,Japan,2603,136.6499939
+Kyoto,35.02107,Japan,2151,135.7538452
+Lisbon,38.7166667,Portugal,3070,-9.1333332
+Maastricht,50.848333,Netherlands,2207,5.688889
+Madrid,40.4165021,Spain,2061,-3.7025642
+Massa,44.022045,Italy,2315,10.1140928
+Melbourne,-37.8139966,Australia,3432,144.9633179
+Milano,45.4642694,Italy,2038,9.1895056
+Modena,44.647834,Italy,3175,10.9253883
+Osaka,34.6937398,Japan,3280,135.502182
+Paris,48.85341,France,10996,2.3487999
+Rochester,43.1547845,United States,13822,-77.6155548
+Rome,41.9,Italy,5624,12.4833336
+Saint Louis,38.6272733,United States,13741,-90.1978912
+San Antonio,29.4241219,United States,3619,-98.4936295
+San Diego,32.7153292,United States,11450,-117.1572571
+San Francisco,37.7749295,United States,2389,-122.4194183
+Seattle,47.6062095,United States,3468,-122.3320694
+Sydney,-33.86785,Australia,9249,151.2073212
+Tokyo,35.6895266,Japan,6559,139.6916809
+Washington,38.8951118,United States,5100,-77.0363693
+Yokohama,35.45,Japan,3079,139.6499939

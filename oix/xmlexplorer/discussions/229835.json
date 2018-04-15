@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "503062",
+    "ThreadId": "229835",
+    "Html": "<p>I am running XmlExplorer version 2.0.2.0 - I cannot upgrade to version 4.0 since the environment I work in has not approved the 4.0 framwork yet.</p>\r\n<p>The automatic update check on start up is continually returning&nbsp;a '407' Proxy error.&nbsp; Is there any way to turn off the update checking?</p>",
+    "PostedDate": "2010-10-06T09:38:47.917-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "503170",
+    "ThreadId": "229835",
+    "Html": "<p>Unfortunately that version of XML Explorer does not have a version to turn off automatic update checking.&nbsp; Version 4 does, but that doesn't help you much.&nbsp; :)</p>\r\n<p>I can provide you with a patch for version 2.0.2 that has the option.&nbsp; Just send me a private message with your email address and I'll send you the patch.</p>",
+    "PostedDate": "2010-10-06T12:40:38.39-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

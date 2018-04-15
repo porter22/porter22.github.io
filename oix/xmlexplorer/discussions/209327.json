@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "430938",
+    "ThreadId": "209327",
+    "Html": "<p>Hi,</p>\r\n<p>first thanks for this great XML Viewer with XPath capabilities!</p>\r\n<p>I tried the codeplex hosted XPathVisualizer and there are UI elements to step between the&nbsp;nodes selected by a XPath&nbsp;expression.</p>\r\n<p>Currently in the XML Explorer there is only the ability to&nbsp;let the first found node to be selected or to have all selected nodes to be in a new tab, why not this third way?&nbsp;</p>\r\n<p>Thanks and best regards,</p>\r\n<p>Martin Lemburg</p>",
+    "PostedDate": "2010-04-14T07:17:02.11-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "430941",
+    "ThreadId": "209327",
+    "Html": "<p>That is an excellent suggestion, thank you! &nbsp;I'll get it added to the Issue Tracker. &nbsp;Shouldn't be too hard to implement.</p>\r\n<p>Thanks,</p>\r\n<p>Jason</p>",
+    "PostedDate": "2010-04-14T07:21:27.973-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "431206",
+    "ThreadId": "209327",
+    "Html": "<p>I just committed code changes to implement this feature. &nbsp;Are you able to download and build the source, or would you like me to send you a build? &nbsp;I'd appreciate your feedback, if you don't mind, before I add this to the public build.</p>",
+    "PostedDate": "2010-04-14T17:15:00.77-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "431331",
+    "ThreadId": "209327",
+    "Html": "<p>Hi jcoon,</p>\r\n<p>sorry to say, I have no .NET 4 development environment (VS2010).</p>\r\n<p>So - if you could please &quot;send&quot; me &quot;private&quot; build for testing?</p>\r\n<p>Best regards and thanks for your quick response!</p>\r\n<p>Martin</p>",
+    "PostedDate": "2010-04-15T01:43:03.837-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "431451",
+    "ThreadId": "209327",
+    "Html": "<p>Thanks for you providing the&nbsp;new version of the&nbsp;XML Explorer for testing!</p>\r\n<p>The behavior seems to be a bit &quot;instable&quot;.</p>\r\n<p>I loaded&nbsp;a parsable&nbsp;HTML file and applied the XPath expression &quot;//*[@alt]&quot;.</p>\r\n<p>1. The first think realized is, that from jumping from occurrence to occurrence reaching occurrence 10, the &quot;next&quot; arrow vanishes and the &quot;previous&quot; arrow stays visible.</p>\r\n<p>2. While keeping hitting &lt;Return&gt; with the focus in the XPath expressions entry control, every next occurrence is reached and the &quot;next&quot; arrow stays vanishes only at the 10th occurrences and is visible again&nbsp;from&nbsp;11 occurrence on.</p>\r\n<p>3. How do I come back to the first occurrence? Going backwards (perhaps to the first occurrence) using the arrows could be painful, if there are a lot of occurrences to jump over.<br>Selecting the first (root) node, does not help and the current selected occurrence stays to be e.g. the last</p>\r\n<p>4. Sometimes the next arrow vanishes after entering the XPath expression, while the previous arrow stayes greyed out (like expected). Sometimes switching to another application or pressing a key suddenly lets the next arrow appear again.</p>\r\n<p>\r\n<hr>\r\n</p>\r\n<p>Some suggestions:</p>\r\n<p>1. Don't show the text with variable width between the arrows. IMHO such &quot;wandering&quot; UI elements (with no stable position) are not very good, when doing a lot of &quot;click&quot; work. Perhabs this information can be shown in the status bar</p>\r\n<p>2. Provide a first, previous, next, last button</p>\r\n<p>3. Let the search cycle through the file restarting from the beginning at the end of the file</p>\r\n<p>4. Even if perhaps the current XPath expression and its results are cached to avoid &quot;recalculations&quot; - if the edited XPath expression is the same, than before ... please reset the current current occurrence selection to the first occurrence.</p>\r\n<p>\r\n<hr>\r\n</p>\r\n<p>So - that's all for now.</p>\r\n<p>Hold on!</p>\r\n<p>Best regards,</p>\r\n<p>Martin</p>",
+    "PostedDate": "2010-04-15T06:54:44.373-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2008-09-09T08:48:25.86-07:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "Need to add a right-click context menu.  It should contain (at least) the contents of the Edit menu.",
+    "LastUpdatedDate": "2013-05-16T04:50:23.547-07:00",
+    "PlannedForRelease": "1.2.0 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2007-10-04T06:04:37.177-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Context Menus",
+    "Type": {
+      "Name": "Feature",
+      "Id": 1
+    },
+    "VoteCount": 1,
+    "Id": 1726
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

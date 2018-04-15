@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "This is a duplicate of Issue #3783 - Allow Matching on Default Namespace Without Explicit Prefix.  The current workaround is to not use default namespaces, or add a prefix to the namespace (change xmlns=\"http://...   to xmlns:anything=\"http://...).  Sorry for the inconvenience.  I'll get this fixed when I get a chance.",
+    "ClosedDate": "2008-09-12T06:45:22.917-07:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "originally posted by vkanna on CodeProject http://www.codeproject.com/KB/miscctrl/XmlExplorer.aspx\nStill presend in Release 2.0.1\n \nThe software fails on xPath query when XML file has namespace info in it.\nHere is xml file, which loads fine but fails on xPath query and this happens even on latest 1.1.2 release downloaded from CodePlex [xpath query = /NorthwindDataSet/Customers/CustomerID]\n'------------------\n<?xml version=\"1.0\" standalone=\"yes\"?>\n<NorthwindDataSet xmlns=\"http://tempuri.org/NorthwindDataSet.xsd\">\n   <Customers>\n      <CustomerID>ALFKI</CustomerID>\n      <CompanyName>Alfreds Futterkiste</CompanyName>\n      <ContactName>Maria Anders</ContactName>\n      <ContactTitle>Sales Representative</ContactTitle>\n      <Address>Obere Str. 57</Address>\n      <City>Berlin</City>\n      <PostalCode>12209</PostalCode>\n      <Country>Germany</Country>\n      <Phone>030-0074321</Phone>\n      <Fax>030-0076545</Fax>\n   </Customers>\n</NorthwindDataSet>\n'-------------------",
+    "LastUpdatedDate": "2013-05-16T04:50:22.533-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-09-12T01:45:22.607-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "xPath Query fails when XML file has namespace info in it",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 6139
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

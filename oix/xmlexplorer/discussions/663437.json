@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1497426",
+    "ThreadId": "663437",
+    "Html": "Any plans to migrate the project to GitHub or elsewhere before CodePlex shuts down?<br />\n",
+    "PostedDate": "2017-07-19T03:01:39.03-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1497507",
+    "ThreadId": "663437",
+    "Html": "No immediate plans, as I don't have any planned changes.  The project and code will continue to be archived here.  If/when changes are needed, I'll investigate moving the source to GitHub.<br />\n",
+    "PostedDate": "2017-07-25T08:33:18.673-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

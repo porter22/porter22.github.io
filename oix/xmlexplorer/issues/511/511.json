@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "Duplicate of 510",
+    "ClosedDate": "2008-06-25T13:44:03.37-07:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "Just like TextPad, I want a tree of open files, and I want an optional property pane to display file information that is normally above and beyond the information shown in the title bar.",
+    "LastUpdatedDate": "2013-05-16T04:50:23.843-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2007-07-24T09:12:13.66-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "TreeView File Selector",
+    "Type": {
+      "Name": "Feature",
+      "Id": 1
+    },
+    "VoteCount": 1,
+    "Id": 511
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

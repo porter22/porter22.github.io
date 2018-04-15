@@ -58,10 +58,20 @@ var dataset = { nodes: [ { name: "Manhattan" }, { name: "Brooklyn" }, { name: "Q
 			]
 		};*/
 
+		d3.csv('graph.csv', function(data) {
+
+    var nodes = [], edges = [];
+
+    for (var k = 0, n = data.length; k < n; k += 1) {
+        nodes.push({name: data[k].name, size: data[k].size, id: data[k].id}),
+        edges.push({source: data[k].id, target: data[k].parent});
+    }
+
+
 		//Initialize a simple force layout, using the nodes and edges in dataset
-		var force = d3.forceSimulation(dataset.nodes)
+		var force = d3.forceSimulation(nodes)
 						.force("charge", d3.forceManyBody())
-						.force("link", d3.forceLink(dataset.edges))
+						.force("link", d3.forceLink(edges))
 						.force("center", d3.forceCenter().x(w/2).y(h/2));
 
 		var colors = d3.scaleOrdinal(d3.schemeCategory10);
@@ -74,7 +84,7 @@ var dataset = { nodes: [ { name: "Manhattan" }, { name: "Brooklyn" }, { name: "Q
 
 		//Create edges as lines
 		var edges = svg.selectAll("line")
-			.data(dataset.edges)
+			.data(edges)
 			.enter()
 			.append("line")
 			.style("stroke", "#ccc")
@@ -82,7 +92,7 @@ var dataset = { nodes: [ { name: "Manhattan" }, { name: "Brooklyn" }, { name: "Q
 
 		//Create nodes as circles
 		var nodes = svg.selectAll("circle")
-			.data(dataset.nodes)
+			.data(nodes)
 			.enter()
 			.append("circle")
 			.attr("r", 10)
@@ -130,6 +140,8 @@ var dataset = { nodes: [ { name: "Manhattan" }, { name: "Brooklyn" }, { name: "Q
 			d.fx = null;
 			d.fy = null;
 		}
+
+	});//end load csv
 
 		</script>
 	</body>

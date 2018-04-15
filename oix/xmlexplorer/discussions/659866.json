@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1489108",
+    "ThreadId": "659866",
+    "Html": "I downloaded the product and loaded an XML file. Now I want to see the results filtered by some criteria. How do I do that? In the below example how do I find all &lt;tkt&gt; where &lt;status&gt; = 0 \r<br />\nI have the schema as follows<br />\n<pre><code>&lt;main&gt;\n   &lt;sub1&gt;\n      &lt;sub1a&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;\n             &lt;status&gt;\n         &lt;/tkt&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;\n             &lt;status&gt;\n         &lt;/tkt&gt;\n      &lt;/sub1a&gt;\n   &lt;/sub1&gt;\n&lt;/main&gt;</code></pre>\n\n",
+    "PostedDate": "2016-12-01T08:40:20.253-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1489119",
+    "ThreadId": "659866",
+    "Html": "Welcome!  First, the XML is slightly invalid.  The number and status elements need to be closed:<br />\n<pre><code>&lt;main&gt;\n   &lt;sub1&gt;\n      &lt;sub1a&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;0&lt;/number&gt;\n             &lt;status&gt;0&lt;/status&gt;\n         &lt;/tkt&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;1&lt;/number&gt;\n             &lt;status&gt;1&lt;/status&gt;\n         &lt;/tkt&gt;\n      &lt;/sub1a&gt;\n   &lt;/sub1&gt;\n&lt;/main&gt;</code></pre>\n\nI went ahead and entered some values for the number and status as well.  Now that the XML will load in XML Explorer, we can use XPath to find/query:\r<br />\n<br />\n<a href=\"http://www.w3schools.com/xml/xml_xpath.asp\" rel=\"nofollow\">http://www.w3schools.com/xml/xml_xpath.asp</a>\r<br />\n<br />\nIn your case, this XPath query should find all tkt elements with status = 0:\r<br />\n<br />\n//tkt[status='0']\r<br />\n<br />\nHope this helps, good luck!<br />\n",
+    "PostedDate": "2016-12-01T11:11:27.563-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": "2016-12-01T14:19:48.17-08:00"
+  },
+  {
+    "Id": "1489130",
+    "ThreadId": "659866",
+    "Html": "<strong>jcoon wrote:</strong><br />\n<blockquote>\nWelcome!  First, the XML is slightly invalid.  The number and status elements need to be closed:<br />\n<pre><code>&lt;main&gt;\n   &lt;sub1&gt;\n      &lt;sub1a&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;0&lt;/number&gt;\n             &lt;status&gt;0&lt;/status&gt;\n         &lt;/tkt&gt;\n         &lt;tkt&gt;\n             &lt;number&gt;1&lt;/number&gt;\n             &lt;status&gt;1&lt;/status&gt;\n         &lt;/tkt&gt;\n      &lt;/sub1a&gt;\n   &lt;/sub1&gt;\n&lt;/main&gt;</code></pre>\n\nI went ahead and entered some values for the number and status as well.  Now that the XML will load in XML Explorer, we can use XPath to find/query:<br />\n<br />\n<a href=\"http://www.w3schools.com/xml/xml_xpath.asp\" rel=\"nofollow\">http://www.w3schools.com/xml/xml_xpath.asp</a><br />\n<br />\nIn your case, this XPath query should find all tkt elements with status = 0:<br />\n<br />\n//tkt[status='0']<br />\n<br />\nHope this helps, good luck!<br />\n</blockquote>\njcoon: An embarrassed thank you :). I created the XML on the fly and did not do a good job. You however did a great job of answering it. So thank you again.<br />\n",
+    "PostedDate": "2016-12-01T14:26:39.54-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

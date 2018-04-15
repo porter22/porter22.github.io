@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2010-09-22T10:56:49.9-07:00",
+    "CommentCount": 2,
+    "Custom": "",
+    "Description": "I just install V4.0.0.0 on a fresh Windows 7 Ultimate Edition (x64) workstation.  Every time I open XML Explorer, a NullReferenceException is thrown...\n \nSystem.NullReferenceException: Object reference not set to an instance of an object.\nat\nXmlExplorer.Controls.TabbedXmlExplorerWindow.OnDownloadDataCompleted(Object sender, DownloadDataCompletedEventArgs e)\n \nAny ideas?",
+    "LastUpdatedDate": "2013-05-16T04:50:20.563-07:00",
+    "PlannedForRelease": "XML Explorer 4.0.1",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2010-08-26T09:49:32.7-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "NullReferenceException on load...",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 2,
+    "Id": 11820
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Yeah, sorry, I've fixed the code already, just need to post a new update.",
+      "PostedDate": "2010-08-26T12:29:19.847-07:00",
+      "Id": 203511
+    },
+    {
+      "Message": "Any idea when the new update will be available?",
+      "PostedDate": "2010-09-20T08:17:12.913-07:00",
+      "Id": 203512
+    }
+  ]
+}

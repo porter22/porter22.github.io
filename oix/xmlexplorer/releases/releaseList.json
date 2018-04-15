@@ -1,0 +1,273 @@
+[
+  {
+    "Id": "0",
+    "Name": "XML Explorer 4.0.2",
+    "DevelopmentStatus": "Beta",
+    "Description": "Changes in 4.0:\n\n* This release is built on the Microsoft .NET Framework 4 Client Profile.\n* Changed XSD validation to use the schema specified by the XML documents.\n* Added a VS style Error List, double-clicking an error takes you to the offending node.\n** XPathNavigator schema validation finally gives SourceObject (was fixed in .NET 4).\n* Added Namespaces window and better support for XPath expressions in documents with a default namespace.\n* Added ExpandAll and CollapseAll toolbar buttons (in addition to the already present main menu and context menu items).\n* Added a prompt on first run (per user) to choose default file types (Vista, Win7 and newer).\n* Setup now registers XML Explorer with Windows as a recommended program for opening .xml, .xsd, .config, .xsl files (Open With).\n* Refactored the XPathNavigatorTreeView and its dependencies to a separate project. Should be easier and lighter to use from other projects now (no dependency on docking library).\n\nChanges in 4.0.1:\n\n* Added settings pane, allows changing user settings, some of which take effect immediately (UseSyntaxHighlighting, Font, ForeColor).\n* Fixed an excpetion and a slight but annoying delay during startup, both related to automatic update checking.\n* Added XPath selection Up and Down buttons, providing the ability to select beyond the first XPath match. Enter key selects the first match, then repeated Enter key presses selects the next match. Added label next to buttons to show current location within results, like '1 of 50'.\n\nChanges in 4.0.2:\n* Added an 'Open URL' button and File menu item, will download and open XML files from a user-specified URL. Added handling of certificate errors and basic HTTP authentication.\n* Added additional methods to XPathNavigatorTreeView to enable better integration into 3rd party applications.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2011-03-11T10:33:41.473-08:00",
+    "Files": [
+      {
+        "Id": "ea2de2a8-4c79-43a5-8cb2-71d63cbbc173",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./0/ea2de2a8-4c79-43a5-8cb2-71d63cbbc173",
+        "Type": "Application",
+        "UploadDate": "2011-03-11T10:33:41.1-08:00"
+      },
+      {
+        "Id": "498f3ab5-1146-4f0b-ba17-fc939189ae3a",
+        "FileName": "XmlExplorer.zip",
+        "Url": "./0/498f3ab5-1146-4f0b-ba17-fc939189ae3a",
+        "Type": "Application",
+        "UploadDate": "2011-03-11T10:33:41.193-08:00"
+      }
+    ]
+  },
+  {
+    "Id": "1",
+    "Name": "XML Explorer 4.0.1",
+    "DevelopmentStatus": "Beta",
+    "Description": "Changes in 4.0:\n\n* This release is built on the Microsoft .NET Framework 4 Client Profile.\n* Changed XSD validation to use the schema specified by the XML documents.\n* Added a VS style Error List, double-clicking an error takes you to the offending node.\n** XPathNavigator schema validation finally gives SourceObject (was fixed in .NET 4).\n* Added Namespaces window and better support for XPath expressions in documents with a default namespace.\n* Added ExpandAll and CollapseAll toolbar buttons (in addition to the already present main menu and context menu items).\n* Added a prompt on first run (per user) to choose default file types (Vista, Win7 and newer).\n* Setup now registers XML Explorer with Windows as a recommended program for opening .xml, .xsd, .config, .xsl files (Open With).\n* Refactored the XPathNavigatorTreeView and its dependencies to a separate project. Should be easier and lighter to use from other projects now (no dependency on docking library).\n\nChanges in 4.0.1:\n\n* Added settings pane, allows changing user settings, some of which take effect immediately (UseSyntaxHighlighting, Font, ForeColor).\n* Fixed an excpetion and a slight but annoying delay during startup, both related to automatic update checking.\n* Added XPath selection Up and Down buttons, providing the ability to select beyond the first XPath match. Enter key selects the first match, then repeated Enter key presses selects the next match. Added label next to buttons to show current location within results, like '1 of 50'.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2010-09-22T11:10:27.56-07:00",
+    "Files": [
+      {
+        "Id": "63307b09-314e-4c00-bb56-2335f5dc35a5",
+        "FileName": "XmlExplorer.application",
+        "Url": "./1/63307b09-314e-4c00-bb56-2335f5dc35a5",
+        "Type": "Application",
+        "UploadDate": "2010-09-22T11:10:27.703-07:00"
+      },
+      {
+        "Id": "0febb973-f383-4234-ab6d-484a3ffb68b4",
+        "FileName": "XML Explorer.zip",
+        "Url": "./1/0febb973-f383-4234-ab6d-484a3ffb68b4",
+        "Type": "Application",
+        "UploadDate": "2010-09-22T10:55:57.823-07:00"
+      },
+      {
+        "Id": "cc8b74a9-c413-4c8c-92eb-356b4ff32585",
+        "FileName": "XML Explorer Setup.exe",
+        "Url": "./1/cc8b74a9-c413-4c8c-92eb-356b4ff32585",
+        "Type": "Application",
+        "UploadDate": "2010-09-22T10:55:57.87-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "2",
+    "Name": "XML Explorer 4.0.0 Beta (WinForms)",
+    "DevelopmentStatus": "Stable",
+    "Description": "Changes in 4.0:\n\n* This release is built on the Microsoft .NET Framework 4 Client Profile.\n* Changed XSD validation to use the schema specified by the XML documents.\n* Added a VS style Error List, double-clicking an error takes you to the offending node.\n** XPathNavigator schema validation finally gives SourceObject (was fixed in .NET 4).\n* Added Namespaces window and better support for XPath expressions in documents with a default namespace.\n* Added ExpandAll and CollapseAll toolbar buttons (in addition to the already present main menu and context menu items).\n* Added a prompt on first run (per user) to choose default file types (Vista, Win7 and newer).\n* Setup now registers XML Explorer with Windows as a recommended program for opening .xml, .xsd, .config, .xsl files (Open With).\n* Refactored the XPathNavigatorTreeView and its dependencies to a separate project. Should be easier and lighter to use from other projects now (no dependency on docking library).",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2010-08-06T14:12:37.14-07:00",
+    "Files": [
+      {
+        "Id": "3003a44f-c212-4425-8b71-781951c853e7",
+        "FileName": "XmlExplorer.application",
+        "Url": "./2/3003a44f-c212-4425-8b71-781951c853e7",
+        "Type": "Application",
+        "UploadDate": "2010-08-06T14:12:37.267-07:00"
+      },
+      {
+        "Id": "ae2c2e96-36bc-404e-99c1-1a45f1763245",
+        "FileName": "XML Explorer Setup.exe",
+        "Url": "./2/ae2c2e96-36bc-404e-99c1-1a45f1763245",
+        "Type": "Application",
+        "UploadDate": "2010-04-13T13:03:41.25-07:00"
+      },
+      {
+        "Id": "949d10f4-b492-4118-b5c1-34a9640d53a1",
+        "FileName": "XML Explorer.zip",
+        "Url": "./2/949d10f4-b492-4118-b5c1-34a9640d53a1",
+        "Type": "Application",
+        "UploadDate": "2010-05-29T06:05:47.113-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "3",
+    "Name": "2.0.2 Release",
+    "DevelopmentStatus": "Beta",
+    "Description": "The following changes were made in this release:\n\n* Added ability to create new documents from XML on the clipboard (File->New from Clipboard)\n* Added Edit-Expand All and Collapse All menu items\n* Fixed \"System.IO.DirectoryNotFoundException: Could not find a part of the path\" when exiting\n* Fixed an error when launching an associated (XML) file from Windows Explorer when XML Explorer is already running.\n* Created a better application icon\n* Added a splash screen\n* Added logo to about box\n* Esc key now closes the about box\n\nTo install:\n\n* If you already have the .NET Framework v3.5 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2009-05-06T05:30:07.843-07:00",
+    "Files": [
+      {
+        "Id": "780623e6-8088-49aa-9c85-08b7733358b9",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./3/780623e6-8088-49aa-9c85-08b7733358b9",
+        "Type": "Application",
+        "UploadDate": "2009-02-15T14:52:26.043-08:00"
+      }
+    ]
+  },
+  {
+    "Id": "4",
+    "Name": "2.0.1 Release",
+    "DevelopmentStatus": "Stable",
+    "Description": "The following changes were made in this release:\n\n* Visual Studio.NET style docking panes.\n** Moved the Expressions Library to a proper docking pane.\n** Added a Validation pane with support for XSD Schema validation.\n** Layout changes are persisted.\n** Document tabs are now full-featured panes, with support for tiling horizontally, vertically, etc.\n* Added automatic update checking\n** Only notifies when a new release is available\n** Opens the new release page\n** Does not yet download or install updates automatically\n** Checks automatically when first launched, manually via Help->Check for updates\n* Added an About dialog (Help->About)\n* Added a 'Recently Used Files' list under the File menu\n* Fixed an exception when loading multiple files at once from Windows Explorer.\n* Fixed item 6116: System.InvalidOperationException: The DockPanel has already been initialized\n* Fixed a problem where some settings weren't being persisted properly\n\nTo install:\n\n* If you already have the .NET Framework v2.0 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2008-11-07T06:40:12.207-08:00",
+    "Files": [
+      {
+        "Id": "9cf20ba0-e495-43d2-ab0c-9a196b457e97",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./4/9cf20ba0-e495-43d2-ab0c-9a196b457e97",
+        "Type": "Application",
+        "UploadDate": "2008-09-10T19:33:17.423-07:00"
+      },
+      {
+        "Id": "f6012643-4c26-4a98-84f6-231ee3330f61",
+        "FileName": "setup.exe",
+        "Url": "./4/f6012643-4c26-4a98-84f6-231ee3330f61",
+        "Type": "Application",
+        "UploadDate": "2008-09-10T19:33:18.627-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "5",
+    "Name": "2.0 Release",
+    "DevelopmentStatus": "None",
+    "Description": "The following changes were made in this release:\n\n* Visual Studio.NET style docking panes.\n** Moved the Expressions Library to a proper docking pane.\n** Added a Validation pane with support for XSD Schema validation.\n** Layout changes are persisted.\n** Document tabs are now full-featured panes, with support for tiling horizontally, vertically, etc.\n* Added automatic update checking\n** Only notifies when a new release is available\n** Opens the new release page\n** Does not yet download or install updates automatically\n** Checks automatically when first launched, manually via Help->Check for updates\n* Added an About dialog (Help->About)\n* Added a 'Recently Used Files' list under the File menu\n* Fixed an exception when loading multiple files at once from Windows Explorer.\n\nTo install:\n\n* If you already have the .NET Framework v2.0 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2008-09-09T17:32:07.38-07:00",
+    "Files": [
+      {
+        "Id": "b28527a2-9967-4eca-b05d-27e55f40cc6d",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./5/b28527a2-9967-4eca-b05d-27e55f40cc6d",
+        "Type": "Application",
+        "UploadDate": "2008-09-09T17:32:07.427-07:00"
+      },
+      {
+        "Id": "7a79ad1d-4c38-4077-b65b-ec4f8a2cde1b",
+        "FileName": "setup.exe",
+        "Url": "./5/7a79ad1d-4c38-4077-b65b-ec4f8a2cde1b",
+        "Type": "Application",
+        "UploadDate": "2008-09-09T17:32:07.46-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "6",
+    "Name": "1.2.0 Release",
+    "DevelopmentStatus": "None",
+    "Description": "The following changes were made in this release:\n\n* Added node context menu with copy menu items.\n* Added Expressions pane, and the ability to store commonly-used XPath expressions.\n** Use the button to the right of the XPath expression bar to add an expression to the library.\n** Click the button again to edit the expression and give it a name and comments.\n** Select an expression in the Expressions pane to select the first match.\n** Activate (double-click, or select and press 'Enter') one or more expressions to open the expression results in new tabbed windows.\n** Use listview label edit to change an expression's name.\n** Delete one or more expressions by selecting and press the 'Delete' key.\n\nTo install:\n\n* If you already have the .NET Framework v2.0 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2008-06-26T10:56:58.35-07:00",
+    "Files": [
+      {
+        "Id": "e6a57315-245f-4a95-beea-7853ddc2bfe6",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./6/e6a57315-245f-4a95-beea-7853ddc2bfe6",
+        "Type": "Application",
+        "UploadDate": "2008-06-26T10:56:58.507-07:00"
+      },
+      {
+        "Id": "021a4c92-5ad2-4ba6-a663-33d5011355f2",
+        "FileName": "setup.exe",
+        "Url": "./6/021a4c92-5ad2-4ba6-a663-33d5011355f2",
+        "Type": "Application",
+        "UploadDate": "2008-06-26T10:56:59.053-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "7",
+    "Name": "1.1.3 Release",
+    "DevelopmentStatus": "None",
+    "Description": "The following changes were made in this release:\n\n* Added a 'Use Highlighing' menu item to the Format menu to turn syntax highlighting on and off. Useful for large files where syntax highlighting causes performance issues.\n* Fixed a problem where a tab containing XPath query results consisting of attribute values was not being saved when requested by the user.\n* Added code to automatically add any xml namespaces to the namespace manager, fixing problems encountered while trying to execute XPath queries that include namespaces.\n\nTo install:\n\n* If you already have the .NET Framework v2.0 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2008-06-03T14:27:44.607-07:00",
+    "Files": [
+      {
+        "Id": "dc50a4dc-8e2e-494a-9dcb-8208af45b0a0",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./7/dc50a4dc-8e2e-494a-9dcb-8208af45b0a0",
+        "Type": "Application",
+        "UploadDate": "2008-06-03T14:16:02.3-07:00"
+      },
+      {
+        "Id": "b1b650ca-672b-4b92-9974-526a1243d1f1",
+        "FileName": "setup.exe",
+        "Url": "./7/b1b650ca-672b-4b92-9974-526a1243d1f1",
+        "Type": "Application",
+        "UploadDate": "2008-06-03T14:16:02.33-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "8",
+    "Name": "1.1.2 Release",
+    "DevelopmentStatus": "None",
+    "Description": "The following changes were made in the 1.1.2 release:\n\n* Visual Studio style syntax highlighting.\n* Ability to launch the current file in an XML editor.\n* Fixed the enabled state of the Edit menu items.\n* Fixed a problem where XPath queries with namespace prefixes were not working.\n* Fixed a problem where nodes with namespace prefixes were not drawing with syntax highlights.\n\nTo install:\n\n* If you already have the .NET Framework v2.0 or higher, download and run XmlExplorer.Setup.msi.\n* If not, download both XmlExplorer.Setup.msi and Setup.exe, and run Setup.exe.  You will be prompted to download and install the .NET Framework automatically.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2007-07-26T17:37:37.56-07:00",
+    "Files": [
+      {
+        "Id": "f67b93d2-4a41-4b84-93a4-d193cd9b02fe",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./8/f67b93d2-4a41-4b84-93a4-d193cd9b02fe",
+        "Type": "Application",
+        "UploadDate": "2007-07-26T17:37:41.92-07:00"
+      },
+      {
+        "Id": "3bf7d441-4991-4672-8210-ab773744195f",
+        "FileName": "setup.exe",
+        "Url": "./8/3bf7d441-4991-4672-8210-ab773744195f",
+        "Type": "Application",
+        "UploadDate": "2007-07-24T06:57:14-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "9",
+    "Name": "1.0 - Initial Release",
+    "DevelopmentStatus": "None",
+    "Description": "This is the initial public release of XML Explorer.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2007-07-12T12:07:22.953-07:00",
+    "Files": [
+      {
+        "Id": "72edb7a5-4680-47f1-8ed9-553be5f53513",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./9/72edb7a5-4680-47f1-8ed9-553be5f53513",
+        "Type": "Application",
+        "UploadDate": "2007-07-12T12:07:22.97-07:00"
+      },
+      {
+        "Id": "77b8147b-fa98-4544-a724-56ae3071a6a2",
+        "FileName": "setup.exe",
+        "Url": "./9/77b8147b-fa98-4544-a724-56ae3071a6a2",
+        "Type": "Application",
+        "UploadDate": "2007-07-12T12:07:22.987-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "10",
+    "Name": "XML Explorer 4.0.5",
+    "DevelopmentStatus": "Beta",
+    "Description": "Changes in 4.0.5:\n\n* Added 'Copy Attribute XPath to Address Bar' feature.\n* Added methods for decoding node text and value from Base64 encoded strings, and copying them to the clipboard.\n* Added 'ChildNodeDefinitions' to the options, which allows for easier navigation of parent-child and ID-IDREF relationships. Discovery happens on-demand, as nodes are expanded and child nodes are added.  Nodes can now have 'virtual' child nodes, defined by an xpath to select an identifier (usually relative to the current node like @id), and another xpath to find matching virtual child nodes using that identifier, like //*[@parentId='{0}']. Standard String.Format syntax is used.\n* Improved the expressions pane with a proper toolbar with buttons to launch, edit, delete, and filter expressions.\n* Changed expressions pane behavior, selection no longer executes expressions, only activation (double-click or enter to select, hold shift to launch new tab).\n* Improved performance of syntax highlighting.\n* Fixed some issues with xpath expressions not updating the toolbar buttons and xpath textbox.\n* Fixed the XML Schema link on the Errors pane.\n* Added a ShowNodeToolTips, which sets the property of the same name on the TreeView control, which changes the way tooltips are shown on nodes. It does not hide tooltips entirely (like the name suggests) but only changes tooltips to show directly over a node, or to the lower-left of the cursor, like normal tooltips.\n* Disabled the 'end tag' nodes that were being added on expansion, and removed on collapse. This decreases the amount of 'flicker' when expanding and collapsing nodes. I'll eventually add another option for this.\n* Added an ExceptionDialog, instead of showing exceptions in a MessageBox. Allows for easy copying of exception and stack trace text.\n* Fixed an exception when trying to copy or drag a text node.\n* Fixed formatting issues when copying node XML.\n\nChanges in 4.0.2:\n\n* Added an 'Open URL' button and File menu item, will download and open XML files from a user-specified URL. Added handling of certificate errors and basic HTTP authentication.\n* Added additional methods to XPathNavigatorTreeView to enable better integration into 3rd party applications.\n\nChanges in 4.0.1:\n\n* Added settings pane, allows changing user settings, some of which take effect immediately (UseSyntaxHighlighting, Font, ForeColor).\n* Fixed an excpetion and a slight but annoying delay during startup, both related to automatic update checking.\n* Added XPath selection Up and Down buttons, providing the ability to select beyond the first XPath match. Enter key selects the first match, then repeated Enter key presses selects the next match. Added label next to buttons to show current location within results, like '1 of 50'.\n\nChanges in 4.0:\n\n* This release is built on the Microsoft .NET Framework 4 Client Profile.\n* Changed XSD validation to use the schema specified by the XML documents.\n* Added a VS style Error List, double-clicking an error takes you to the offending node.\n** XPathNavigator schema validation finally gives SourceObject (was fixed in .NET 4).\n* Added Namespaces window and better support for XPath expressions in documents with a default namespace.\n* Added ExpandAll and CollapseAll toolbar buttons (in addition to the already present main menu and context menu items).\n* Added a prompt on first run (per user) to choose default file types (Vista, Win7 and newer).\n* Setup now registers XML Explorer with Windows as a recommended program for opening .xml, .xsd, .config, .xsl files (Open With).\n* Refactored the XPathNavigatorTreeView and its dependencies to a separate project. Should be easier and lighter to use from other projects now (no dependency on docking library).",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2011-10-21T15:56:26.107-07:00",
+    "Files": [
+      {
+        "Id": "56b16881-c77b-48c8-976c-6fc7c53b82ba",
+        "FileName": "XmlExplorer.Setup.msi",
+        "Url": "./10/56b16881-c77b-48c8-976c-6fc7c53b82ba",
+        "Type": "Application",
+        "UploadDate": "2011-10-21T15:50:01.303-07:00"
+      },
+      {
+        "Id": "7a99f63b-ee1c-4da3-be13-c8df99cdcc2f",
+        "FileName": "XmlExplorer.zip",
+        "Url": "./10/7a99f63b-ee1c-4da3-be13-c8df99cdcc2f",
+        "Type": "Application",
+        "UploadDate": "2011-10-21T15:50:01.68-07:00"
+      }
+    ]
+  }
+]

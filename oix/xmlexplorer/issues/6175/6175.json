@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-02-15T17:16:03.13-08:00",
+    "CommentCount": 1,
+    "Custom": "",
+    "Description": "When a build from source is done using r24408, running the program results in a prompt to update to 2.0.1",
+    "LastUpdatedDate": "2013-05-16T04:50:22.377-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-09-16T05:47:34.173-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Build from source with r24408 results in a prompt to update",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 6175
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Yeah, Change Set 24088 was build 2.0.0.  v2.0.1 has been released.  The latest change set, 24149, is build 2.0.1.  Sorry, not sure what you're expecting.",
+      "PostedDate": "2008-09-16T06:44:06.12-07:00",
+      "Id": 203498
+    }
+  ]
+}

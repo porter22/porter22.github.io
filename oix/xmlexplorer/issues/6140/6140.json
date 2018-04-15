@@ -1,0 +1,70 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 6,
+    "Custom": "",
+    "Description": "entering a closing square bracket when XPath-Query-TextBox is focussed has not the desired effect.\nExample: I want to select all books with Attribute ID='Test' with the following xpath-query:\n//Book[@BookId='Test']\nI can not enter the last character of the line by pressing the corresponding key (German QWERTZ-layout) - although the query works fine when entered via clipboard.\nObviously some keypress-event is canceled or the key is reserved for some special function.",
+    "LastUpdatedDate": "2013-02-21T17:35:43.957-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-09-12T01:53:13.987-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Cannot enter closing square brackets ']' in XPath-Query",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 2,
+    "Id": 6140
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "I assume you're using v2.0.1?  I cannot reproduce this issue.",
+      "PostedDate": "2008-09-12T06:23:16.63-07:00",
+      "Id": 203492
+    },
+    {
+      "Message": "Hi, I used 2.0 and updated to 2.0.1 to get rid of this behaviour.\r\n\r\nWith usign \"]\" the XML Explorer just focuses another UI element.\r\nUsing \"]\" several times, first time the Validation Pane, the second time the menu bar and the third time the first icon in the toolbar will be focused.\r\n\r\nPerhabs this behaviour depends on the keyboard layout? On my german keyboard \"]\" is only reached by \"Alt-Gr+9\".\r\n\r\nBest regards,\r\n\r\nMartin",
+      "PostedDate": "2008-09-12T08:08:47.367-07:00",
+      "Id": 203493
+    },
+    {
+      "Message": "The key combinations Ctrl+Alt+9 and Ctrl+Tab do what you describe on mine.  I use the 'English (United States)' keyboard layout.\r\n\r\nSo, Martin, you had this problem in earlier versions, but not 2.0.1?\r\n",
+      "PostedDate": "2008-09-12T09:21:03.97-07:00",
+      "Id": 203494
+    },
+    {
+      "Message": "Hi JCoon,\r\n\r\nI had this issue in 2.0, too!\r\n\r\nBut I didn't test it with 1.x, so I can't tell, when this issue was introduced!\r\n\r\nBest regards,\r\n\r\nMartin",
+      "PostedDate": "2008-09-14T08:43:18.297-07:00",
+      "Id": 203495
+    },
+    {
+      "Message": "This issue looks a bit like ignoring the current system locale and always reacting like having an 'English (United States)' locale.\r\n\r\nIn VC++ I used the defines/constants telling me in the \"OnKeyPress\" (or similar) handler what \"symbolic\" key was pressed. And this worked across the german or english keyboard.\r\n\r\nBut I'm not firm in C#, so I can suggest nothing to help you.\r\n\r\nBest regards,\r\n\r\nMartin",
+      "PostedDate": "2008-09-14T08:46:49.353-07:00",
+      "Id": 203496
+    },
+    {
+      "Message": "Hi,\r\nI experience the same issue on version 2.0.2.0.\r\nBy clicking AltGr + ] on a french keyboard, it apply a kind of tabulation.\r\nIf anybody have an alternative ... i take it..\r\nBTW, Thanks for this great application, Really helpfull.",
+      "PostedDate": "2009-06-26T06:24:53.93-07:00",
+      "Id": 203497
+    }
+  ]
+}

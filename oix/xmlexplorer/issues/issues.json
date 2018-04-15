@@ -1,0 +1,166 @@
+[
+  {
+    "Id": 260,
+    "Title": "Add options for file type associations."
+  },
+  {
+    "Id": 261,
+    "Title": "Auto update"
+  },
+  {
+    "Id": 262,
+    "Title": "Online help"
+  },
+  {
+    "Id": 263,
+    "Title": "Complete the memory benchmarks"
+  },
+  {
+    "Id": 270,
+    "Title": "Ability to launch an XML editor"
+  },
+  {
+    "Id": 461,
+    "Title": "Add Visual Studio style syntax highlighting."
+  },
+  {
+    "Id": 500,
+    "Title": "Font Anti-Aliasing Fixed"
+  },
+  {
+    "Id": 501,
+    "Title": "Encoding Options"
+  },
+  {
+    "Id": 503,
+    "Title": "Save w/o Formatting"
+  },
+  {
+    "Id": 505,
+    "Title": "Loading Times Displayed only for first open file"
+  },
+  {
+    "Id": 507,
+    "Title": "Add an About Dialog"
+  },
+  {
+    "Id": 508,
+    "Title": "File Monitoring Support"
+  },
+  {
+    "Id": 510,
+    "Title": "TreeView File Selector"
+  },
+  {
+    "Id": 511,
+    "Title": "TreeView File Selector"
+  },
+  {
+    "Id": 512,
+    "Title": "File Size and Attributes in StatusBar"
+  },
+  {
+    "Id": 522,
+    "Title": "XPath query fails when a namespace prefix is used"
+  },
+  {
+    "Id": 1726,
+    "Title": "Context Menus"
+  },
+  {
+    "Id": 1727,
+    "Title": "Recently used files list"
+  },
+  {
+    "Id": 3783,
+    "Title": "Allow Matching on Default Namespace Without Explicit Prefix"
+  },
+  {
+    "Id": 5151,
+    "Title": "Application crash with when // is typed in XPath field"
+  },
+  {
+    "Id": 5427,
+    "Title": "XPath expression library"
+  },
+  {
+    "Id": 6110,
+    "Title": "Add option to fold/unfold all subnodes in a node"
+  },
+  {
+    "Id": 6116,
+    "Title": "System.InvalidOperationException: The DockPanel has already been initialized"
+  },
+  {
+    "Id": 6139,
+    "Title": "xPath Query fails when XML file has namespace info in it"
+  },
+  {
+    "Id": 6140,
+    "Title": "Cannot enter closing square brackets ']' in XPath-Query"
+  },
+  {
+    "Id": 6175,
+    "Title": "Build from source with r24408 results in a prompt to update"
+  },
+  {
+    "Id": 6681,
+    "Title": "Bug: Application does not render characters correctly"
+  },
+  {
+    "Id": 6897,
+    "Title": "Allow creation of new documents from XML on the clipboard"
+  },
+  {
+    "Id": 7081,
+    "Title": "\"System.IO.DirectoryNotFoundException: Could not find a part of the path\" when exiting"
+  },
+  {
+    "Id": 7093,
+    "Title": "Windows reports an error when launching an associated file from Windows Explorer when XML Explorer is already running."
+  },
+  {
+    "Id": 7758,
+    "Title": "Bug: 407 - Proxy Authentication Required"
+  },
+  {
+    "Id": 7909,
+    "Title": "url canot be empty"
+  },
+  {
+    "Id": 9012,
+    "Title": "Issue opening file from Windows Explorer."
+  },
+  {
+    "Id": 9242,
+    "Title": "Why I can't find node if there is no namespace?"
+  },
+  {
+    "Id": 10873,
+    "Title": "Installer: Missing XmlExplorer.Setup.msi after required reboot"
+  },
+  {
+    "Id": 11011,
+    "Title": "Copy Node XPath - No attributes"
+  },
+  {
+    "Id": 11820,
+    "Title": "NullReferenceException on load..."
+  },
+  {
+    "Id": 15689,
+    "Title": "Add search function"
+  },
+  {
+    "Id": 16892,
+    "Title": "XML with new lines at start of file is not loaded"
+  },
+  {
+    "Id": 17423,
+    "Title": "Default namespace support"
+  },
+  {
+    "Id": 17424,
+    "Title": "Broken Links"
+  }
+]

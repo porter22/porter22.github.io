@@ -1,0 +1,76 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 6,
+    "Custom": "",
+    "Description": "When I'm acessing the web through a Proxy, the following message is shown when I open XML Explorer, or when I try to get an update: \"407 - Proxy Authentication Required\". XML Explorer should have a proxy configuration somewhere, and should alert a friendly message whenever this error occurs.",
+    "LastUpdatedDate": "2013-02-21T17:35:42.827-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2009-05-12T06:47:16.993-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Bug: 407 - Proxy Authentication Required",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 7758
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1600535,
+      "FileName": "error.JPG",
+      "DownloadUrl": ".\\1600535"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks for submitting this information.  In order to troubleshoot this, can you do me a favor and check for updates in other programs, like Paint.NET and FileZilla?  I'm just curious how they behave, as they check for updates, and do not have dedicated proxy configuration.  My understanding is that the .NET WebClient (which I use to check for updates) uses the system settings for proxy configuration.  If you open this url in a browser, do you get prompted for credentials?  http://www.codeplex.com/xmlexplorer/Project/ProjectRss.aspx?ProjectRSSFeed=codeplex://release/xmlexplorer",
+      "PostedDate": "2009-05-12T09:06:10.107-07:00",
+      "Id": 203501
+    },
+    {
+      "Message": "I installed Paint.NET, and it shows me the same error (a friendlier error, I must say) when I try to update. I'm a programmer too, and I know it ain't difficult to get IE's proxy configuration. Alternatively, you should create an Option menu, and let the users specify their proxy configuration.\r\nI opened the URL successfully (without any prompt for Proxy Credentials) in Firefox and IE.",
+      "PostedDate": "2009-05-12T12:09:38.94-07:00",
+      "Id": 203502
+    },
+    {
+      "Message": "I found a thread about that. You should check:\r\nhttp://www.tech-archive.net/Archive/DotNet/microsoft.public.dotnet.framework/2009-01/msg00133.html",
+      "PostedDate": "2009-05-12T12:11:04.207-07:00",
+      "Id": 203503
+    },
+    {
+      "Message": "Hi, \r\n\r\nI've fixed this issue tested with and without proxy on 2 machines: \r\nI changed the following function in TabbedXMLExplorerWindow.cs\r\n\r\npublic void CheckForUpdates(bool userRequested)\r\n        {\r\n            WebClient webClient = new WebClient();\r\n            webClient.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;\r\n            webClient.DownloadDataCompleted += this.OnDownloadDataCompleted;\r\n            webClient.DownloadDataAsync(new Uri(this.AutoUpdateUrl), userRequested);\r\n        }",
+      "PostedDate": "2009-09-24T04:00:57.097-07:00",
+      "Id": 203504
+    },
+    {
+      "Message": "Looks like this problem has been around for a while (and continues - I just checked :-). I had this problem *years* ago, and the same thing continues to exist today with apps such as Paint.NET and the QuickTime updater. The problem usually manifests when a company (like ours) uses Microsoft's IIS Proxy - all but the simplest of requests require the user authentication (user/password) to be sent *multiple* times. So far as I can tell, authentication is required for *each* HTTP GET request, instead of a single time when a connection is opened.\r\n\r\nThe solution (or at least the solution that works - note present tense! - for me) is to use the Proxomitron Software Proxy (http://www.proxomitron.info/). It hasn't been updated for a long time, but still continues to work fine (I used it in W2K, XP, Vista and now currently in W7). Basically you configure the proxomitron to talk to the corporate proxy - then, whenever the corp. proxy requests authentication, the proxomitron sends it, allowing the calling application to work transparently. The app needs to be configured to use the proxomitron (usually via 127.0.0.1:8080) and in the case of XML Explorer, all that needs to be done is change the IE proxy settings to point to the proxomitron. Et voilà... update checks work again!\r\n\r\nHope this info will help others fix proxy problems (and not just in XML Explorer!)\r\n\r\nJohn\r\n\r\n",
+      "PostedDate": "2010-10-20T04:02:48.657-07:00",
+      "Id": 203505
+    },
+    {
+      "Message": "Put this on the app.config:\r\n  \r\n\r\n    \r\n      \r\n    \r\n    \r\n      \r\n\r\n    \r\n  ",
+      "PostedDate": "2010-12-27T06:50:04.263-08:00",
+      "Id": 203506
+    }
+  ]
+}

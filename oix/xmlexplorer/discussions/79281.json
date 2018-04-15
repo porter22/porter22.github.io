@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "271429",
+    "ThreadId": "79281",
+    "Html": "<p>Hi, this is a great tool! However, I have an issue with elements that have many attributes. The line is truncated, hiding many attributes. The tool tip is also truncated. I've been unable to find any support for wrapping long lines. Unfortunately, unless I can view entire lines, I'll have to look for other tools.</p>\r\n<p>Thanks</p>",
+    "PostedDate": "2009-12-29T07:02:36.763-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "271437",
+    "ThreadId": "79281",
+    "Html": "<p>Thanks for the feedback!&nbsp; I&nbsp;have reproduced the problem in version 2.0.2.&nbsp; The problem is resolved in the <a title=\"latest development release\" href=\"http://xmlexplorer.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34234\">latest development release</a>.&nbsp; I'll see what I can do about fixing it in version 2.0.2.&nbsp;</p>",
+    "PostedDate": "2009-12-29T07:33:31.937-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

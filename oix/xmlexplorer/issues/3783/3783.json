@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2009-11-24T06:22:47.2-08:00",
+    "CommentCount": 2,
+    "Custom": "",
+    "Description": "Provide a means to allow the user to specify a prefix to be automatically used during XPath queries, to handle default namespaces without prefixes (i.e., xmlns=\"http://tempuri.org/foo\").\n \nFor a good discussion of the problem, check this link out.\nhttp://www.topxml.com/people/bosley/defaultns.asp",
+    "LastUpdatedDate": "2013-05-16T04:50:23.257-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Medium",
+      "Severity": 100,
+      "Id": 2
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-02-22T12:59:06.13-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Allow Matching on Default Namespace Without Explicit Prefix",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 2,
+    "Id": 3783
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "I strongly recommend increasing the priority of this issue; I downloaded xml explorer, opened a document that happened to be using a namespace, and tried several xpath queries, only to find that even the simplest query failed to produce results.  I simply assumed xpath was entirely broken, and was ready to uninstall your application and start looking for an alternative until I found this bug report.\r\n\r\nI'd imagine that I'm far from the first to encounter this problem.",
+      "PostedDate": "2008-09-18T11:51:44.3-07:00",
+      "Id": 203490
+    },
+    {
+      "Message": "This issue is resolved in the latest development version (3.0.2 Alpha):\r\n\r\nhttp://xmlexplorer.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34234\r\n\r\nSince it is not possible to select an element in a 'default' namespace without a prefix, the new version automatically assigns a prefix to the default namespace, if any.  The Namespaces tab pane allows you to customize the prefix used.  XPath expressions to select these elements must include this prefix.\r\n\r\nThere are no plans to fix this issue in version 2.",
+      "PostedDate": "2009-11-24T06:22:28.04-08:00",
+      "Id": 203491
+    }
+  ]
+}

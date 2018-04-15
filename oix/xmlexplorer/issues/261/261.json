@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2008-09-09T17:20:52.333-07:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "Need to add (optional) automatic update checking, download, and installation.  I like the way Paint.NET handles autoupdates.",
+    "LastUpdatedDate": "2013-05-16T04:50:25.087-07:00",
+    "PlannedForRelease": "2.0 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2007-07-12T12:44:05.727-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Auto update",
+    "Type": {
+      "Name": "Feature",
+      "Id": 1
+    },
+    "VoteCount": 1,
+    "Id": 261
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

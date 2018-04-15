@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "The loading time is only displayed for the first open file in a running instance of Xml Explorer. If you drag multiple files, or have a file open the loading times may not be displayed for any file but the first.",
+    "LastUpdatedDate": "2013-06-14T00:32:55.74-07:00",
+    "PlannedForRelease": "XML Explorer 4.0.0 Beta (WinForms)",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2007-07-24T09:04:29.52-07:00",
+    "Status": {
+      "Name": "Resolved",
+      "Id": 7
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Loading Times Displayed only for first open file",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 505
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

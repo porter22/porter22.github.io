@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "Fixed in 2.0.2",
+    "ClosedDate": "2009-02-15T16:51:41.76-08:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "When exiting XML Explorer for the first time, I receive the following error:\n \nSystem.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\\Users\\jcoon\\AppData\\Local\\XmlExplorer\\XmlExplorer.vshost.exe_Url_my42eudnhh42kgmjezsoqkyzbwh4dh3v\\2.0.2.0\\user.dock.config'.\n   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)\n   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy)\n   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)\n   at System.IO.FileStream..ctor(String path, FileMode mode)\n   at WeifenLuo.WinFormsUI.Docking.DockPanel.Persistor.SaveAsXml(DockPanel dockPanel, String fileName, Encoding encoding) in C:\\Source\\XmlExplorer\\XmlExplorer\\DockPanelSuite\\Docking\\DockPanel.Persistor.cs:line 217\n   at WeifenLuo.WinFormsUI.Docking.DockPanel.Persistor.SaveAsXml(DockPanel dockPanel, String fileName) in C:\\Source\\XmlExplorer\\XmlExplorer\\DockPanelSuite\\Docking\\DockPanel.Persistor.cs:line 212\n   at WeifenLuo.WinFormsUI.Docking.DockPanel.SaveAsXml(String fileName) in C:\\Source\\XmlExplorer\\XmlExplorer\\DockPanelSuite\\Docking\\DockPanel.Persistor.cs:line 747\n   at XmlExplorer.Controls.TabbedXmlExplorerWindow.OnFormClosing(FormClosingEventArgs e) in C:\\Source\\XmlExplorer\\XmlExplorer\\XmlExplorer.Controls\\TabbedXmlExplorerWindow.cs:line 913",
+    "LastUpdatedDate": "2013-05-16T04:50:22.093-07:00",
+    "PlannedForRelease": "2.0.2 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "High",
+      "Severity": 150,
+      "Id": 3
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2009-02-13T12:02:49.367-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "\"System.IO.DirectoryNotFoundException: Could not find a part of the path\" when exiting",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 7081
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1489978",
+    "ThreadId": "660185",
+    "Html": "I would like to use the distinct-values(*) function in an XPath query, but I get an error that says XsltContext is needed for this query because of an unknown function. How can I use this function on my XML document?<br />\n",
+    "PostedDate": "2016-12-16T14:01:11.867-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

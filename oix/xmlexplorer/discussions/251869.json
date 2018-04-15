@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "589070",
+    "ThreadId": "251869",
+    "Html": "\r\n<p>Hello,</p>\r\n<p>For proxy generation for Windows Communication Foundation I prefer to make use of the DataContractSerializer. This serializer only support a subset for which I made a schematron rule set which check if a xsd follows this subset. Schematron makes use of xsl\r\n transformations which at the end give you a list of failed asserts based on the tested xsd. The failed asserts (placed in one xml file) contain Xpath locations to the &quot;wrong&quot; xsd elements. I wanted to have a visualizer which directly validates the xsd with\r\n this &quot;schematron rule stylesheet&quot; and has the option to select an failed assert which marks the xsd element in the xml viewer.</p>\r\n<p>Yesterday I found the XML Explorer project on this codeplex. It was quite easy to add another dock panel which shows the schematron validation results. The only thing is that the logic of this validator is implemented in the TabbedXmlExplorerWindow. I personally\r\n think that this class has to much responsibilities. Are you thinking about implementing the application with an MVVM / MVP pattern? And did you already though about the option to make the application extensible so that for example the schematron validator\r\n could be implemented as a plugin?</p>\r\n<p>Keep up the good work.</p>\r\n<p>Best regards,</p>\r\n<p>Johan de Koning</p>\r\n",
+    "PostedDate": "2011-03-30T13:29:03.777-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "592452",
+    "ThreadId": "251869",
+    "Html": "<p>Johan,</p>\r\n<p>Schematron sounds interesting, I'll have to check it out.&nbsp; I definitely agree that too much functionality is implemented in TabbedXmlExplorerWindow.&nbsp; It's overdue for a major refactor.&nbsp; I've been thinking about reworking some of the UI, and have also considered using <a title=\"MEF\" href=\"http://mef.codeplex.com/\">MEF</a>&nbsp;for plugin/extensibility.&nbsp; My biggest obstacle has been spare time to dedicate to XML Explorer.</p>\r\n<p>Thanks for the feedback, I'll keep you posted.</p>\r\n<p>Jason</p>",
+    "PostedDate": "2011-04-05T16:43:37.683-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

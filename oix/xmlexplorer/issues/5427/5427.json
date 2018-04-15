@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2008-09-09T08:50:06.89-07:00",
+    "CommentCount": 0,
+    "Custom": "",
+    "Description": "Need to add an XPath expression library, where users can store commonly used XPath expressions, much like bookmarks in a web browser.  Expressions could be added to the autocomplete list when users type in the address bar.",
+    "LastUpdatedDate": "2013-05-16T04:50:22.957-07:00",
+    "PlannedForRelease": "1.2.0 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-06-25T13:47:31.663-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "XPath expression library",
+    "Type": {
+      "Name": "Feature",
+      "Id": 1
+    },
+    "VoteCount": 1,
+    "Id": 5427
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

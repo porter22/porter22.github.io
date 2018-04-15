@@ -1,0 +1,51 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 1,
+    "Custom": "",
+    "Description": "when opening files with extended characters the application does not render the tag - the whole element becomes blank.",
+    "LastUpdatedDate": "2013-02-21T17:35:43.57-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2008-11-28T01:46:49.04-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Bug: Application does not render characters correctly",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 6681
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1600534,
+      "FileName": "test.xml",
+      "DownloadUrl": ".\\1600534"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "Thanks for reporting this, I'll look into it.  For a temporary workaround, you can turn off syntax highlighting (Formatting->Use Highlighting).  The problem affects only the custom syntax highlighting.",
+      "PostedDate": "2008-12-10T13:09:12.43-08:00",
+      "Id": 203499
+    }
+  ]
+}

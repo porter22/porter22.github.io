@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "619605",
+    "ThreadId": "259330",
+    "Html": "\r\n<p>I frequently need open XML files, with the single goal of copying some snippet from within the file, and creating a new document from it. My idea is leverage the Expressions Library to provide a Shell context menu, which would let you copy the results of\r\n an expression to the clipboard or a temp file.</p>\r\n<p>In the case of a file, it could be launched and opened by the associated application. Default format would likely be UTF-8 text files, but there could be an option where we try to determine if the result is a qualified XML snippet. In which case it could\r\n be written out as an XML, or launched inside XML Explorer (which just goes without saying is likely your default for XML files anyways!).</p>\r\n<p>The goal is to minimize the time it takes to:</p>\r\n<ol>\r\n<li>Open the file in XML Explorer </li><li>Expand to the target node (hopefully you are using the Expressions anyways as bookmarks).\r\n</li><li>Copy the node as XML. </li><li>Create a new document from the clipboard (Ctrl&#43;N). </li><li>Possibly Save as. </li></ol>\r\n<p>While it is debatable how much time those context menus save, if they are complicated to navigate, I think a smart design could make this a very quick operation. Perhaps we could add a property to the saved expression, to control whether it should be included\r\n in the shell context menu?</p>\r\n<p>The Shell menu would probably look something like a Winzip/Winrar cascading menu. If we allowed the user to flag the expressions to show in the shell context menu, this could be simplified to two levels.</p>\r\n<ul>\r\n<li>Right click a file in Windows Explorer\r\n<ul>\r\n<li>XML Explorer\r\n<ul>\r\n<li>Copy to clipboard &gt;\r\n<ul>\r\n<li>Expression 1 </li><li>... </li><li>Expression N </li></ul>\r\n</li><li>New file from &gt;&nbsp;\r\n<ul>\r\n<li>Expression 1 </li><li>... </li><li>Expression N </li></ul>\r\n</li></ul>\r\n</li></ul>\r\n</li></ul>\r\n<p>The question is how much of this could we do using C#, and would we need to dip into managed C&#43;&#43; for the shell extension. If anyone knows of a good managed library for providing shell context menus, please let me know. I'm going to research this and investigate\r\n it's viability.</p>\r\n",
+    "PostedDate": "2011-05-27T15:38:35.673-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "619615",
+    "ThreadId": "259330",
+    "Html": "<p>I'm thinking that we could leverage the Microsoft All-In-One Code Framework.</p>\r\n<p><a href=\"http://1code.codeplex.com/\">http://1code.codeplex.com/</a></p>",
+    "PostedDate": "2011-05-27T15:52:28.223-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

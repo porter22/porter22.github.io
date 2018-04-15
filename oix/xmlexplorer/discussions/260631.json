@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "624756",
+    "ThreadId": "260631",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>are you aware that the product Free Opener violates the GPL by using your component in a closed source product?</p>\r\n<p>You can find it here: http://www.freeopener.com. They even admit to using it on their &quot;source code&quot; page, which does not provide any source code at all:</p>\r\n<p>http://www.freeopener.com/source.html</p>\r\n",
+    "PostedDate": "2011-06-08T07:31:02.183-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "625068",
+    "ThreadId": "260631",
+    "Html": "<p>No, I was not aware of this, thank you for bringing it to my attention! &nbsp;I will have to look in to that. &nbsp;:)</p>",
+    "PostedDate": "2011-06-08T18:33:03.917-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

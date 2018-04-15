@@ -1,0 +1,56 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": "2007-07-26T17:33:54.953-07:00",
+    "CommentCount": 2,
+    "Custom": "",
+    "Description": "I have opened an XML file which contains a namespace prefix. If I try to launch an XPath Query it fails with the following error message. \"Namespace Manager or XsltContext needed. This query has a prefix, variable, or user-defined function.\n \nPlease find attached screenshot.\n \nNick",
+    "LastUpdatedDate": "2013-05-16T04:50:23.687-07:00",
+    "PlannedForRelease": "1.1.2 Release",
+    "ReleaseVisibleToPublic": true,
+    "Priority": {
+      "Name": "Medium",
+      "Severity": 100,
+      "Id": 2
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2007-07-25T01:21:28.277-07:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "XPath query fails when a namespace prefix is used",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 522
+  },
+  "FileAttachments": [
+    {
+      "FileId": 1600532,
+      "FileName": "Untitled.jpg",
+      "DownloadUrl": ".\\1600532"
+    }
+  ],
+  "Comments": [
+    {
+      "Message": "\r\n\r\n** Closed by jcoon 7/26/2007 5:32 PM",
+      "PostedDate": "2007-07-26T17:32:56.61-07:00",
+      "Id": 203488
+    },
+    {
+      "Message": "",
+      "PostedDate": "2007-07-26T17:32:56.72-07:00",
+      "Id": 203489
+    }
+  ]
+}

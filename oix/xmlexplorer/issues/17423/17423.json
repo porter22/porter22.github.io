@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 1,
+    "Custom": "",
+    "Description": "I was able to open a document with a default namesapce, but teh namespace was not visible anywhere in the document view and XPath seemed broken.  Clicking on \"Edit -> Copy Node XPath to Address Bar\" puts an XPath in the address bar that does not work due to the namespace.  Removing the default namespace resolves the problem, but this is far from optimal.\n\nDefault namespace example:\n\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<XML_FILE xmlns=\"urn:foo\">\n  <BAR>\n  .\n  .\n  .\n  </BAR>\n</XML_FILE>",
+    "LastUpdatedDate": "2015-04-24T13:38:23.143-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "xmlexplorer",
+    "ReportedDate": "2015-04-24T12:28:20.857-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Default namespace support",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 17423
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Yeah, unfortunately, the way the .NET Framework handles default namespaces is not ideal.  The best solution I could come up with is the Namespaces tab.  You should notice in the Namespaces tab that your default namespace is automatically given a prefix of 'default', and there's a note that you'll have to use it in any XPath statements.  So these should work:\r\n\r\n/default:XML_FILE//default:XML_FILE/default:BAR",
+      "PostedDate": "2015-04-24T13:38:23.143-07:00",
+      "Id": 203513
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "249183",
+    "ThreadId": "72943",
+    "Html": "<p>So I know there's another fantastic release pending. Docking provided by AvalonDock, complete with an Error List and Schema pane. And with the recent fixes with .NET v4 we can now navigate directly to the node when a validate error is encountered. This is a release I'm really looking forward too. When will it be available?</p>\r\n<p>Nice work btw, definitely a must have in any developer's toolkit!</p>\r\n<p>Cheers</p>",
+    "PostedDate": "2009-10-23T18:04:32.96-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "249195",
+    "ThreadId": "72943",
+    "Html": "<p>I finally got the code checked in. &nbsp;It'll take me a little time to put together a release, I should have it up some time this weekend.</p>\r\n<p>Thanks for the support! &nbsp;I've received a few PayPal donations, and it's really helped me get back going on the project. &nbsp;(That, and getting to 'play' with Visual Studio 2010 and .NET 4 Beta 2).</p>\r\n<p>Huge thanks to the excellent <a title=AvalonDock href=\"http://avalondock.codeplex.com/\">AvalonDock</a> project. &nbsp;What a superb docking solution for WPF!</p>",
+    "PostedDate": "2009-10-23T20:30:56.007-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "249295",
+    "ThreadId": "72943",
+    "Html": "<p>3.0.1 Alpha Release</p>\r\n<p><a href=\"http://xmlexplorer.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34234\">http://xmlexplorer.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34234</a></p>",
+    "PostedDate": "2009-10-24T09:19:57.403-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

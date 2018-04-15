@@ -1,0 +1,82 @@
+[
+  {
+    "Id": "118002",
+    "ThreadId": "35497",
+    "Html": "Not sure how we've made it this long without a single discussion.  I've finally decided to start one.  I'd love to hear from anyone that uses XML Explorer.  I, personally, use it nearly every day.  We've had a few feature requests and issues submitted (by someone other than myself).  Any feedback?  Questions?  Comments?",
+    "PostedDate": "2008-09-11T17:23:29.027-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120180",
+    "ThreadId": "35497",
+    "Html": "Hi there . .am trying to use it to extract some nodes from an MS project document . . there is no help in the tool and I can't seem to get a basic X-Path query to do anything (i.e. nothing opens up in a new tab) . . .and if I use the validation field at the bottom I just get an error . . probably doing something very basically wrong, any chance of giving some basic examples e.g. to retrive all thew task names in a document that has &lt;Project&gt; &lt;Tasks&gt; &lt;Task&gt; &lt;Name&gt; as the basic tree I am interested in??<br>\r\n&nbsp;<br>\r\n<br>\r\nMany Thanks<br>\r\n",
+    "PostedDate": "2008-09-22T14:55:38.747-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120182",
+    "ThreadId": "35497",
+    "Html": "Yeah, adding documentation never seems to make it into my priority list. &nbsp;Don't suppose you have any time to donate to the cause? &nbsp;:)<br>\r\n<br>\r\nSounds like you might need an intro to XPath. &nbsp;I highly recommend the w3schools site:<br>\r\n<br>\r\n<a href=\"http://www.w3schools.com/XPath/default.asp\">http://www.w3schools.com/XPath/default.asp</a><br>\r\n<br>\r\nThe validation tab at the bottom is for performing validation against an XSD schema file.<br>\r\n<br>\r\nFor your example, /Project/Tasks/Task/Name would return all the Name nodes. &nbsp;/Project/Tasks/Task/Name/text() would return just the text content of all the name nodes. &nbsp;Enter one of these xpath statements in the XPath bar at the top and press the Enter key to select the first matching node. &nbsp;Press the Launch button (or press Shift-Enter) to open a new tab with all the matching nodes.<br>\r\n<br>\r\nLet me know if you still need help.\r\n",
+    "PostedDate": "2008-09-22T15:10:06.563-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120190",
+    "ThreadId": "35497",
+    "Html": ". . sorry, I have my own documentation charities :)<br>\r\n<br>\r\nYep my xpath skills are nowhere, however if I put  &quot;/Project/Tasks/Task/Name&quot; in the Xpath bar and hit enter it goes red and i get an error ping in my ear-piece, no other response&nbsp; . .any advice on that, what am i missing? The Launch button does nothing either. <br>\r\n&nbsp; <br>\r\nMany thanks for the prompt response.<br>\r\n<br>\r\n<br>\r\n",
+    "PostedDate": "2008-09-22T15:34:37.843-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120196",
+    "ThreadId": "35497",
+    "Html": ". . second thoughts&nbsp; . .if this tool does what I need, I can maybe do you a couple of guide pages for helping newbies :!<br>\r\n",
+    "PostedDate": "2008-09-22T15:46:39.093-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120219",
+    "ThreadId": "35497",
+    "Html": "Sorry, can you post your xml file or a small sample?  Your file may be using namespaces, or the xpath might not be correct.  When the XPath bar goes red, is there an error in the status bar at the bottom of the window?",
+    "PostedDate": "2008-09-22T17:10:35.437-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120259",
+    "ThreadId": "35497",
+    "Html": "Yep it was the namespace . . as soon as i deleted that it worked . .&nbsp; sorry to trouble you<br>\r\n<br>\r\nCan I be real cheeky and ask if&nbsp; \\Project\\Tasks\\Task\\Name gets me all the names of the tasks, how would I extend that to get the&nbsp; Project\\Tasks\\Task\\Notes tooo in the same extract?&nbsp; This would save my life in writing a proposal extract from the mS Project document :) <br>\r\n<br>\r\ncheers<br>\r\n<br>\r\n&nbsp;<br>\r\n",
+    "PostedDate": "2008-09-22T21:11:54.35-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "120344",
+    "ThreadId": "35497",
+    "Html": "You don't have to delete the namespace, but the namespace does (currently) have to include a prefix. &nbsp;XML Explorer has a known bug that makes it not work with default namespaces (namespace definitions without prefixes). &nbsp;So&nbsp;&lt;Project xmlns:joe=&quot;http://www.sampleuri.com/joe&quot;&gt; should work, but&nbsp;&lt;Project xmlns=&quot;http://www.sampleuri.com/joe&quot;&gt; would not.<br>\r\n<br>\r\nTo get notes in the same expression, just | them together like&nbsp;/Project/Tasks/Task/Name|/Project/Tasks/Task/Notes. &nbsp;If you're using the expression in code, you can just use&nbsp;/Project/Tasks/Task to get all the Task nodes, then iterate over them, pulling both the Name and Note values as you go.<br>\r\n<br>\r\nHope that helps,<br>\r\n<br>\r\nJason\r\n",
+    "PostedDate": "2008-09-23T05:00:54.587-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "282004",
+    "ThreadId": "35497",
+    "Html": "<p>Nice tool. What do&nbsp;the Expressions section do? I mean the tool is intiutive but nothing I enter to search thru my wsdl produces a response.</p>",
+    "PostedDate": "2010-01-26T13:15:12.817-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "282114",
+    "ThreadId": "35497",
+    "Html": "<p>Thanks.&nbsp; XML Explorer doesn't have simple text search (yet).&nbsp; What it does have is the XPath bar at the top.&nbsp; You can enter an XPath expression and press the Enter key on the keyboard and the first result will be selected.&nbsp; You can also click the Launch button, and all the results will be opened in a new tab.&nbsp; If you're not familiar with XPath syntax, I reccommend you check out this&nbsp;tutorial <a href=\"http://www.w3schools.com/XPath/default.asp\">http://www.w3schools.com/XPath/default.asp</a>.&nbsp; If you find yourself using the same XPath expression repeatedly, you can click the favorite (star) button and save it for later use (like web browser favorites or bookmarks).</p>",
+    "PostedDate": "2010-01-26T18:41:26.253-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

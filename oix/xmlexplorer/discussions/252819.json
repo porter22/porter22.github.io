@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "592986",
+    "ThreadId": "252819",
+    "Html": "\r\n<p>... and how can I remove entries from it</p>\r\n<p>Thanks</p>\r\n",
+    "PostedDate": "2011-04-06T11:28:04.393-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "592992",
+    "ThreadId": "252819",
+    "Html": "<p>You can remove an expression library entry by selecting it and pressing the Delete key on the keyboard. &nbsp;I need to add a button for that as well. &nbsp;The expression library is stored along with other user settings in the following file:</p>\r\n<p>C:\\Users\\&lt;USERNAME&gt;\\AppData\\Local\\XmlExplorer\\XmlExplorer.exe_Url_h5ycpqmhiescdbwgec3ysskpufta4kpm\\4.0.2.0\\user.config</p>\r\n<p>Make sure you replace &lt;USERNAME&gt; with your Windows username, and the path may vary based on the version you're running. &nbsp;For more info on settings and the path used, see&nbsp;<a href=\"http://msdn.microsoft.com/en-us/library/ms379611%28v=vs.80%29.aspx#vbmysettings_topic3\">http://msdn.microsoft.com/en-us/library/ms379611%28v=vs.80%29.aspx#vbmysettings_topic3</a></p>",
+    "PostedDate": "2011-04-06T11:38:38.923-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
