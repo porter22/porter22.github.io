@@ -61,7 +61,7 @@ var line = d3.svg.line(),
     background,
     foreground;
 
-
+var selectedData  = [];
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -165,24 +165,58 @@ function brush() {
   var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
       extents = actives.map(function(p) { return y[p].brush.extent(); });
   foreground.style("display", function(d) {
-    //console.log(d);
     //console.log(actives);
     return actives.every(function(p, i) {
+      if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
+          //push brushed data to a separate array to filter districts later
+          selectedData.push(d);
+          //console.log(d); //print selected data
+      }
       return extents[i][0] <= d[p] && d[p] <= extents[i][1];
     }) ? null : "none";
   });
+
+  function extractRodenavns(data) {
+    var result = [];
+    console.log(data.length);
+    for (var i = 0; i < data.length; i++) {
+      //console.log(data[i].name);
+      //if not already in the array, add to it
+      if (result.indexOf(data[i].name) == -1) {
+        //console.log(data[i].name);
+        result.push(data[i].name);
+      }
+    }
+    console.log(result.length);
+    return result;
+  }
 
   //console.log(d3.select(this));
   //select all paths from svg2 and color them differently
   console.log("select all paths from svg2 and color them differently");
 
-  //get list of selected foregrounds
-  var brushed = svg.selectAll("path").filter();
-  console.log(brushed);
-  //extract rodenavns from them
-  //filter paths of svg2 by rodenavns
-  //color filtered paths differently
+//get list of selected foregrounds
+  console.log(selectedData);
 
+  //extract unique rodenavns from them
+  var rodenavns = extractRodenavns(selectedData);
+
+  //filter paths of svg2 by rodenavns
+  var districts = svg2.selectAll("path")
+    .filter(function(d) {
+      //return d.properties.rodenavn === "Ryparkens";
+      for (var i = 0; i < rodenavns.length; i++) {
+        if (d.properties.rodenavn === rodenavns[i]) {
+            return d.properties.rodenavn;
+        }
+      }
+    })
+  .style("fill", "orange");
+
+  console.log("districts");
+  console.log(districts);
+
+  //color filtered paths differently
 
 }
 
