@@ -42,6 +42,27 @@ svg {
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 
+.nonselected {
+  fill: #4078c0;
+  fill-opacity: 0.2;
+  stroke-width: 0.7;
+  stroke: #4078c0;
+  stroke-opacity: 0.5;
+  /*.style("fill", "#4078c0")
+  .style("fill-opacity", "0.2")
+  .style("stroke-width", "0.7")
+  .style("stroke", "#4078c0")
+  .style("stroke-opacity", "0.5")*/
+}
+
+.selected {
+  fill: orange;
+  fill-opacity: 0.2;
+  stroke-width: 0.7;
+  stroke: #4078c0;
+  stroke-opacity: 0.5;
+}
+
 </style>
 <body>
 <script src="//d3js.org/d3.v3.min.js"></script>
@@ -50,7 +71,7 @@ svg {
 <script>
 
 var margin = {top: 30, right: 10, bottom: 10, left: 10},
-    width = 900 - margin.left - margin.right,
+    width = 1800 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal().rangePoints([0, width], 1),
@@ -76,20 +97,23 @@ var svg = d3.select("body").append("svg")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-d3.csv("cph_socioeconomic_.csv", function(error, cars) {
+d3.csv("samlede_socio_data_kbh.csv", function(error, cars) {
 
   // Extract the list of dimensions and create a scale for each.
   x.domain(dimensions = d3.keys(cars[0]).filter(function(d) {
-    return d != "name" && (y[d] = d3.scale.linear()
+    //dont show name and year columns
+    return d != "name" && d != "year" && (y[d] = d3.scale.linear()
         .domain(d3.extent(cars, function(p) { return +p[d]; }))
         .range([height, 0]));
   }));
+
+  socio = filterByYear(cars, "2013");
 
   // Add grey background lines for context.
   background = svg.append("g")
       .attr("class", "background")
     .selectAll("path")
-      .data(cars)
+      .data(socio)
     .enter().append("path")
       .attr("d", path);
 
@@ -97,7 +121,7 @@ d3.csv("cph_socioeconomic_.csv", function(error, cars) {
   foreground = svg.append("g")
       .attr("class", "foreground")
     .selectAll("path")
-      .data(cars)
+      .data(socio)
     .enter().append("path")
       .attr("d", path);
 
@@ -146,22 +170,52 @@ d3.json("http://wfs-kbhkort.kk.dk/k101/ows?service=WFS&version=1.0.0&request=Get
   .enter()
   .append("path")
   .attr("d", geopath)
-  .style("fill", "blue")
-  .style("fill-opacity", "0.5")
-  .style("stroke-width", "1")
-  .style("stroke", "black")
+  .attr("class", "nonselected")
+  /*.style("fill", "#4078c0")
+  .style("fill-opacity", "0.2")
+  .style("stroke-width", "0.7")
+  .style("stroke", "#4078c0")
+  .style("stroke-opacity", "0.5")*/
   .on("click", function(d) {
-    console.log(d.properties.rodenavn);
+    highlightPath(d.properties.rodenavn);
   });
 });
+
+function highlightPath(rodenavn) {
+  //console.log(rodenavn);
+  //from svg1 select paths with those rodenavns
+  svg.selectAll("path").filter(function(d) {
+    console.log(d.name);
+    return d.name == rodenavn;
+  })
+  .attr("fill","red");
+}
 
 // Returns the path for a given data point.
 function path(d) {
   return line(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
 }
 
+function filterByYear(data, year) {
+  //console.log(data);
+  //console.log(year);
+  var result = [];
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].year === year) {
+        //console.log(data[i]);
+        result.push(data[i]);
+    }
+  }
+  console.log(result);
+  return result;
+}
+
 // Handles a brush event, toggling the display of foreground lines.
 function brush() {
+  //reset all paths to default color - DOES NOT WORK
+  svg2.selectAll("path").
+  attr("class","nonselected");
+
   var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
       extents = actives.map(function(p) { return y[p].brush.extent(); });
   foreground.style("display", function(d) {
@@ -211,13 +265,10 @@ function brush() {
         }
       }
     })
-  .style("fill", "orange");
+  .attr("class", "selected");
 
   console.log("districts");
   console.log(districts);
-
-  //color filtered paths differently
-
 }
 
 
