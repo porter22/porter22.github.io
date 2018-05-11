@@ -14,6 +14,22 @@ svg {
   font: 10px sans-serif;
 }
 
+p {
+  font: 20px sans-serif;
+  float: left;
+  margin-left: 50px;
+}
+
+span {
+  font: 18px sans-serif;
+}
+
+#bottom {
+  float:left;
+  clear:both;
+  margin-top: -80px;
+}
+
 .background path {
   fill: none;
   stroke: #ddd;
@@ -29,6 +45,16 @@ svg {
   fill-opacity: .3;
   stroke: #fff;
   shape-rendering: crispEdges;
+}
+
+h1, h2 {
+  margin-left: 50px;
+}
+
+h2 {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 
 .axis line,
@@ -55,6 +81,10 @@ svg {
   .style("stroke-opacity", "0.5")*/
 }
 
+.container {
+  float: left;
+}
+
 .selected {
   fill: orange;
   fill-opacity: 0.2;
@@ -63,213 +93,128 @@ svg {
   stroke-opacity: 0.5;
 }
 
+
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 100px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: white;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.hover_effect {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 0 5px 0;
+  color: grey;
+}
+
+.hover_effect:after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  visibility: hidden;
+  background-color: #4078c0;
+  color: #4078c0;
+  -webkit-transition: all .1s ease;
+  transition: all 0.3s ease;
+  -webkit-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+}
+
+.hover_effect:hover:after {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+
 </style>
 <body>
+<h1>Stories behind Open Copenhagen Data</h1>
+
+
+<p class="hover_effect" id="story1">See Story 1</p>
+<p class="hover_effect" id="story2">See Story 2</p>
+<p class="hover_effect" id="story3">See Story 3</p>
+<p class="hover_effect" id="viz">Find Your Own Stories</p>
+
+<h2 class="storyline"></h2>
+<div class="container" width="100%" id="top"></div>
+<div class="container" id="center">
+<p class = "message"></p>
+</div>
+<div class="container" id="bottom"></div>
+<br/>
+<a href="https://portal.opendata.dk">Source: https://portal.opendata.dk</a>
+<br/>
+<br/>
+<span>Please, hold and drag the mouse cursor along each axis to highlight respective districts
+<br/><br/>Note the highlighted districts on the map below
+<br/><br/>All the stats are shown in percentages to the total number of residents in that district (of course, except Number of residents)
+<br/><br/>Prepared by Agzam Idrissov (agzid@dtu.dk) for "Social data analysis and visualization (02806) 2018" course
+</span>
+</body>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
-<script>
 
-var margin = {top: 30, right: 10, bottom: 10, left: 10},
-    width = 1800 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+<script type="text/javascript">
 
-var x = d3.scale.ordinal().rangePoints([0, width], 1),
-    y = {};
+//code borrowed from https://stackoverflow.com/questions/7789521/how-to-link-external-javascript-file-onclick-of-button/7789831
 
-var line = d3.svg.line(),
-    axis = d3.svg.axis().orient("left"),
-    background,
-    foreground;
+var storyone = document.getElementById('story1');
+var storytwo = document.getElementById('story2');
+var storythree = document.getElementById('story3');
+var viz = document.getElementById('viz');
 
-var selectedData  = [];
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var svg2 = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-d3.csv("samlede_socio_data_kbh.csv", function(error, cars) {
-
-  // Extract the list of dimensions and create a scale for each.
-  x.domain(dimensions = d3.keys(cars[0]).filter(function(d) {
-    //dont show name and year columns
-    return d != "name" && d != "year" && (y[d] = d3.scale.linear()
-        .domain(d3.extent(cars, function(p) { return +p[d]; }))
-        .range([height, 0]));
-  }));
-
-  socio = filterByYear(cars, "2013");
-
-  // Add grey background lines for context.
-  background = svg.append("g")
-      .attr("class", "background")
-    .selectAll("path")
-      .data(socio)
-    .enter().append("path")
-      .attr("d", path);
-
-  // Add blue foreground lines for focus.
-  foreground = svg.append("g")
-      .attr("class", "foreground")
-    .selectAll("path")
-      .data(socio)
-    .enter().append("path")
-      .attr("d", path);
-
-  // Add a group element for each dimension.
-  var g = svg.selectAll(".dimension")
-      .data(dimensions)
-    .enter().append("g")
-      .attr("class", "dimension")
-      .attr("transform", function(d) { return "translate(" + x(d) + ")"; });
-
-  // Add an axis and title.
-  g.append("g")
-      .attr("class", "axis")
-      .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
-    .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -9)
-      .text(function(d) { return d; });
-
-  // Add and store a brush for each axis.
-  g.append("g")
-      .attr("class", "brush")
-      .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brush", brush)); })
-    .selectAll("rect")
-      .attr("x", -8)
-      .attr("width", 16);
-});
-
-d3.json("http://wfs-kbhkort.kk.dk/k101/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=k101:samlede_socio_data_kbh&outputFormat=json&SRSNAME=EPSG:4326&maxfeatures=1000", function(error, json) {
-  //Bind data and create one path per GeoJSON feature
-
-  var center = d3.geo.centroid(json);
-        var scale  = 120000;
-        var offset = [width/2, height/2.5];
-
-        var projection = d3.geo.mercator().scale(scale).center([12.554322562596862,55.688013184009826])
-                .translate(offset);
-
-      //Define path generator, using the Albers USA projection
-      var geopath = d3.geo.path()
-      .projection(projection);
-
-  console.log(json.features);
-  svg2.selectAll("path")
-  .data(json.features)
-  .enter()
-  .append("path")
-  .attr("d", geopath)
-  .attr("class", "nonselected")
-  /*.style("fill", "#4078c0")
-  .style("fill-opacity", "0.2")
-  .style("stroke-width", "0.7")
-  .style("stroke", "#4078c0")
-  .style("stroke-opacity", "0.5")*/
-  .on("click", function(d) {
-    highlightPath(d.properties.rodenavn);
-  });
-});
-
-function highlightPath(rodenavn) {
-  //console.log(rodenavn);
-  //from svg1 select paths with those rodenavns
-  svg.selectAll("path").filter(function(d) {
-    console.log(d.name);
-    return d.name == rodenavn;
-  })
-  .attr("fill","red");
+storyone.onclick = function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "graphs_story1.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    return false;
 }
 
-// Returns the path for a given data point.
-function path(d) {
-  return line(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
+storytwo.onclick = function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "graphs_story2.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    return false;
 }
 
-function filterByYear(data, year) {
-  //console.log(data);
-  //console.log(year);
-  var result = [];
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].year === year) {
-        //console.log(data[i]);
-        result.push(data[i]);
-    }
-  }
-  console.log(result);
-  return result;
+storythree.onclick = function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "graphs_story3.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    return false;
 }
 
-// Handles a brush event, toggling the display of foreground lines.
-function brush() {
-  //reset all paths to default color - DOES NOT WORK
-  svg2.selectAll("path").
-  attr("class","nonselected");
-
-  var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
-      extents = actives.map(function(p) { return y[p].brush.extent(); });
-  foreground.style("display", function(d) {
-    //console.log(actives);
-    return actives.every(function(p, i) {
-      if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
-          //push brushed data to a separate array to filter districts later
-          selectedData.push(d);
-          //console.log(d); //print selected data
-      }
-      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-    }) ? null : "none";
-  });
-
-  function extractRodenavns(data) {
-    var result = [];
-    console.log(data.length);
-    for (var i = 0; i < data.length; i++) {
-      //console.log(data[i].name);
-      //if not already in the array, add to it
-      if (result.indexOf(data[i].name) == -1) {
-        //console.log(data[i].name);
-        result.push(data[i].name);
-      }
-    }
-    console.log(result.length);
-    return result;
-  }
-
-  //console.log(d3.select(this));
-  //select all paths from svg2 and color them differently
-  console.log("select all paths from svg2 and color them differently");
-
-//get list of selected foregrounds
-  console.log(selectedData);
-
-  //extract unique rodenavns from them
-  var rodenavns = extractRodenavns(selectedData);
-
-  //filter paths of svg2 by rodenavns
-  var districts = svg2.selectAll("path")
-    .filter(function(d) {
-      //return d.properties.rodenavn === "Ryparkens";
-      for (var i = 0; i < rodenavns.length; i++) {
-        if (d.properties.rodenavn === rodenavns[i]) {
-            return d.properties.rodenavn;
-        }
-      }
-    })
-  .attr("class", "selected");
-
-  console.log("districts");
-  console.log(districts);
+viz.onclick = function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "graphs_basic.js.";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    return false;
 }
-
 
 </script>
+
+<script src="graphs_story1.js"></script>
