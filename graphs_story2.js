@@ -112,10 +112,13 @@ d3.csv("samlede_socio_data_kbh.csv", function(error, cars) {
   //.text("text");
 
   d3.select("h2.storyline")
-  .text("Story #2. Egmonts - the land of low income students");
+  .text("Story # 2. Egmonts - the land of low income students.");
 
   d3.select("p.message")
-  .text("Upon the closer inspection it turned out that the neighbourhood almost solely consists of Egmonts dormitory");
+  .text("Upon the closer inspection it turned out that the neighbourhood almost solely consists of Egmonts dormitory. This also explains almost 100% of population between ages 18-29 and currently studying");
+
+  d3.select("p.messagethree")
+  .text("This also explains almost 100% of population between ages 18-29 and currently studying");
 
   //Story #1 - High Income districts are the ones that have mostly Danish population
 

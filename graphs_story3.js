@@ -116,11 +116,15 @@ d3.csv("samlede_socio_data_kbh.csv", function(error, cars) {
   //.text("text");
 
   d3.select("h2.storyline")
-  .text("Story #3. Nørre Alles - a district with the highest percentage of elderly, nonetheless has the highest percentage of middle income earners");
+  .text("Story #3. Nørre Alles - a district with the highest percentage of elderly, nonetheless has the highest percentage of middle income earners.");
 
   demoDistricts.push("Egmonts");//for story 3 purposes
+
   d3.select("p.message")
-  .text("Interestingly, Nørre Alles is neighbouring with Egmonts - the youngest district");
+  .text("This huge proportion of middle income earners can be explained by pensions.");
+
+  /*d3.select("p.messagethree")
+  .text("Interestingly, Nørre Alles is neighbouring with Egmonts - the youngest district");*/
 
   //Story #1 - High Income districts are the ones that have mostly Danish population
 

@@ -20,14 +20,22 @@ p {
   margin-left: 50px;
 }
 
+.message {
+  width:60%;
+}
+
+.meta {
+  font: 16px sans-serif;
+  display:block; !important
+}
+
 span {
   font: 18px sans-serif;
 }
 
 #bottom {
-  float:left;
-  clear:both;
-  margin-top: -80px;
+  float:right;
+  margin-top: -160px;
 }
 
 .background path {
@@ -52,7 +60,7 @@ h1, h2 {
 }
 
 h2 {
-  display: inline-block;
+  /*display: inline-block;*/
   margin-top: 10px;
   margin-bottom: 0px;
 }
@@ -81,9 +89,13 @@ h2 {
   .style("stroke-opacity", "0.5")*/
 }
 
-.container {
+/*.container {
   float: left;
 }
+
+.other {
+  display:inline;
+}*/
 
 .selected {
   fill: orange;
@@ -153,22 +165,27 @@ div.tooltip {
 <p class="hover_effect" id="story2">See Story 2</p>
 <p class="hover_effect" id="story3">See Story 3</p>
 <p class="hover_effect" id="viz">Find Your Own Stories</p>
+<a class="hover_effect" style="margin-left: 50px; margin-top: 16px;" href="explainer.html">Explainer Page</a>
+<a class="hover_effect" style="margin-left: 50px; margin-top: 16px;" href="https://data.kk.dk/dataset/samlede-socio-data-kbh">Download Data</a>
+<p class="meta"> Please, hold and drag the mouse cursor along each axis to highlight respective districts
+<br/>Note the highlighted districts on the map </p>
 
-<h2 class="storyline"></h2>
+
+
 <div class="container" width="100%" id="top"></div>
-<div class="container" id="center">
+<div>
+<h2 class="storyline"></h2>
 <p class = "message"></p>
-</div>
-<div class="container" id="bottom"></div>
-<br/>
-<a href="https://portal.opendata.dk">Source: https://portal.opendata.dk</a>
-<br/>
-<br/>
-<span>Please, hold and drag the mouse cursor along each axis to highlight respective districts
-<br/><br/>Note the highlighted districts on the map below
+
+<p class="meta">
 <br/><br/>All the stats are shown in percentages to the total number of residents in that district (of course, except Number of residents)
 <br/><br/>Prepared by Agzam Idrissov (agzid@dtu.dk) for "Social data analysis and visualization (02806) 2018" course
-</span>
+</p>
+<br/>
+</div>
+
+<div class="other" width="40%" id="bottom"></div>
+
 </body>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
