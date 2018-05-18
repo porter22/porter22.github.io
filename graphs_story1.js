@@ -114,14 +114,14 @@ d3.csv("samlede_socio_data_kbh.csv", function(error, cars) {
   .text("Story #1. High income districts are mostly Danish.");
 
   d3.select("p.message")
-  .text("Interestingly, districts with high income percentages are pretty dispersed and not in the City center (except for coastal Østerbro).");
+  .text("Interestingly, districts with high income percentages are pretty dispersed and not in the City center (except for coastal Østerbro)");
 
 /*  d3.select("p.messagetwo")
   .text("Those high income districts are also well-educated (high Masters concentration) and have small children");*/
 
 });
 
-d3.json("http://wfs-kbhkort.kk.dk/k101/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=k101:samlede_socio_data_kbh&outputFormat=json&SRSNAME=EPSG:4326&maxfeatures=1000", function(error, json) {
+d3.json("map.json", function(error, json) {
   //Bind data and create one path per GeoJSON feature
   //console.log(json.features);
 

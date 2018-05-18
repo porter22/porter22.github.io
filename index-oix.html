@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-
-<!--
-References:
-Zoom: https://bl.ocks.org/puzzler10/4438752bb93f45dc5ad5214efaa12e4a
-
--->
-
 <style>
-
-#svg2 {
-  margin-left: 30px;
-}
 
 .links line {
   stroke: #999;
@@ -37,7 +26,6 @@ p {
     height: 100px;
     margin: auto;
     padding: 10px;
-    margin-bottom: 40px;
 }
 .one {
     width: 50%;
@@ -74,9 +62,8 @@ p {
     <p> NOVAIDEA - research networks visualisation engine </p>
     <section class="container">
         <div class="one">
-          <h2> Map View </h2>
-          <p> Please, click on cities to explore the networks within</p>
-          <svg height="50" width="500">
+          <p> Map View </p>
+          <svg height="50" width="500" display="inline-block">
           <circle cx="25" cy="25" r="7" fill="#e53935" opacity="0.3" />
           <text x="40" y="30" font-size="18">
             Less citations per city
@@ -88,7 +75,7 @@ p {
           </svg>
         </div>
         <div class="two">
-          <h2> Network View </h2>
+          <p> Network View </p>
           <svg height="50" width="300" display="inline-block">
           <circle cx="25" cy="25" r="7" fill="#1E88E5" />
           <text x="40" y="30" font-size="18">
@@ -119,12 +106,6 @@ var svg = d3.select("#svg1"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-    //add zoom capabilities
-    var zoom_handler = d3.zoom()
-        .on("zoom", zoom_actions);
-
-    //zoom_handler(svg);
-
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -146,6 +127,7 @@ d3.json("nodes_cits_orders_copy.json", function(error, graph) {
       console.log(graph.nodes);
       //var max = d3.max(graph.nodes['avg']);
 
+
 			var rScale = d3.scaleLinear()
 		                   .domain([0, d3.max(graph.nodes, function(d) { return parseFloat(d.avg); })])
 		                   .range([2, 12]);
@@ -165,8 +147,7 @@ d3.json("nodes_cits_orders_copy.json", function(error, graph) {
   node.append("text")
       .attr("dx", 12)
       .attr("dy", ".35em")
-      .text(function(d) { return d.name })
-      .style("stroke", "gray");
+      .text(function(d) { return d.name });
 
   node.append("title")
       .text(function(d) { return d.avg + "\n" + d.name + "\n" + d.city; });
@@ -191,14 +172,6 @@ d3.json("nodes_cits_orders_copy.json", function(error, graph) {
     node
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-
-
-    d3.selectAll("nodes").attr("x", function (d) {
-            return d.x;
-        })
-            .attr("y", function (d) {
-            return d.y;
-        });
   }
 
   d3.selectAll(".choice")
@@ -208,10 +181,6 @@ d3.json("nodes_cits_orders_copy.json", function(error, graph) {
       //updateData(dataset, choice);
       cropDataset(graph, choice);
   });
-
-  //add encompassing group for the zoom
-var g = svg.append("g")
-    .attr("class", "everything");
 
   d3.json("world.json", function(json) {
     //Bind data and create one path per GeoJSON feature
@@ -290,25 +259,12 @@ var g = svg.append("g")
                            choice = d3.select(this).text();
                            //updateData(dataset, choice);
                            cropDataset(graph, choice);
-                       })
-                       .on("mouseover", function() {
-                            //console.log(d3.select(this).text());
-                            d3.select(this).attr("r", 10);
-                       })
-                       .on("mouseout", function() {
-                            //console.log(d3.select(this).text());
-                            d3.select(this).attr("r", 7);
                        });
-
     console.log(data);
     });//end load cities csv
   });//end load world json
 
 });//end load data.json
-
-function zoom_actions(){
-    svg.attr("transform", d3.event.transform)
-}
 
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();

@@ -2,22 +2,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>D3: Week 3 assignment</title>
+		<title>Assignment 1</title>
 		<script type="text/javascript" src="d3.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */
       span {
         margin-right: 5%;
         font-weight: 600;
       }
+
+			p {
+			  font: 20px sans-serif;
+			}
 		</style>
 	</head>
-  <!-- TODO: - fix overflowing yscale - returns 500, when max height is 400  -->
+
 	<body>
+
+		<h2>Assignment 1 - Social Data Analysis 2018 </h2>
+		<p>Student: Agzam Idrissov </p>
 
 		<p>This is a reproduction of </p><a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the"> http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the</a>
 
-    <h1>This is Quantifiably the Best Month to go to the Farmers Market</h1>
+    <h2>This is Quantifiably the Best Month to go to the Farmers Market</h2>
     <p>As part of a homework assignment, I ask my students at Pratt to go out and chart something of interest to them, and Katherine Savarese came back with a simple chart about farmers markets that I loved- it inspired this post.
 You probably know that farmers markets are a staple across all five boroughs of New York City, but September happens to be a very special month. Why is that?  Well, it turns out September is the month with the most unique types of fresh produce- forty three to be exact.
 To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if they were fresh or from storage. </p>
@@ -29,6 +35,8 @@ To show the current offerings, we charted how many types of fruits and vegetable
 <br/>
 
     <script type="text/javascript">
+
+		//code based on exercises from Interactive Data Visualization for the Web book by Scott Murray
 
     d3.csv("week3.csv", function(error, data) {
       if (error) { //If error is not null, something went wrong.

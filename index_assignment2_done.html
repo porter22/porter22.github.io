@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>D3: Pie Chart</title>
+		<title>Assignment 2</title>
 		<script type="text/javascript" src="d3.js"></script>
 		<style type="text/css">
 
@@ -17,17 +17,27 @@
         opacity: 0.5;
     }
 
+		p {
+		  font: 20px sans-serif;
+		}
+
 		</style>
 	</head>
 	<body>
+		<h2>Assignment 2 - Social Data Analysis 2018 </h2>
+		<p>Student: Agzam Idrissov </p>
 
 
 		<script type="text/javascript">
+
+		//code based on exercises from Interactive Data Visualization for the Web book by Scott Murray
 
 		//Width and height
 		var w = 800;
 		var h = 600;
 		var padding = 20;
+
+		//color scale source: http://bl.ocks.org/emmasaunders/f4902478bcfa411c77a412c02087bed4
 
 		var categorical = [
   { "name" : "schemeAccent", "n": 8},
@@ -44,43 +54,8 @@
   { "name" : "schemeCategory20c", "n" : 20 }
 ]
 
-		/*var list = [
-    { date: '12/1/2011', reading: 3, id: 20055 },
-    { date: '13/1/2011', reading: 5, id: 20053 },
-    { date: '14/1/2011', reading: 6, id: 45652 }
-		];
 
-		var countMurdersbyHour = function(full, hour) {
-			//console.log(full[0].hours);
-			var result = 0;
-			for (var i = 0; i < full.length; i++) {
-				//console.log("i : " + i + "| hour: " + hour +  "| fullihour: " + full[i].hours);
-					if (hour == parseInt(full[i].hours)) {
-						//console.log(full[i].hour);
-						result = result + 1;
-					}
-			}
-			//console.log("hour: " + hour +  "| numberofmurders: " + result);
-			return result
-		}
-
-		var getHistogram = function(full) {
-			var resultList = [];
-			//create 24 objects for each hour
-			for (var i = 0; i < 24; i++) {
-				count = countMurdersbyHour(full, i); //count number of murders for each hour from full dataset
-				//console.log("hour : " + i + "| count: " + count);
-				var resultObj = {
-					hour:i,
-					count:count
-				}
-				resultList.push(resultObj);
-			}
-			//console.log(resultList);
-			return resultList;
-		}*/
-
-		console.log("test");
+		//console.log("test");
 
 		var svg = d3.select("body")
 						.append("svg")
@@ -114,9 +89,13 @@
 		 var offset  = [w - (bounds[0][0] + bounds[1][0])/2,
 											 h - (bounds[0][1] + bounds[1][1])/2];
 
-		var color = d3.scaleLinear().domain([1,length])
+		/*var color = d3.scaleLinear().domain([1,length])
       .interpolate(d3.interpolateHcl)
-      .range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
+      .range([d3.rgb("#03A9F4"), d3.rgb('#8BC34A')]);*/
+
+		//var colorScale = d3.scaleOrdinal(d3[categorical[0].name]);
+		var colorScale = d3.schemeCategory20c;
+		//schemeCategory20c
 
 		 // new projection
 		 projection = d3.geoMercator().center(center)
@@ -131,11 +110,14 @@
 
 		 svg.selectAll("path").data(json.features).enter().append("path")
 			 .attr("d", path)
-			 .style("fill", function(d) {
-				 console.log(d.properties.BoroCode/25);
-				 return color(d.properties.BoroCode/11 - 0.45); })
+			 /*.style("fill", function(d,i) {
+				 console.log(colorScale[i]);
+				 return colorScale[i+8];
+			 })*/
+			 .style("fill", "#4078c0")
+			 .style("fill-opacity", "0.2")
 			 .style("stroke-width", "1")
-			 .style("stroke", "black");
+			 .style("stroke", "grey");
 
 			 	d3.csv("all_murders2006_2016.csv", function(data) {
 					var circles = svg.selectAll("circle")
@@ -149,7 +131,8 @@
 														return projection([d.lon, d.lat])[1];
 														})
 														.attr("r", 3)
-														.style("fill", "#3F51B5");
+														.style("fill", "#E91E63")
+														.style("opacity", 0.5);
 														//.attr("class", "non_brushed"); //for brushing
 														/*.style("fill", "yellow")
 														.style("stroke", "gray")
@@ -181,7 +164,7 @@
   						.rollup(function(v) { return v.length; })
   						.entries(data);
 
-					console.log(JSON.stringify(murderCount));
+					//console.log(JSON.stringify(murderCount));
 
 					//For converting strings to Dates
 					var parseTime = d3.timeParse("%m/%d/%Y");
@@ -268,7 +251,7 @@
 							rects.attr("class", "non_brushed");
 
 							var brush_coords = d3.brushSelection(this);
-							console.log(brush_coords);
+							//console.log(brush_coords);
 
 							var newrects = rects.filter(function (){
 
@@ -315,116 +298,6 @@
 					//return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
 					return x0 <= x && x <= x1
 			}//end function isBrushed
-
-
-
-
-
-					//console.log(xScale("02/22/2014"));
-
-
-				/*var firstHisto = getHistogram(data);
-
-
-				/*	function highlightBrushedCircles() {
-              if (d3.event.selection != null) {
-
-                  // revert circles to initial style
-                  circles.attr("class", "non_brushed");
-
-                  var brush_coords = d3.brushSelection(this);
-									//console.log(brush_coords);
-
-                  // style brushed circles
-                  circles.filter(function (){
-
-                             var cx = d3.select(this).attr("cx"),
-                                 cy = d3.select(this).attr("cy");
-
-														 //console.log(isBrushed(brush_coords, cx, cy));
-                             return isBrushed(brush_coords, cx, cy);
-                         })
-                         .attr("class", "brushed");
-              }
-          }// end function highlightBrushedCircles
-
-					function isBrushed(brush_coords, cx, cy) {
-
-					//	console.log("x0" + x0);
-
-             var x0 = brush_coords[0][0],
-                 x1 = brush_coords[1][0],
-                 y0 = brush_coords[0][1],
-                 y1 = brush_coords[1][1];
-
-            return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
-        }//end function isBrushed
-				*/
-
-/*
-				function setHistoValues() {
-
-                // disregard brushes w/o selections
-                // ref: http://bl.ocks.org/mbostock/6232537
-                if (!d3.event.selection) return;
-
-                // programmed clearing of brush after mouse-up
-                // ref: https://github.com/d3/d3-brush/issues/10
-                d3.select(this).call(brush.move, null);
-
-                var d_brushed =  d3.selectAll(".brushed").data();
-								console.log(d_brushed);
-
-								var selectedData = getHistogram(d_brushed);
-								console.log(selectedData);
-
-								updateBarChart(selectedData);
-
-            }//end function setHistoValues
-
-					var brush = d3.brush()
-												 .on("brush", highlightBrushedCircles)
-												 .on("end", setHistoValues);
-					//brush.on("brush", setHistoValues);
-
-					 svg.append("g")
-							.call(brush);
-
-					var updateBarChart = function(mhours) {
-
-						//update yScale
-						yScale.domain([0, d3.max(mhours, function(d) { return parseInt(d.count); })]);
-
-						barchart.selectAll("rect")
-								.data(mhours)
-								.transition()
-								.attr("x", function(d) {
-									 return xScale(d.hour);
-								})
-								.attr("y", function(d) {
-								 // console.log("dcount: " + d.count + ": y: " +  yScale(d.count));
-									 return yScale(d.count);
-								})
-								//.attr("width", w/(mhours.length - 1) )
-								.attr("height", function(d) {
-								 // console.log("dcount: " + d.count + ": height: " + (h-yScale(d.count)));
-									 return h - yScale(d.count)-padding;
-								});
-
-						//update axis
-
-						//Update x-axis
-						barchart.select(".x.axis")
-						.transition()
-						.duration(1000)
-						.call(xAxis);
-						//Update y-axis
-						barchart.select(".y.axis")
-						.transition()
-						.duration(1000)
-						.call(yAxis);
-					}
-*/
 
 				});//end load csv
 		});//end load Json
