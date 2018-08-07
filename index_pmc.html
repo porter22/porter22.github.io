@@ -151,10 +151,12 @@ var simulation = d3.forceSimulation()
   console.log(data);
 })*/
 
-d3.json("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=nash&resultType=core&format=json", function(error, data) {
+d3.json("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=nash&resultType=core&format=json&pageSize=40", function(error, data) {
   if (error) throw error;
-
   console.log(data);
+  console.log(data.resultList); //get all results
+  console.log(data.resultList.result[0]); //get the first result
+  console.log(data.resultList.result[0].id); //access a field
 })
 
 //load data
