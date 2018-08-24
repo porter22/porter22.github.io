@@ -59,7 +59,7 @@ text.active {
 		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 		// d3.json("miserables_matrix.json", function(miserables) {
-		d3.json("nodesedges.json", function(miserables) {
+		d3.json("clustered.json", function(miserables) {
 		  var matrix = [],
 		      nodes = miserables.nodes,
 		      n = nodes.length;
