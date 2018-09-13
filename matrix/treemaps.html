@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Treemap Diagrams</title>
+		<script type="text/javascript" src="//d3js.org/d3.v2.min.js"></script>
+		<style type="text/css">
+
+		@import url(../style_matrix.css);
+
+.background {
+  fill: #eee;
+}
+
+line {
+  stroke: #fff;
+}
+
+text.active {
+  fill: red;
+}
+
+		</style>
+	</head>
+
+	<body style="margin-left:150px;">
+
+		<script type="text/javascript">
+
+		var margin = {top: 80, right: 0, bottom: 10, left: 150},
+		    width = 1800,
+		    height = 1800;
+
+		d3.json("clustered.json", function(miserables) {
+		  var matrix = [],
+		      nodes = miserables.nodes,
+		      n = nodes.length;
+			console.log(nodes);
+		  // Compute index per node.
+		});
+
+
+
+
+		</script>
+	</body>
+</html>
