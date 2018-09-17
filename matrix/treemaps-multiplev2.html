@@ -12,10 +12,14 @@ svg {
 </style>
 <svg width="960" height="570"></svg>
 
-<div>First SVG</div>
+<!-- <div>First SVG</div>
 <div id="svg1"></div>
 <div>Second SVG</div>
 <div id="svg2"></div>
+-->
+
+<div>My graphs</div>
+<div class=".graphs"></div>
 
 <form>
   <label><input type="radio" name="mode" value="sumBySize" checked> Size</label>
@@ -24,8 +28,41 @@ svg {
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-draw("#svg1", "treemap.json");
-draw("#svg2", "treemap_1.json");
+var graphData = d3.json('treemap-all-years.json', function(error, data){
+  // now you have your data
+//  console.log(data.children);
+
+  data.children.forEach(function(d,i) {
+    //dynamically create SVGs
+    d3.select("body")
+    .append("svg")
+    .attr("id", function(dd) {
+      //console.log(dd);
+      return "svg" + i; });
+//TODO call draw function and pass svgid to it
+//draw("#svg1", "treemap.json");
+    var arg1 = "#svg" + i;
+    console.log(arg1);
+    var arg2 = "treemap_" + i + ".json";
+    console.log(arg2);
+    draw(arg1,arg2);
+  });//end for each children
+});//end json
+
+//console.log(graphData);
+
+// let's say you have a div called graphs
+/*var myGraphs = d3.select('.graphs')
+  .data(graphData)
+  .enter()
+  .append('g')
+  .each(function (d, i) { // <-- C
+            console.log('smth');
+         })*/
+  //now you have g elements for each of your datums in the graphData array
+
+/*draw("#svg1", "treemap.json");
+draw("#svg2", "treemap_1.json");*/
 
 function draw(selector, url){
 
@@ -54,7 +91,7 @@ function draw(selector, url){
 	d3.json(url, function(error, data) {
 	  if (error) throw error;
 
-		console.log(data);
+		//console.log(data);
 
 	  var root = d3.hierarchy(data)
 	      .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })

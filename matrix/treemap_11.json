@@ -1,0 +1,32 @@
+{
+"name":"treemap",
+"children": [
+{"name":"1997",
+"children": [
+{	"name":"7",
+	"children": [
+		{"name":"grain","size":1},
+		{"name":"pellets","size":3}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":5},
+		{"name":"straw","size":1},
+		{"name":"wood chips","size":1}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"wood fuel","size":2}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"sawdust","size":1},
+		{"name":"wood","size":2}]
+}
+]
+}
+]
+}

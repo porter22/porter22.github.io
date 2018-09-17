@@ -1,0 +1,30 @@
+{
+"name":"treemap",
+"children": [
+{"name":"1938",
+"children": [
+{	"name":"5",
+	"children": [
+		{"name":"cellulose","size":2}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"sugar","size":2}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"paper","size":2},
+		{"name":"wood","size":2}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"cellulosic ethanol","size":4},
+		{"name":"ethanol","size":4}]
+}
+]
+}
+]
+}

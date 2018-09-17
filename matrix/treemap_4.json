@@ -1,0 +1,23 @@
+{
+"name":"treemap",
+"children": [
+{"name":"1989",
+"children": [
+{	"name":"5",
+	"children": [
+		{"name":"woody biomass","size":1}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"gasification","size":2}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"wood","size":1}]
+}
+]
+}
+]
+}

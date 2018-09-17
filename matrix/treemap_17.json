@@ -1,0 +1,92 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2003",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"brown grease","size":2},
+		{"name":"corn","size":1},
+		{"name":"gasoline","size":2},
+		{"name":"naphtha","size":2},
+		{"name":"solvents","size":6},
+		{"name":"vegetable oil","size":1},
+		{"name":"wheat straw","size":3},
+		{"name":"wood waste","size":1}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"rapeseed","size":1},
+		{"name":"transesterification","size":2}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"free fatty acid","size":2},
+		{"name":"husk","size":3},
+		{"name":"pellets","size":7}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":14},
+		{"name":"gas cleaning","size":8},
+		{"name":"glycerin","size":1},
+		{"name":"pyrolysis oil","size":3},
+		{"name":"straw","size":8},
+		{"name":"wheat","size":4},
+		{"name":"wood chips","size":3}	]
+	},
+	{
+	"name":"12",
+	"children": [
+		{"name":"yellow grease","size":1}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"gasification","size":34},
+		{"name":"plastics","size":3},
+		{"name":"pyrolysis","size":3},
+		{"name":"sewage","size":1}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"hydrolysis","size":5},
+		{"name":"municipal solid waste","size":3},
+		{"name":"natural gas","size":8}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"biomass combustion","size":3},
+		{"name":"biomass gasification","size":3},
+		{"name":"lpg","size":2},
+		{"name":"paper","size":1},
+		{"name":"residues","size":12},
+		{"name":"waste","size":19},
+		{"name":"wood","size":12}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"biodiesel","size":9},
+		{"name":"trap grease","size":2}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"barley","size":1},
+		{"name":"cellulosic ethanol","size":15},
+		{"name":"ethanol","size":15},
+		{"name":"fermentation","size":7},
+		{"name":"msw","size":3},
+		{"name":"waste water","size":4},
+		{"name":"yeast","size":4}]
+}
+]
+}
+]
+}

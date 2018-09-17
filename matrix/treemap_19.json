@@ -1,0 +1,114 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2005",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"corn","size":5},
+		{"name":"gasoline","size":6},
+		{"name":"oil extraction","size":7},
+		{"name":"seed oil","size":1},
+		{"name":"seeds","size":2},
+		{"name":"solvents","size":8},
+		{"name":"vegetable oil","size":1},
+		{"name":"wheat straw","size":6}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"cellulose","size":8},
+		{"name":"energy crops","size":1},
+		{"name":"rapeseed","size":3},
+		{"name":"soy","size":6},
+		{"name":"starch","size":1},
+		{"name":"transesterification","size":9}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"catalysis","size":10},
+		{"name":"free fatty acid","size":1},
+		{"name":"grain","size":4},
+		{"name":"industrial waste","size":2},
+		{"name":"pellets","size":5},
+		{"name":"pressing","size":1},
+		{"name":"sugar beet","size":1}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":17},
+		{"name":"forestry","size":2},
+		{"name":"gas cleaning","size":2},
+		{"name":"straw","size":6},
+		{"name":"wheat","size":6}	]
+	},
+	{
+	"name":"12",
+	"children": [
+		{"name":"methanol","size":6},
+		{"name":"syngas","size":6}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"forest residues","size":1},
+		{"name":"gasification","size":3},
+		{"name":"plastics","size":3},
+		{"name":"syng","size":6}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agriculture","size":1},
+		{"name":"corn stover","size":4},
+		{"name":"hydrolysis","size":19},
+		{"name":"municipal solid waste","size":2},
+		{"name":"organic waste","size":3},
+		{"name":"palm","size":1},
+		{"name":"stover","size":4},
+		{"name":"sugar","size":7}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"biomass gasification","size":3},
+		{"name":"biopolymers","size":4},
+		{"name":"blend","size":2},
+		{"name":"fischer-tropsch","size":4},
+		{"name":"manure","size":2},
+		{"name":"pal waste","size":2},
+		{"name":"paper","size":6},
+		{"name":"renewable electricity","size":1},
+		{"name":"residues","size":9},
+		{"name":"scrubbers","size":2},
+		{"name":"waste","size":11},
+		{"name":"wood","size":9}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"anaerobic digestion","size":9},
+		{"name":"biodiesel","size":19},
+		{"name":"oil plants","size":1},
+		{"name":"rapeseed oil","size":1}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"bioethanol","size":18},
+		{"name":"cellulosic biomass","size":8},
+		{"name":"cellulosic ethanol","size":16},
+		{"name":"enzymatic hydrolysis","size":11},
+		{"name":"ethanol","size":43},
+		{"name":"fermentation","size":26},
+		{"name":"grass","size":2},
+		{"name":"hydrochloric acid","size":4},
+		{"name":"msw","size":2},
+		{"name":"yeast","size":10}]
+}
+]
+}
+]
+}
