@@ -10,16 +10,15 @@ svg {
 }
 
 </style>
-<svg width="960" height="570"></svg>
+<!--<svg width="960" height="570"></svg>
 
-<!-- <div>First SVG</div>
+ <div>First SVG</div>
 <div id="svg1"></div>
 <div>Second SVG</div>
 <div id="svg2"></div>
 -->
 
 <div>My graphs</div>
-<div class=".graphs"></div>
 
 <form>
   <label><input type="radio" name="mode" value="sumBySize" checked> Size</label>
@@ -66,8 +65,8 @@ draw("#svg2", "treemap_1.json");*/
 
 function draw(selector, url){
 
-	var width = 150,
-    height = 150;
+	var width = 120,
+    height = 120;
 
 	// var svg = d3.select("svg"),
 	var svg = d3.select(selector)
