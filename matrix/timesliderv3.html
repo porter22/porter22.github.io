@@ -1,0 +1,199 @@
+<!doctype html>
+<!--
+Code adapted from: https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518
+Time slider: https://bl.ocks.org/officeofjane/f132634f67b114815ba686484f9f7a77
+-->
+<html lang="en">
+<title>d3-simple-slider</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+  crossorigin="anonymous">
+
+
+<body>
+  <div class="container">
+    <h1>Time example</h1>
+    <div class="row align-items-center">
+      <div class="col-sm">
+        <div id="barchart"></div>
+      </div>
+      <div class="col-sm-2">
+        <p id="value3"></p>
+      </div>
+      <div class="col-sm">
+        <div id="slider3"></div>
+      </div>
+    </div>
+    <a id="setValue3" href="#">Reset</a>
+  </div>
+</body>
+
+<script>
+
+var margin = {top:50, right:50, bottom:0, left:50},
+    width = 1200 - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
+
+var histHeight = height;
+
+var startDate = 1994,
+    endDate = 2019;
+
+var barPadding = 1; // <-- New!
+
+/*var dateArray = d3.timeYears(startDate, d3.timeYear.offset(endDate, 1));
+
+var colours = d3.scaleOrdinal()
+    .domain(dateArray)
+    .range(['#ffc388','#ffb269','#ffa15e','#fd8f5b','#f97d5a','#f26c58','#e95b56','#e04b51','#d53a4b','#c92c42','#bb1d36','#ac0f29','#9c0418','#8b0000']);
+*/
+
+d3.csv('timeslider_nonegatives.csv', function(error, data){
+
+  // x scale for time
+  var x = d3.scaleTime()
+      .domain([startDate, endDate])
+      .range([0, width])
+      .clamp(true);
+      //.ticks(d3.time.year,1);
+
+  // y scale for histogram
+  var y = d3.scaleLinear()
+      .range([0, histHeight-margin.top])
+      /*.domain([d3.min(data, function(d) {
+        //console.log(d.nodes);
+        return d.nodes; }), d3.max(data, function(d) {
+        //console.log(d.nodes);
+        return d.nodes; })]);*/
+       .domain(d3.extent(data, function(d) { return parseFloat(d.nodes); }));
+
+//color scale
+  var c = d3.scaleLinear()
+      .range([0, 256])
+      /*.domain([d3.min(data, function(d) {
+        //console.log(d.nodes);
+        return d.nodes; }), d3.max(data, function(d) {
+        //console.log(d.nodes);
+        return d.nodes; })]);*/
+       .domain(d3.extent(data, function(d) { return parseFloat(d.nodes); }));
+
+  /*console.log("histHeight: ");
+  console.log(histHeight);
+  console.log(y(-7766));
+  console.log("scaleX: ");
+  console.log(x(2000));*/
+
+  var data3 = d3.range(0, 24).map(function (d) { return new Date(1995 + d, 10, 3); });
+  //var data3 = [1938, 1981, 1980, 0.015, 0.02, 0.025];;
+
+  var svg = d3.select("div#slider3").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+  var barchart = d3.select("div#barchart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+  var slider  = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    /*g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));*/
+
+    barchart.selectAll(".bar")
+      .data(data)
+      .enter().append("rect")
+        .attr("class", function(d, i) {
+        return "bar" + d.year;
+        })
+        .attr("x", function(d, i) {
+        /*console.log(d.year);
+        console.log("x" + x(d.year));*/
+        return x(d.year);
+        })
+        .attr("y", function(d) {
+        return histHeight - y(d.nodes); //height minus data - to inverse bar chart
+        })
+        .attr("width", width / data.length)
+        .attr("height", function(d) {
+          /*console.log(d.year);
+          console.log(d.nodes);
+          console.log("y" + y(d.nodes));*/
+        return y(d.nodes);
+        })
+        .attr("fill", function(d) {
+        console.log(parseFloat(c(d.nodes)));
+        return "rgb(0, 0, " + parseFloat(256 - c(d.nodes)) + ")"; //Math.round(parseFloat(c(d.nodes))*100)
+        });
+
+        barchart.selectAll("text")
+           .data(data)
+           .enter()
+           .append("text")
+           .text(function(d) {
+             /*console.log(d.year);
+             console.log("scaletext" + x(d.year));*/
+             return d.year;
+           })
+           .attr("x", function(d, i) {
+             return x(d.year) + width / data.length /2 ;
+           })
+           .attr("y", function(d) {
+             return histHeight - y(d.nodes) - 15;
+           })
+           .attr("font-family", "sans-serif")
+           .attr("font-size", "11px")
+           .attr("fill", "red")
+           .attr("text-anchor", "middle");
+
+        /*.attr("x", function(d) {
+          //console.log(d);
+          return x(d.year); })
+        .attr("y", function(d) { return y(parseFloat(d.nodes)); })
+        .attr("width", function(d) { return width/data.length })
+        .attr("height", function(d) {
+          console.log(d.nodes);
+          console.log(histHeight - y(parseFloat(d.nodes)));
+          return histHeight - y(parseFloat(d.nodes)); })
+        .append("text")
+             .text(function(d) {
+                      return d.nodes;
+             })
+             .attr("text-anchor", "middle")
+             .attr("x", function(d, i) {
+                  return i * (width / data.length) + (width / data.length - 5) / 2;
+             })
+             .attr("y", function(d) {
+                  return h - (d * 4) + 14;
+             })
+             .attr("font-family", "sans-serif")
+             .attr("font-size", "11px")
+             .attr("fill", "white");*/
+
+    var slider3 = d3.sliderHorizontal()
+            .min(d3.min(data3))
+            .max(d3.max(data3))
+            .step(1000 * 60 * 60 * 24 * 365)
+            .width(width + margin.left + margin.right)
+            .tickFormat(d3.timeFormat('%Y'))
+            .tickValues(data3)
+            .on('onchange', val => {
+              d3.select("p#value3").text(d3.timeFormat('%Y')(val));
+            });
+
+  slider.call(slider3);
+
+  d3.select("p#value3").text(d3.timeFormat('%Y')(slider3.value()));
+  d3.select("a#setValue3").on("click", () => slider3.value(new Date(1997, 11, 17)));
+})
+
+</script>
+
+</html>

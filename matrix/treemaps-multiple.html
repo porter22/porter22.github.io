@@ -18,7 +18,7 @@ svg {
 <div id="svg2"></div>
 
 <div>My graphs</div>
-<div id="#graphs"></div>
+<div class=".graphs"></div>
 
 <form>
   <label><input type="radio" name="mode" value="sumBySize" checked> Size</label>
@@ -35,7 +35,7 @@ var graphData = d3.json('treemap-all-years.json', function(error, data){
 });
 
 // let's say you have a div called graphs
-var myGraphs = d3.select('#graphs')
+var myGraphs = d3.select('.graphs')
   .data(graphData)
   .enter()
   .append('g')
@@ -47,7 +47,7 @@ myGraphs.call(draw);
 //draw("#svg2", "treemap_1.json");
 
 function draw(selector){
-  selector.each(function(data) {
+  selector.Each(function(data) {
 
   	var width = 150,
       height = 150;

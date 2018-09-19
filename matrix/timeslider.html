@@ -1,6 +1,7 @@
 <!doctype html>
 <!--
 Code adapted from: https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518
+Time slider: https://bl.ocks.org/officeofjane/f132634f67b114815ba686484f9f7a77
 -->
 <html lang="en">
 <title>d3-simple-slider</title>
@@ -16,26 +17,6 @@ Code adapted from: https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c35
 
 <body>
   <div class="container">
-    <h1>Basic example</h1>
-    <div class="row align-items-center">
-      <div class="col-sm-2">
-        <p id="value1"></p>
-      </div>
-      <div class="col-sm">
-        <div id="slider1"></div>
-      </div>
-    </div>
-    <a id="setValue1" href="#">Reset</a>
-    <h1>Step example</h1>
-    <div class="row align-items-center">
-      <div class="col-sm-2">
-        <p id="value2"></p>
-      </div>
-      <div class="col-sm">
-        <div id="slider2"></div>
-      </div>
-    </div>
-    <a id="setValue2" href="#">Reset</a>
     <h1>Time example</h1>
     <div class="row align-items-center">
       <div class="col-sm-2">
@@ -46,65 +27,43 @@ Code adapted from: https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c35
       </div>
     </div>
     <a id="setValue3" href="#">Reset</a>
-    <h1>Dense values example</h1>
-    <div class="row align-items-center">
-      <div class="col-sm-2">
-        <p id="value4"></p>
-      </div>
-      <div class="col-sm">
-        <div id="slider4"></div>
-      </div>
-    </div>
-    <a id="setValue4" href="#">Reset</a>
   </div>
 </body>
 
 <script>
-  var data1 = [0, 0.005, 0.01, 0.015, 0.02, 0.025];
 
-  var slider1 = d3.sliderHorizontal()
-    .min(d3.min(data1))
-    .max(d3.max(data1))
-    .width(300)
-    .tickFormat(d3.format('.2%'))
-    .ticks(5)
-    .default(0.015)
-    .on('onchange', val => {
-      d3.select("p#value1").text(d3.format('.2%')(val));
-    });
+var margin = {top:50, right:50, bottom:0, left:50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-  var g = d3.select("div#slider1").append("svg")
-    .attr("width", 500)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
+var histHeight = height/5;
 
-  g.call(slider1);
+var startDate = 1994,
+    endDate = 2004;
 
-  d3.select("p#value1").text(d3.format('.2%')(slider1.value()))
-  d3.select("a#setValue1").on("click", () => slider1.value(0.015));
+var dateArray = d3.timeYears(startDate, d3.timeYear.offset(endDate, 1));
 
-  var slider2 = d3.sliderHorizontal()
-    .min(0)
-    .max(10)
-    .step(1)
-    .width(300)
-    .on('onchange', val => {
-      d3.select("p#value2").text(val);
-    });
+var colours = d3.scaleOrdinal()
+    .domain(dateArray)
+    .range(['#ffc388','#ffb269','#ffa15e','#fd8f5b','#f97d5a','#f26c58','#e95b56','#e04b51','#d53a4b','#c92c42','#bb1d36','#ac0f29','#9c0418','#8b0000']);
 
-  var g = d3.select("div#slider2").append("svg")
-    .attr("width", 500)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
+// x scale for time
+var x = d3.scaleTime()
+    .domain([startDate, endDate])
+    .range([0, width])
+    .clamp(true);
+    //.ticks(d3.time.year,1);
 
-  g.call(slider2);
+// y scale for histogram
+var y = d3.scaleLinear()
+    .range([histHeight, 0]);
 
-  d3.select("p#value2").text((slider2.value()));
-  d3.select("a#setValue2").on("click", () => slider2.value(5));
+d3.csv('timeslider.csv', function(error, data){
+
+  console.log(data[0].year);
 
   var data3 = d3.range(0, 10).map(function (d) { return new Date(1995 + d, 10, 3); });
+  //var data3 = [1938, 1981, 1980, 0.015, 0.02, 0.025];;
 
   var slider3 = d3.sliderHorizontal()
     .min(d3.min(data3))
@@ -117,41 +76,69 @@ Code adapted from: https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c35
       d3.select("p#value3").text(d3.timeFormat('%Y')(val));
     });
 
-  var g = d3.select("div#slider3").append("svg")
-    .attr("width", 500)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
+    // set parameters for histogram
+    var histogram = d3.histogram()
+        .value(function(d) {
+          //console.log(d.year);
+          return d.year; })
+        .domain(x.domain())
+        .thresholds(x.ticks(d3.timeYear));
+
+  var svg = d3.select("div#slider3").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+  var hist = svg.append("g")
+                .attr("class", "histogram")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var g =svg.append("g")
+            .attr("transform", "translate(30,30)");
+
+  // group data for bars
+  var bins = histogram(data);
+
+  // y domain based on binned data
+  y.domain([0, d3.max(bins, function(d) { return d.length; })]);
+
+  console.log("print bins\n");
+  console.log(bins[0]);
+  console.log(bins[0].length);
+
+  // append the bar rectangles to the svg element
+/*  g.selectAll("rect")
+      .data(bins[0])
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", 1)
+      .attr("transform", function(d) {
+		  return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+      .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
+      .attr("height", function(d) { return height - y(d.length); });*/
+
+  var bar = hist.selectAll(".bar")
+      .data(bins[0])
+      .enter()
+      .append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) {
+        console.log(d);
+        return "translate(" + x(d.x0) + "," + y(d.length) + ")";
+      });
+
+  bar.append("rect")
+      .attr("class", "bar")
+      .attr("x", 1)
+      .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
+      .attr("height", function(d) { return histHeight - y(d.length); })
+      .attr("fill", function(d) { return colours(d.x0); });
 
   g.call(slider3);
 
   d3.select("p#value3").text(d3.timeFormat('%Y')(slider3.value()));
   d3.select("a#setValue3").on("click", () => slider3.value(new Date(1997, 11, 17)));
+})
 
-  var data4 = [0.20, 0.22, 0.24, 0.26, 0.28, 0.30, 1];
-
-  var slider4 = d3.sliderHorizontal()
-    .min(d3.min(data4))
-    .max(d3.max(data4))
-    .width(300)
-    .tickFormat(d3.format('.2%'))
-    .marks(data4)
-    .ticks(5)
-    .default(0.015)
-    .on('onchange', val => {
-      d3.select("p#value4").text(d3.format('.2%')(val));
-    });
-
-  var g = d3.select("div#slider4").append("svg")
-    .attr("width", 500)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
-
-  g.call(slider4);
-
-  d3.select("p#value4").text(d3.format('.2%')(slider4.value()))
-  d3.select("a#setValue4").on("click", () => slider4.value(0.015));
 </script>
 
 </html>
