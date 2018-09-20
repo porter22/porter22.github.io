@@ -25,6 +25,7 @@ svg {
   <label><input type="radio" name="mode" value="sumByCount"> Count</label>
 </form>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+
 <script>
 
 var graphData = d3.json('treemap-all-years.json', function(error, data){
@@ -47,21 +48,6 @@ var graphData = d3.json('treemap-all-years.json', function(error, data){
     draw(arg1,arg2);
   });//end for each children
 });//end json
-
-//console.log(graphData);
-
-// let's say you have a div called graphs
-/*var myGraphs = d3.select('.graphs')
-  .data(graphData)
-  .enter()
-  .append('g')
-  .each(function (d, i) { // <-- C
-            console.log('smth');
-         })*/
-  //now you have g elements for each of your datums in the graphData array
-
-/*draw("#svg1", "treemap.json");
-draw("#svg2", "treemap_1.json");*/
 
 function draw(selector, url){
 
