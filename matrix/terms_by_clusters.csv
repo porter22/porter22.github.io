@@ -1,0 +1,282 @@
+index,term,cluster
+0,vegetable oil,4
+1,woodwaste/bagasse,0
+2,natural gas,14
+3,various grasses,19
+4,nonedible oils,17
+5,animal fats,12
+6,paper,16
+7,ponderosa pine,19
+8,grass seed,19
+9,osb,14
+10,paper waste,12
+11,corn cob,13
+12,energy grasses,19
+13,logging residues,19
+14,willow,16
+15,crop waste,13
+16,firewood,13
+17,jatropha,4
+18,sugarcane bagasse,19
+19,sugar,14
+20,wood,16
+21,municipal solid waste,14
+22,banna grass,13
+23,waste oil,12
+24,barley,19
+25,starch,5
+26,coniferous wood,7
+27,corn oil,14
+28,wood waste,4
+29,corn stalks,4
+30,yellow grease,12
+31,molasses,19
+32,woodchips,7
+33,food waste,4
+34,citrus residues,17
+35,wood chips,11
+36,cotton residue,13
+37,industrial waste,7
+38,corn stover,14
+39,waste fat,17
+40,waste vegetable oil,13
+41,tallow,12
+42,sewage,13
+43,white pine,13
+44,hardwood,7
+45,loblolly pine,19
+46,miscanthus,19
+47,palm,14
+48,milo,11
+49,bark,4
+50,agriculture,14
+51,textiles,7
+52,beef tallow,12
+53,animal waste,14
+54,cobs,14
+55,forest residues,13
+56,grass clippings,19
+57,plywood,13
+58,dry biomass,4
+59,southern yellow pine,13
+60,free fatty acid,7
+61,trap grease,17
+62,woody and agricultural by-products,19
+63,syngas from gasifier,16
+64,cellulose,5
+65,wheat,11
+66,organic waste,14
+67,oil plants,17
+68,corn,4
+69,animal manure,14
+70,dung,14
+71,agricultural waste,14
+72,elephant grass,19
+73,biogas from landfills,17
+74,waste water sludge,14
+75,algae,11
+76,rice straw,19
+77,barley straw,19
+78,Giant reed,17
+79,rice hulls,19
+80,canola oil,7
+81,msw,19
+82,digester gas,17
+83,seeds,4
+84,grain,7
+85,distillers grain,16
+86,sugar beet,7
+87,mixed biomass,13
+88,brewery waste,13
+89,triticale,7
+90,camelina,7
+91,cellulosic biomass,19
+92,plastics,13
+93,poultry fat,13
+94,straw,11
+95,water hyacinth,19
+96,hogs,19
+97,beverage waste,11
+98,macroalgae,4
+99,sugar base,19
+100,soy,5
+101,woody biomass,5
+102,maple,16
+103,bagasse,14
+104,wheat straw,4
+105,jathropa,17
+106,medium density fiberboard,7
+107,biodegradable waste,13
+108,poplar/energy woods,1
+109,husk,7
+110,fog,14
+111,waste,16
+112,soy oil,5
+113,oilseeds,19
+114,pal waste,16
+115,grass straw and corn stalks,19
+116,agricultural biomass,7
+117,glycerin,11
+118,used cooking oil,5
+119,hydrous ethanol,7
+120,seed oil,4
+121,manure,16
+122,shrub willow,13
+123,grains,19
+124,syngas,12
+125,particle board,13
+126,energy crops,5
+127,slash pine,12
+128,lemna,11
+129,lumber,19
+130,hog fuel,7
+131,agricultural residues,16
+132,grass,19
+133,sorghum,17
+134,virgin oil,17
+135,rapeseed oil,17
+136,cooking oil,7
+137,sawdust,16
+138,sugarcane trash,19
+139,cheese whey,12
+140,corn/barley,2
+141,switchgrass,17
+142,yard trimmings,17
+143,stover,14
+144,douglas fir,19
+145,crude glycerine,12
+146,brown grease,4
+147,waste water,19
+148,garden waste,17
+149,yeast,19
+150,oak,13
+151,pine,14
+152,forestry,11
+153,wood fuel,13
+154,mixed prairie grass,19
+155,whey,4
+156,lignocellulosics,19
+157,cellulosic sugars,19
+158,juniper,11
+159,sugarcane,17
+160,urban wood,19
+161,residues,16
+162,cotton gin trash,13
+163,rapeseed,5
+164,arundo donax,19
+165,dedicated energy crops,19
+166,black liquor,11
+167,eucalyptus,11
+168,beets,19
+169,non-cellulosic portions of sfw,3
+170,refined vegetable oil,13
+171,vegetable waste,17
+172,poplar,7
+173,palm oil,17
+174,blend,16
+175,hybrid poplar,14
+176,hydrochloric acid,19
+177,aerobic digestion,16
+178,consolidated bioprocessing,19
+179,methane recovery,19
+180,hydroprocessing,11
+181,biomass combustion,16
+182,gasification,13
+183,enzymatic hydrolysis,19
+184,biogas productions,16
+185,oil extraction,4
+186,bioenergy generation,14
+187,coking,12
+188,charring,4
+189,cbp,7
+190,microwave,4
+191,bioforming,14
+192,algal oil extraction,17
+193,biomass gasification,16
+194,black liquor gasification,16
+195,grate furnaces,16
+196,solvents,4
+197,fixed bed gasifiers,11
+198,biochemical conversions,5
+199,blg,16
+200,alcoholic fermentation,4
+201,fischer-tropsch,16
+202,hydrotreating,5
+203,transesterification,5
+204,algae oil extraction,11
+205,gas cleaning,11
+206,landfill gas,17
+207,pyrolysis oil,11
+208,thermochemical conversions,16
+209,fast pyrolysis,14
+210,scrubbers,16
+211,tbd,7
+212,plant cell culture,16
+213,acid hydrolysis,14
+214,advanced fermentation,19
+215,pyrolysis,13
+216,liquefaction,16
+217,gasification-fermentation,12
+218,hydrolysis,14
+219,ft microchannel reactor,6
+220,pressing,7
+221,metathesis,4
+222,fluidized bed furnaces,4
+223,anaerobic digestion,17
+224,fermentation,19
+225,catalysis,7
+226,furanics,7
+227,biodme,16
+228,cellulosic heating oil,8
+229,succinic acid,17
+230,renewable jet fuel,5
+231,ethanol blending,16
+232,adipic acid,5
+233,renewable chemicals,12
+234,syng,13
+235,drop-in fuels,13
+236,electricity from biomass,16
+237,bioplastic,5
+238,biobutanol,14
+239,eth from bagasse,9
+240,cellulosic renewable gasoline,10
+241,advanced biofuel,7
+242,renewable electricity,16
+243,renewable gasoline,11
+244,methanol,12
+245,biogas,11
+246,cellulosic ethanol,19
+247,bdo,19
+248,nutriceuticals,16
+249,butanol,19
+250,biopolymers,16
+251,sng,16
+252,bio-oil,13
+253,biofuels from algae,16
+254,cellulosic biofuel,14
+255,celleth from wheat straw,15
+256,biodiesel,17
+257,biogasoline,11
+258,lpg,16
+259,renewable diesel,4
+260,naphtha,4
+261,ethanol,19
+262,methanol/then ethanol,18
+263,fatty acid ethyl ester,7
+264,rdif,13
+265,polyethylene,14
+266,biodiesel blending,16
+267,bioresin,11
+268,bioethanol,19
+269,biofuels for transport,14
+270,mixed alcohol fuels,16
+271,gasoline,4
+272,renewable fuel,19
+273,pdo,4
+274,renewable jet,5
+275,pellets,7
+276,biomass-based diesel,16
+277,mtg catalysis,20
+278,polylutylene succinate,21
+279,potatoes,22
+280,renewable diesel from animal fats,23

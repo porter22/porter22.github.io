@@ -15,15 +15,6 @@
   fill: #eee;
 }
 
-.col-sm-2 {
-	margin-top: 20px;
-	margin-right: -10px;
-}
-
-#treemaps {
-	margin-top: 80px;
-}
-
 line {
   stroke: #fff;
 }
@@ -50,20 +41,20 @@ text.active {
 	<div class="row-fluid">
     <div class="col-md-6">
         <div class="row-fluid">
-            <div class="col-md-12"><div id="treemaps"></div></div></br></br></br>
+            <div class="col-md-12"><div id="treemaps">treemaps<div id="size">size</div></div></div>
         </div>
         <div class="row-fluid">
             <div class="col-md-12"><div id="timeslider">timeslider</div></div>
         </div>
     </div>
-    <div class="col-md-6"><div id="matrix"><br/></div></div>
+    <div class="col-md-6"><div id="matrix">matrix goes here<br/></div></div>
 </div>
 
 
 <script type="text/javascript">
-var margin = {top: 80, right: 40, bottom: 40, left: 80},
-		width = 770,
-		height = 770;
+var margin = {top: 40, right: 40, bottom: 10, left: 40},
+		width = 800,
+		height = 800;
 
 /*var x = d3.scale.ordinal().rangeBands([0, width]),
 		z = d3.scale.linear().domain([0, 4]).clamp(true),
@@ -71,7 +62,7 @@ var margin = {top: 80, right: 40, bottom: 40, left: 80},
 
 		var x = d3.scaleBand().range([0, width]).paddingOuter(0.25),
 		    z = d3.scaleLinear().domain([0, 4]).clamp(true),
-		    c = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO bind color range limit to actual data
+		    c = d3.scaleOrdinal(d3.schemeCategory10).domain(d3.range(10));
 
 var svg = d3.select("div#matrix").append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -221,9 +212,6 @@ var graphData = d3.json('treemap-all-years.json', function(error, data){
 //  console.log(data.children);
 
 	data.children.forEach(function(d,i) {
-
-		console.log(d.name);
-	if (d.name>1981 && d.name<2020) { //for demo purposes
 		//dynamically create SVGs
 		d3.select("div#treemaps")
 		.append("svg")
@@ -238,10 +226,7 @@ var graphData = d3.json('treemap-all-years.json', function(error, data){
 	//	console.log(arg1);
 		var arg2 = "treemap_" + i + ".json";
 	//	console.log(arg2);
-
 		draw(arg1,arg2);
-	}
-
 	});//end for each children
 });//end json
 
@@ -259,15 +244,9 @@ function draw(selector, url){
 			//width = +svg.attr("width"),
 			//height = +svg.attr("height");
  //TODO Rewrite color function, so that each color is fixed to a certain cluster
-	/*var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+	var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
 			color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
-			format = d3.format(",d");*/
-
-
-	//var color = d3.scaleOrdinal(d3.schemeCategory20).domain([0,25]);
-	 var color = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO reduce the number of clusters to <20
-
-	var format = d3.format(",d");
+			format = d3.format(",d");
 
 	var treemap = d3.treemap()
 			.tile(d3.treemapResquarify)
@@ -292,29 +271,18 @@ function draw(selector, url){
 			.enter().append("g")
 				.attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
 
-		/*cell.append("p")
-				.data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
-				.style("font-size", "6px")
-				.text(function(d) { return d; });*/
-
 		cell.append("rect")
 				.attr("id", function(d) { return d.data.id; })
 				.attr("width", function(d) { return d.x1 - d.x0; })
 				.attr("height", function(d) { return d.y1 - d.y0; })
-				.attr("fill", function(d) {
-					//extract clusterID from the treemapID
-					var tempstr = d.parent.data.id.toString();
-					var separate = tempstr.split(".");
-					/*console.log(separate[2]);//this is a clusterID
-					console.log(color(separate[2]));//this is a clusterID*/
-					return color(separate[2]); });
+				.attr("fill", function(d) { return color(d.parent.data.id); });
 
 		cell.append("clipPath")
 				.attr("id", function(d) { return "clip-" + d.data.id; })
 			.append("use")
 				.attr("xlink:href", function(d) { return "#" + d.data.id; });
 
-		/*cell.append("text")
+		cell.append("text")
 				.attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
 			.selectAll("tspan")
 				.data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
@@ -323,7 +291,6 @@ function draw(selector, url){
 				.attr("y", function(d, i) { return 13 + i * 10; })
 				.style("font-size", "6px")
 				.text(function(d) { return d; });
-				*/
 
 		cell.append("title")
 				.text(function(d) { return d.data.id + "\n" + format(d.value); });
