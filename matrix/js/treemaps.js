@@ -54,7 +54,8 @@ function drawTreemaps() {
   			.attr("height", height)
   			.on("click", function() {
   					updateMatrix(datapoints.name);
-  			} );
+  			})
+        ;
 
   	d3.select(selector).append('text')
   			.text(datapoints.name)
@@ -108,7 +109,10 @@ function drawTreemaps() {
   					var separate = tempstr.split(".");
   					/*console.log(separate[2]);//this is a clusterID
   					console.log(color(separate[2]));//this is a clusterID*/
-  					return color(separate[2]); });
+  					return color(separate[2]); })
+          .on("mouseover", function(d) {
+      				//	console.log(d); //gets array of nodes
+      			});
 
 
   		cell.append("title")

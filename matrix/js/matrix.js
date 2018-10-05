@@ -22,7 +22,7 @@ function drawMatrix(yearName) {
   		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // d3.json("miserables_matrix.json", function(miserables) {
-  var filename = "clustered_" + yearName + ".json"
+  var filename = "./clusteredByYears/clustered_" + yearName + ".json"
   d3.json(filename, function(miserables) {
   	//console.log(miserables);
   	var matrix = [],
