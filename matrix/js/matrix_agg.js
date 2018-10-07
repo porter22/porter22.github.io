@@ -23,13 +23,48 @@ function drawMatrix(yearName) {
 
   // d3.json("miserables_matrix.json", function(miserables) {
   //var filename = "./clusteredByYears/clustered_" + yearName + ".json"
-  var filename = "clustered_2006.json"
-  d3.json(filename, function(miserables) {
 
-    console.log(miserables);
-  	var matrix = [],
-  			nodes = miserables.nodes,
-  			n = nodes.length;
+//TODO https://usabilityetc.com/2016/08/how-to-perform-multiple-asynchronous-tasks-with-d3/
+  /*queue()
+	  .defer(d3.json, 'clustered_2006.json')
+	  .defer(d3.json, 'clustered_2007.json')
+	.await(loadjsons);*/
+
+  var queue = d3.queue();
+
+  var filenames = ['clustered_2006.json','clustered_2007.json'];
+
+  filenames.forEach(function(filename) {
+    console.log(filename);
+    queue.defer(d3.json, filename);
+  });
+
+  queue.awaitAll(loadJsons)
+
+  //var filename = "clustered_2006.json"
+  //d3.json(filename, function(miserables) {
+  function loadJsons(error, miserables) {
+
+    //console.log(miserables);
+    //TODO we have now an array of jsons, now aggregate nodes and links
+    //console.log(miserables2);
+
+    var nodes = [];
+    var matrix = [];
+
+    miserables.forEach(function(miserable) {
+      console.log(miserable);
+      miserable.nodes.forEach(function(node) {
+        nodes.push(node);
+      })
+    });
+
+    console.log(nodes);
+    n = nodes.length;
+    //TODO nodes are aggregated, aggregate links
+
+  			//nodes = miserables.nodes,
+  	n = nodes.length;
   	//console.log(nodes);
   	// Compute index per node.
   	nodes.forEach(function(node, i) {
@@ -53,7 +88,7 @@ function drawMatrix(yearName) {
       d.target = nodeByName.get(d.target).index;
     });
 
-    console.log(miserables.links);
+    //console.log(miserables.links);
 
   	// Convert links to matrix; count character occurrences.
   	miserables.links.forEach(function(link) {
@@ -173,7 +208,7 @@ function drawMatrix(yearName) {
   		order("group");
   		d3.select("#order").property("selectedIndex", 2).node().focus();
   	}, 5000);
-  })
+  }
 } //end drawMatrix
 
 //takes a year as an input and redraws the matrix for that year
