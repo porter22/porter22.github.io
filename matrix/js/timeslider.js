@@ -122,6 +122,44 @@ function drawTimeslider() {
              .attr("fill", "black")
              .attr("text-anchor", "middle");
 
+             //adding brush to barchart svg
+             var brush = d3.brush()
+                            .on("brush", startBrush)
+                            .on("end", endBrush);
+             //brush.on("brush", setHistoValues);
+
+              barchart.append("g")
+                 .call(brush);
+
+              function endBrush() {
+         					console.log("end brush");
+         			}
+
+              function startBrush() {
+         					console.log("start brush");
+                  if (d3.event.selection != null) {
+                    
+                    var rects = barchart.selectAll("rect")
+
+                    var brush_coords = d3.brushSelection(this);
+                    console.log(brush_coords);
+
+                    var newrects = rects.filter(function (){
+
+                               var x = d3.select(this).attr("x"),
+                                   y = d3.select(this).attr("y");
+
+                               //console.log(isBrushed(brush_coords, x, y));
+                               return isBrushed(brush_coords, x, y);
+                           })
+                           .attr("class", "brushed");
+                    console.log(newrects);
+
+                    //get all brushed elements
+                    var d_brushed =  d3.selectAll(".brushed").data();
+                  }
+         			}
+
      /* var slider3 = d3.sliderHorizontal()
               .min(d3.min(data3))
               .max(d3.max(data3))

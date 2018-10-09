@@ -32,7 +32,7 @@ function drawMatrix(yearName) {
 
   var queue = d3.queue();
 
-  var filenames = ['clustered_2006.json','clustered_2007.json'];
+  var filenames = ['clustered_2007.json','clustered_2008.json'];
 
   filenames.forEach(function(filename) {
     console.log(filename);
@@ -50,22 +50,23 @@ function drawMatrix(yearName) {
     //console.log(miserables2);
 
     var nodes = [];
+    var links = [];
     var matrix = [];
 
     miserables.forEach(function(miserable) {
-      console.log(miserable);
+      //console.log(miserable);
       miserable.nodes.forEach(function(node) {
         nodes.push(node);
       })
+      miserable.links.forEach(function(link) {
+        links.push(link);
+      })
+
     });
 
-    console.log(nodes);
+    l = links.length;
     n = nodes.length;
-    //TODO nodes are aggregated, aggregate links
 
-  			//nodes = miserables.nodes,
-  	n = nodes.length;
-  	//console.log(nodes);
   	// Compute index per node.
   	nodes.forEach(function(node, i) {
   		node.index = i;
@@ -78,24 +79,30 @@ function drawMatrix(yearName) {
       return d.name;
     });
 
+    console.log(n,l);
+    console.log(nodes);
+
     //console.log(nodeByName.get("butanol").index);
 
-    //TODO load all selected years, aggregate their nodes and links
-
-    //convert this so that link.source looks up in the nodelist for aggregation
-    miserables.links.forEach(function(d) {
-      d.source = nodeByName.get(d.source).index;
-      d.target = nodeByName.get(d.target).index;
+    //transform textual node names to numeric nodeIDs
+    links.forEach(function(d, index) {
+      /*  console.log("index: " + index);
+        console.log("d.source: " + d.source);
+        //console.log("nodeByName.get(d.source): " + nodeByName.get(d.source));
+        console.log("nodeByName.get(d.source).index: " + nodeByName.get(d.source).index);
+        console.log("d.target: " + d.target);
+        //console.log("nodeByName.get(d.source): " + nodeByName.get(d.source));
+        console.log("nodeByName.get(d.target).index: " + nodeByName.get(d.target).index);*/
+        d.source = nodeByName.get(d.source).index;
+        d.target = nodeByName.get(d.target).index;
     });
 
     //console.log(miserables.links);
 
-  	// Convert links to matrix; count character occurrences.
-  	miserables.links.forEach(function(link) {
-
+  	// Convert links to matrix; count node occurrences.
+  	links.forEach(function(link) {
       /*console.log("link.source - " + link.source);
   		console.log("link.target - " + link.target);
-
   		console.log(matrix[link.source][link.target]);
   		//console.log(link.value);*/
   		matrix[link.source][link.target].z += link.value;

@@ -70,7 +70,7 @@ function drawTreemaps() {
 
    //TODO Rewrite color function, so that each color is fixed to a certain cluster
 
-  	 var color = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO reduce the number of clusters to <20
+  	var color = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO reduce the number of clusters to <20
 
   	var format = d3.format(",d");
 
@@ -150,4 +150,7 @@ function drawTreemaps() {
   function sumBySize(d) {
   	return d.size;
   }
+
+
+
 }
