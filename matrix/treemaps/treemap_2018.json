@@ -1,0 +1,75 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2018",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"corn","size":2},
+		{"name":"food waste","size":5},
+		{"name":"microwave","size":4},
+		{"name":"wheat straw","size":2}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"cellulose","size":6},
+		{"name":"woody biomass","size":1}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"woodchips","size":1}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"straw","size":2},
+		{"name":"wheat","size":2}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"firewood","size":1},
+		{"name":"forest residues","size":1},
+		{"name":"pyrolysis","size":2}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agriculture","size":1},
+		{"name":"corn stover","size":2},
+		{"name":"hydrolysis","size":10},
+		{"name":"municipal solid waste","size":5},
+		{"name":"natural gas","size":1},
+		{"name":"stover","size":2},
+		{"name":"sugar","size":6}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"agricultural residues","size":2},
+		{"name":"manure","size":2},
+		{"name":"paper","size":6},
+		{"name":"residues","size":10},
+		{"name":"sng","size":4},
+		{"name":"waste","size":9},
+		{"name":"wood","size":4}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"butanol","size":2},
+		{"name":"cellulosic biomass","size":1},
+		{"name":"cellulosic ethanol","size":23},
+		{"name":"energy grasses","size":2},
+		{"name":"enzymatic hydrolysis","size":10},
+		{"name":"ethanol","size":30},
+		{"name":"fermentation","size":10},
+		{"name":"grass","size":2},
+		{"name":"msw","size":5}]
+}
+]
+}
+]
+}

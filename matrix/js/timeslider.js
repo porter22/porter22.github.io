@@ -78,7 +78,7 @@ function drawTimeslider() {
         .data(data)
         .enter().append("rect")
           .attr("class", function(d, i) {
-          return "bar" + d.year;
+          return "bar" + d.year + " non_brushed";
           })
           .attr("x", function(d, i) {
           /*console.log(d.year);
@@ -122,27 +122,28 @@ function drawTimeslider() {
              .attr("fill", "black")
              .attr("text-anchor", "middle");
 
+             var rects = barchart.selectAll("rect")
+
              //adding brush to barchart svg
              var brush = d3.brush()
-                            .on("brush", startBrush)
+                            .on("brush", updateBrush)
                             .on("end", endBrush);
              //brush.on("brush", setHistoValues);
 
               barchart.append("g")
+                  .attr("class", "brush")
                  .call(brush);
 
-              function endBrush() {
-         					console.log("end brush");
-         			}
+              var brushedYears = [];
 
-              function startBrush() {
-         					console.log("start brush");
+              function updateBrush() {
+         					console.log("update brush");
                   if (d3.event.selection != null) {
-                    
-                    var rects = barchart.selectAll("rect")
+
+                    rects.attr("class", "non_brushed");
 
                     var brush_coords = d3.brushSelection(this);
-                    console.log(brush_coords);
+                    //console.log(brush_coords);
 
                     var newrects = rects.filter(function (){
 
@@ -153,12 +154,40 @@ function drawTimeslider() {
                                return isBrushed(brush_coords, x, y);
                            })
                            .attr("class", "brushed");
-                    console.log(newrects);
+                    //console.log(newrects);
 
                     //get all brushed elements
                     var d_brushed =  d3.selectAll(".brushed").data();
+
+                    //extract the array of years from the brushed selection
+                    brushedYears = [];
+                    d_brushed.forEach(function(one_d_brushed) {
+                      //console.log(one_d_brushed.year);
+                      brushedYears.push(one_d_brushed.year);
+                    });
+                    console.log(brushedYears);
+
                   }
          			}
+
+              function endBrush() {
+                  console.log("end brush");
+                  //console.log(brushedYears);
+                  drawMatrix(brushedYears);
+
+              }
+
+              function isBrushed(brush_coords, x, y) {
+
+      				//	console.log("x0" + x0);
+
+      					 var x0 = brush_coords[0][0],
+      							 x1 = brush_coords[1][0];
+      							 //y0 = brush_coords[0][1],
+      							 //y1 = brush_coords[1][1];
+      					//return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
+      					return x0 <= x && x <= x1
+      			}//end function isBrushed
 
      /* var slider3 = d3.sliderHorizontal()
               .min(d3.min(data3))

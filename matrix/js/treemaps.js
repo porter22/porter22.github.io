@@ -5,7 +5,7 @@ function drawTreemaps() {
 
   	data.children.forEach(function(d,i) {
 
-  		if (d.name>1981 && d.name<2020) { //for demo purposes
+  		if (d.name>1981 && d.name<2019) { //for demo purposes
   			//dynamically create SVGs
   		svgselection =	d3.select("div#treemaps")
   			.append("svg")
@@ -13,13 +13,16 @@ function drawTreemaps() {
   			.attr("height", "90px")
   			.attr("id", function(dd) {
   				//console.log(dd);
-  				return "svg" + i; });
+  				//return "svg" + i; });
+          return "svg" + d.name; });
   		//TODO call draw function and pass svgid to it
   		//draw("#svg1", "treemap.json");
-  			var arg1 = "#svg" + i;
-  		//	console.log(arg1);
-  			var arg2 = "treemap_" + i + ".json";
-  			//	console.log(arg2);
+  			//var arg1 = "#svg" + i;
+        var arg1 = "#svg" + d.name;
+  			console.log(arg1);
+  			//var arg2 = "treemap_" + i + ".json";
+        var arg2 = "./treemaps/treemap_" + d.name + ".json";
+  			console.log(arg2);
 
   		//add years on top
   		/*d3.select("div#treemaps")
@@ -54,6 +57,7 @@ function drawTreemaps() {
   			.attr("height", height)
   			.on("click", function() {
   					updateMatrix(datapoints.name);
+            clearBrush();
   			})
         ;
 
@@ -150,6 +154,13 @@ function drawTreemaps() {
   function sumBySize(d) {
   	return d.size;
   }
+
+  function clearBrush() {
+  	console.log("clear brush");
+    //var brush = d3.select(".brush").remove();
+  }
+
+
 
 
 

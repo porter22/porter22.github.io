@@ -1,0 +1,19 @@
+{
+"name":"treemap",
+"children": [
+{"name":"1985",
+"children": [
+{	"name":"11",
+	"children": [
+		{"name":"fixed bed gasifiers","size":2},
+		{"name":"wood chips","size":1}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"wood","size":1}]
+}
+]
+}
+]
+}

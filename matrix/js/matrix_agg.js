@@ -1,8 +1,15 @@
-function drawMatrix(yearName) {
-  var margin = {top: 80, right: 40, bottom: 40, left: 80},
-  		width = 770,
-  		height = 770;
+function drawMatrix(brushedYears) {
 
+  //TODO remove the first matrix
+  d3.select("div#matrix").select("svg").remove();
+
+  var margin = {top: 80, right: 40, bottom: 40, left: 80},
+  		//width = 770,
+  		//height = 770;
+      width = 900,
+  		height = 900;
+
+console.log(typeof brushedYears);
   //TODO matrix labels - color like clusters
 
   /*var x = d3.scale.ordinal().rangeBands([0, width]),
@@ -14,6 +21,7 @@ function drawMatrix(yearName) {
   		    c = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO bind color range limit to actual data
 
   var svg = d3.select("div#matrix").append("svg")
+  //svg.append("svg")
   		.attr("width", width + margin.left + margin.right)
   		.attr("height", height + margin.top + margin.bottom)
       .attr("class", "matrix")
@@ -32,7 +40,27 @@ function drawMatrix(yearName) {
 
   var queue = d3.queue();
 
-  var filenames = ['clustered_2007.json','clustered_2008.json'];
+  //var filenames = ['clustered_2007.json','clustered_2008.json'];
+  var filenames = [];
+
+  var yearsArray = brushedYears.toString().split(",");
+
+
+
+  /*for (var i = 0; i < brushedYears.length; i++) {
+    filenames.push(brushedYears[i]);
+  }*/
+
+  console.log("in the matrix now: " + yearsArray.length);
+
+  //transform brushedYears to filenames
+  yearsArray.forEach(function(brushedYear) {
+    console.log(brushedYear);
+    tempstr = "./clusteredByYears/clustered_" + brushedYear + ".json";
+    filenames.push(tempstr);
+  });
+
+  //filenames = brushedYears;
 
   filenames.forEach(function(filename) {
     console.log(filename);
@@ -50,13 +78,20 @@ function drawMatrix(yearName) {
     //console.log(miserables2);
 
     var nodes = [];
+    var nodenames = [];
     var links = [];
     var matrix = [];
 
     miserables.forEach(function(miserable) {
-      //console.log(miserable);
+      console.log(miserable);
       miserable.nodes.forEach(function(node) {
-        nodes.push(node);
+        nodename = node.name;
+        if (nodenames.indexOf(nodename) == -1) {//if node is not there previously
+          nodes.push(node);
+          nodenames.push(nodename);
+        } else {
+          console.log(node.name + " is already there ");
+        }
       })
       miserable.links.forEach(function(link) {
         links.push(link);
@@ -80,7 +115,11 @@ function drawMatrix(yearName) {
     });
 
     console.log(n,l);
-    console.log(nodes);
+    //console.log(nodes);
+    nodes.forEach(function(d, index) {
+
+    });
+
 
     //console.log(nodeByName.get("butanol").index);
 

@@ -1,0 +1,110 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2004",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"corn","size":8},
+		{"name":"gasoline","size":3},
+		{"name":"microwave","size":5}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"cellulose","size":14},
+		{"name":"energy crops","size":2},
+		{"name":"rapeseed","size":4},
+		{"name":"transesterification","size":9},
+		{"name":"woody biomass","size":3}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"catalysis","size":1},
+		{"name":"free fatty acid","size":3},
+		{"name":"pellets","size":2},
+		{"name":"poplar","size":1},
+		{"name":"pressing","size":7},
+		{"name":"textiles","size":5}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":21},
+		{"name":"biogasoline","size":2},
+		{"name":"forestry","size":4},
+		{"name":"gas cleaning","size":7},
+		{"name":"straw","size":7},
+		{"name":"wheat","size":8},
+		{"name":"wood chips","size":3}	]
+	},
+	{
+	"name":"12",
+	"children": [
+		{"name":"coking","size":4},
+		{"name":"methanol","size":17}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"bio-oil","size":7},
+		{"name":"gasification","size":26},
+		{"name":"pyrolysis","size":13}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agricultural waste","size":4},
+		{"name":"agriculture","size":4},
+		{"name":"bagasse","size":8},
+		{"name":"corn stover","size":8},
+		{"name":"hydrolysis","size":35},
+		{"name":"natural gas","size":9},
+		{"name":"organic waste","size":4},
+		{"name":"palm","size":4},
+		{"name":"stover","size":8},
+		{"name":"sugar","size":15}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"agricultural residues","size":12},
+		{"name":"biomass combustion","size":1},
+		{"name":"biomass gasification","size":9},
+		{"name":"blend","size":2},
+		{"name":"fischer-tropsch","size":5},
+		{"name":"paper","size":9},
+		{"name":"residues","size":26},
+		{"name":"sawdust","size":1},
+		{"name":"waste","size":21},
+		{"name":"willow","size":1},
+		{"name":"wood","size":9}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"anaerobic digestion","size":13},
+		{"name":"biodiesel","size":5},
+		{"name":"citrus residues","size":2},
+		{"name":"palm oil","size":4},
+		{"name":"sugarcane","size":3}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"barley","size":5},
+		{"name":"cellulosic biomass","size":4},
+		{"name":"cellulosic ethanol","size":30},
+		{"name":"enzymatic hydrolysis","size":16},
+		{"name":"ethanol","size":49},
+		{"name":"fermentation","size":27},
+		{"name":"grass","size":5},
+		{"name":"renewable fuel","size":10},
+		{"name":"sugarcane bagasse","size":3},
+		{"name":"waste water","size":1}]
+}
+]
+}
+]
+}

@@ -1,0 +1,124 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2006",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"corn","size":14},
+		{"name":"gasoline","size":3},
+		{"name":"seeds","size":1},
+		{"name":"solvents","size":4},
+		{"name":"vegetable oil","size":4},
+		{"name":"wheat straw","size":11}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"cellulose","size":6},
+		{"name":"energy crops","size":9},
+		{"name":"rapeseed","size":1},
+		{"name":"soy","size":8}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"agricultural biomass","size":1},
+		{"name":"free fatty acid","size":1},
+		{"name":"grain","size":9},
+		{"name":"husk","size":5},
+		{"name":"industrial waste","size":2},
+		{"name":"pellets","size":2}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":7},
+		{"name":"forestry","size":9},
+		{"name":"gas cleaning","size":2},
+		{"name":"straw","size":18},
+		{"name":"wheat","size":11},
+		{"name":"wood chips","size":9}	]
+	},
+	{
+	"name":"12",
+	"children": [
+		{"name":"methanol","size":38},
+		{"name":"waste oil","size":2}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"bio-oil","size":1},
+		{"name":"corn cob","size":8},
+		{"name":"forest residues","size":2},
+		{"name":"gasification","size":11},
+		{"name":"pyrolysis","size":1},
+		{"name":"sewage","size":3},
+		{"name":"waste vegetable oil","size":2}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agriculture","size":1},
+		{"name":"animal manure","size":8},
+		{"name":"bagasse","size":8},
+		{"name":"biofuels for transport","size":1},
+		{"name":"cobs","size":8},
+		{"name":"corn stover","size":7},
+		{"name":"hydrolysis","size":34},
+		{"name":"municipal solid waste","size":8},
+		{"name":"natural gas","size":8},
+		{"name":"palm","size":1},
+		{"name":"stover","size":7},
+		{"name":"sugar","size":12}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"agricultural residues","size":10},
+		{"name":"biomass combustion","size":2},
+		{"name":"biomass gasification","size":2},
+		{"name":"biopolymers","size":2},
+		{"name":"blend","size":2},
+		{"name":"liquefaction","size":1},
+		{"name":"manure","size":9},
+		{"name":"pal waste","size":2},
+		{"name":"paper","size":10},
+		{"name":"renewable electricity","size":2},
+		{"name":"residues","size":13},
+		{"name":"sawdust","size":8},
+		{"name":"sng","size":2},
+		{"name":"waste","size":18},
+		{"name":"wood","size":9}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"anaerobic digestion","size":1},
+		{"name":"biodiesel","size":11},
+		{"name":"sorghum","size":8},
+		{"name":"succinic acid","size":33},
+		{"name":"switchgrass","size":8}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"barley","size":8},
+		{"name":"barley straw","size":8},
+		{"name":"butanol","size":33},
+		{"name":"cellulosic biomass","size":1},
+		{"name":"cellulosic ethanol","size":14},
+		{"name":"ethanol","size":93},
+		{"name":"fermentation","size":72},
+		{"name":"grains","size":8},
+		{"name":"grass","size":8},
+		{"name":"msw","size":1},
+		{"name":"renewable fuel","size":4},
+		{"name":"rice straw","size":8},
+		{"name":"yeast","size":3}]
+}
+]
+}
+]
+}

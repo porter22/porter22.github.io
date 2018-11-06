@@ -1,0 +1,83 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2002",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"seed oil","size":1},
+		{"name":"seeds","size":2},
+		{"name":"vegetable oil","size":3}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"cellulose","size":1},
+		{"name":"rapeseed","size":1}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"catalysis","size":2},
+		{"name":"industrial waste","size":1},
+		{"name":"pressing","size":5}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":10},
+		{"name":"gas cleaning","size":4},
+		{"name":"pyrolysis oil","size":4},
+		{"name":"straw","size":3},
+		{"name":"wood chips","size":1}	]
+	},
+	{
+	"name":"12",
+	"children": [
+		{"name":"methanol","size":2},
+		{"name":"syngas","size":7}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"bio-oil","size":5},
+		{"name":"gasification","size":6},
+		{"name":"pyrolysis","size":9},
+		{"name":"syng","size":5}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agricultural waste","size":4},
+		{"name":"fast pyrolysis","size":4},
+		{"name":"municipal solid waste","size":4}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"electricity from biomass","size":5},
+		{"name":"manure","size":2},
+		{"name":"paper","size":1},
+		{"name":"residues","size":1},
+		{"name":"waste","size":9},
+		{"name":"wood","size":3}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"anaerobic digestion","size":5},
+		{"name":"biodiesel","size":4},
+		{"name":"rapeseed oil","size":1}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"ethanol","size":8},
+		{"name":"fermentation","size":6},
+		{"name":"msw","size":5},
+		{"name":"renewable fuel","size":4}]
+}
+]
+}
+]
+}

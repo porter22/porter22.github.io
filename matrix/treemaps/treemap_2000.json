@@ -1,0 +1,83 @@
+{
+"name":"treemap",
+"children": [
+{"name":"2000",
+"children": [
+{	"name":"4",
+	"children": [
+		{"name":"bark","size":1},
+		{"name":"wood waste","size":2}	]
+	},
+	{
+	"name":"5",
+	"children": [
+		{"name":"woody biomass","size":1}	]
+	},
+	{
+	"name":"7",
+	"children": [
+		{"name":"husk","size":1},
+		{"name":"pellets","size":3}	]
+	},
+	{
+	"name":"11",
+	"children": [
+		{"name":"biogas","size":7},
+		{"name":"eucalyptus","size":1},
+		{"name":"gas cleaning","size":9},
+		{"name":"pyrolysis oil","size":2},
+		{"name":"straw","size":5},
+		{"name":"wood chips","size":4}	]
+	},
+	{
+	"name":"13",
+	"children": [
+		{"name":"gasification","size":34},
+		{"name":"pyrolysis","size":3},
+		{"name":"rdif","size":2}	]
+	},
+	{
+	"name":"14",
+	"children": [
+		{"name":"agricultural waste","size":1},
+		{"name":"agriculture","size":2},
+		{"name":"hydrolysis","size":1},
+		{"name":"natural gas","size":2},
+		{"name":"sugar","size":1}	]
+	},
+	{
+	"name":"16",
+	"children": [
+		{"name":"agricultural residues","size":1},
+		{"name":"biomass combustion","size":5},
+		{"name":"biomass gasification","size":4},
+		{"name":"blend","size":2},
+		{"name":"manure","size":2},
+		{"name":"paper","size":4},
+		{"name":"residues","size":4},
+		{"name":"sawdust","size":2},
+		{"name":"waste","size":13},
+		{"name":"wood","size":12}	]
+	},
+	{
+	"name":"17",
+	"children": [
+		{"name":"landfill gas","size":11},
+		{"name":"switchgrass","size":2}	]
+	},
+	{
+	"name":"19",
+	"children": [
+		{"name":"bioethanol","size":1},
+		{"name":"ethanol","size":1},
+		{"name":"fermentation","size":4},
+		{"name":"grass","size":2},
+		{"name":"miscanthus","size":2},
+		{"name":"renewable fuel","size":3},
+		{"name":"urban wood","size":2},
+		{"name":"waste water","size":3}]
+}
+]
+}
+]
+}

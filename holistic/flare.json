@@ -1,0 +1,190 @@
+{
+    "name": "to clean floors",
+    "children": [{
+        "name": "to release clean air",
+        "children": [{
+            "name": "to transfer air",
+			         "coupling_id": 1,
+            "children": [{
+                "name": "AgglomerativeCluster",
+                "size": 3938
+            }, {
+                "name": "CommunityStructure",
+                "size": 3812
+            }, {
+                "name": "HierarchicalCluster",
+                "size": 6714
+            }, {
+                "name": "MergeEdge",
+                "size": 743
+            }]
+        }, {
+            "name": "to filter air",
+            "children": [{
+                "name": "BetweennessCentrality",
+                "size": 3534
+            }, {
+                "name": "LinkDistance",
+                "size": 5731
+            }, {
+                "name": "MaxFlowMinCut",
+                "size": 7840
+            }, {
+                "name": "ShortestPaths",
+                "size": 5914
+            }, {
+                "name": "SpanningTree",
+                "size": 3416
+            }]
+        }]
+    }, {
+        "name": "to move itself",
+        "children": [{
+            "name": "to navigate itself",
+            "children": [{
+                "name": "to confine to particular area",
+                "size": 891
+            }, {
+                "name": "to avoid obstacles",
+                "size": 2893
+            }, {
+                "name": "to move in desired path",
+                "size": 5103
+            }, {
+                "name": "to sense dust",
+                "size": 3677
+            }, {
+                "name": "to sense debris",
+                "size": 781
+            }, {
+                "name": "to avoid height",
+                "size": 4141
+            }, {
+                "name": "to follow wall",
+                "size": 933
+            }, {
+                "name": "to sense wheel drop",
+                "size": 933
+            }, {
+                "name": "to sense wheel rotation",
+                "size": 4141
+            }, {
+                "name": "to sense charging base",
+                "size": 933
+            }]
+        }, {
+            "name": "to generate motion",
+            "size": 1759,
+			"coupling_id":2
+        }]
+    }, {
+        "name": "to collect dust/debris",
+        "children": [{
+            "name": "to sweep dust (single brush)",
+            "size": 1616
+        }, {
+            "name": "to suck air and dust",
+            "size": 3891
+        }, {
+            "name": "to scoop dust/debris",
+            "children": [{
+                "name": "add",
+                "size": 593
+            }, {
+                "name": "and",
+                "size": 330
+            }, {
+                "name": "average",
+                "size": 287
+            }, {
+                "name": "count",
+                "size": 277
+            }, {
+                "name": "distinct",
+                "size": 292
+            }, {
+                "name": "div",
+                "size": 595
+            }, {
+                "name": "eq",
+                "size": 594
+            }, {
+                "name": "fn",
+                "size": 460
+            }, {
+                "name": "gt",
+                "size": 603
+            }, {
+                "name": "gte",
+                "size": 625
+            }, {
+                "name": "iff",
+                "size": 748
+            }, {
+                "name": "isa",
+                "size": 461
+            }, {
+                "name": "lt",
+                "size": 597
+            }, {
+                "name": "lte",
+                "size": 619
+            }, {
+                "name": "max",
+                "size": 283
+            }, {
+                "name": "min",
+                "size": 283
+            }, {
+                "name": "mod",
+                "size": 591
+            }, {
+                "name": "mul",
+                "size": 603
+            }, {
+                "name": "neq",
+                "size": 599
+            }, {
+                "name": "not",
+                "size": 386
+            }, {
+                "name": "or",
+                "size": 323
+            }, {
+                "name": "orderby",
+                "size": 307
+            }, {
+                "name": "range",
+                "size": 772
+            }, {
+                "name": "select",
+                "size": 296
+            }, {
+                "name": "stddev",
+                "size": 363
+            }, {
+                "name": "sub",
+                "size": 600
+            }, {
+                "name": "sum",
+                "size": 280
+            }, {
+                "name": "update",
+                "size": 307
+            }, {
+                "name": "variance",
+                "size": 335
+            }, {
+                "name": "where",
+                "size": 299
+            }, {
+                "name": "xor",
+                "size": 354
+            }, {
+                "name": "_",
+                "size": 264
+            }]
+        }]
+
+    }]
+}
