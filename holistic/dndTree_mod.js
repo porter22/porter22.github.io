@@ -1,26 +1,47 @@
 // Get JSON data from Habib and Komoto 2014
-treeJSON = d3.json("flare.json", function(error, treeData) {
-
-    // Calculate total nodes, max label length
-    var totalNodes = 0;
-    var maxLabelLength = 0;
-    // variables for drag/drop
-    var selectedNode = null;
-    var draggingNode = null;
-    // panning variables
-    var panSpeed = 200;
-    var panBoundary = 20; // Within 20px from edges will pan when dragging.
-    // Misc. variables
-    var i = 0;
-    var duration = 750;
-    var root;
-
+treeJSON = d3.json("flare.json", function(error, jsondata) {
+    console.log(jsondata);
     // size of the diagram
     var viewerWidth = $(document).width();
     var viewerHeight = $(document).height();
 
+    // Define the zoom function for the zoomable tree
+
+    function zoom() {
+        svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    }
+
+
+    // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+    var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
+
+    // define the baseSvg, attaching a class for styling and the zoomListener
+    var baseSvg = d3.select("#tree-container").append("svg")
+        .attr("width", viewerWidth)
+        .attr("height", viewerHeight)
+        .attr("class", "overlay")
+        .call(zoomListener);
+
+    for (var domainCounter = 0; domainCounter < jsondata.nodes.length; domainCounter++) {
+      console.log("jsondata.nodes.length:", jsondata.nodes.length);
+      var treeData = jsondata.nodes[domainCounter];
+      console.log(treeData);
+      // Calculate total nodes, max label length
+      var totalNodes = 0;
+      var maxLabelLength = 0;
+      // variables for drag/drop
+      var selectedNode = null;
+      var draggingNode = null;
+      // panning variables
+      var panSpeed = 200;
+      var panBoundary = 20; // Within 20px from edges will pan when dragging.
+      // Misc. variables
+      var i = 0;
+      var duration = 750;
+      var root;
+
     var tree = d3.layout.tree()
-        .size([viewerHeight, viewerWidth]);
+        .size([viewerHeight / jsondata.nodes.length, viewerWidth / jsondata.nodes.length]);
 
     // define a d3 diagonal projection for use by the node paths later on.
     var diagonal = d3.svg.diagonal()
@@ -91,15 +112,7 @@ treeJSON = d3.json("flare.json", function(error, treeData) {
         }
     }
 
-    // Define the zoom function for the zoomable tree
 
-    function zoom() {
-        svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
-
-
-    // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-    var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
 
     function initiateDrag(d, domNode) {
         draggingNode = d;
@@ -143,12 +156,6 @@ treeJSON = d3.json("flare.json", function(error, treeData) {
         dragStarted = null;
     }
 
-    // define the baseSvg, attaching a class for styling and the zoomListener
-    var baseSvg = d3.select("#tree-container").append("svg")
-        .attr("width", viewerWidth)
-        .attr("height", viewerHeight)
-        .attr("class", "overlay")
-        .call(zoomListener);
 
 
     // Define the drag listeners for drag/drop behaviour of nodes.
@@ -556,4 +563,5 @@ treeJSON = d3.json("flare.json", function(error, treeData) {
                     });
                 });
         });
+  }
 });
