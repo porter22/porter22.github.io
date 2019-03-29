@@ -173,7 +173,7 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
       console.log("domarray final:", domarray);
     }//end function
 
-    var distY = 50;
+    var distY = 30;
     var distX = 200;
 
     function calcNodePositionsY(domarray) {
@@ -211,43 +211,48 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
         }
       }*/
       //for (var j = 0; j < domarray.length; j++) {
-      for (var j = 1; j < domarray.length; j++) { //CHANGE FOR 0 WHEN DONE WITH TESTING ONE DOMAIN
+      for (var j = 0; j < domarray.length; j++) { //CHANGE FOR 0 WHEN DONE WITH TESTING ONE DOMAIN
         var rootNode = domarray[j].nodes[0][0];
-        console.log("root:", rootNode);
+        console.log("initial root:", rootNode);
 
-        initializeNodes(rootNode,0);
+        initializeNodes(rootNode,0,j, domarray[j].maxlevel);
+
+        console.log("initialized root:", rootNode);
 
         // assign initial X and Mod values for nodes
         calcInitNodeY(rootNode); //firstwalk
 
         console.log("Calculating Initial Positions Completed -----------------------");
+        console.log(rootNode);
         // ensure no node is being drawn off screen
         checkAllChildrenOnScreen(rootNode);
 
         // assign final X values to nodes
         calculateFinalPositions(rootNode, 0);
 
+        //TODO: write function that vertically centers trees for each domain
+
       }
       console.log("domarray after spaceY:", domarray);
     }// end function
 
-    function initializeNodes(node, depth) {
-      //console.log("Initializing nodes:", node);
+    function initializeNodes(node, depth, domainindex, domainmaxlevel) {
+      console.log("Initializing node ", node);
       node.positionY = -1;
-      node.positionX = depth;
+      console.log("positionY set to ", node.positionY);
+      node.positionX = depth + domainindex*distX*domainmaxlevel;
       node.mod = 0;
 
       var children = getChildren(node.nodeid,nodes, links);
       children.forEach(function(child) {
-        //console.log("child:",child);
-        //initializeNodes(child,depth + 1);
-        initializeNodes(child,depth + distX);
+        initializeNodes(child,depth + distX,domainindex, domainmaxlevel);
       });
     } //end function
 
     function calculateFinalPositions(node, modsum) {
       console.log("Calculating Final Positions for node:", node);
       node.positionY += modsum;
+      console.log("positionY set to ", node.positionY);
       modsum += node.mod;
 
       var children = getChildren(node.nodeid,nodes, links);
@@ -264,8 +269,6 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
         node.width = orderByDescendingWidth(children)[0].width;
         node.height = orderByDescendingWidth(children)[0].height;
       }
-
-
       /*
       node.X += modSum;
       modSum += node.Mod;
@@ -293,29 +296,31 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
     }
     //https://rachel53461.wordpress.com/2014/04/20/algorithm-for-drawing-trees/
     function calcInitNodeY(node) {
-      console.log("Calculating Initial Positions for node:", node);
+      console.log("Calculating Initial Positions for node:", node.name);
       //console.log("lvlnode:",node);
       var children = getChildren(node.nodeid,nodes, links);
+      console.log("children:", children);
       children.forEach(function(child) {
         //console.log("child:",child);
         calcInitNodeY(child);
       });
 
-      //console.log("children:", children);
+
       var prevSibling = getPrevSibling(node);
+      console.log("prevSibling:", prevSibling);
 
       //if no children
       if (children.length == 0) {
-        //console.log("no children code.. ");
-
-        //console.log("prevSibling:",prevSibling);
+        console.log("no children for node:", node.name);
         //if there is a previous sibling
         if (prevSibling) {
+          console.log("has prevSibling");
           node.positionY = getPrevSibling(node).positionY + distY;
         } else { //if node is the first sibling/topmost node
-          //console.log("topmost");
+          console.log("no prevSiblings");
           node.positionY = 0;
         }
+        console.log("set positionY to:", node.positionY);
       } //end if no children
       else if (children.length == 1){
         //console.log("1 child code.. ");
@@ -331,12 +336,16 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
         } */
         if (!prevSibling) {
           node.positionY = 0;
+          console.log("positionY set to ", node.positionY);
         } else {
           node.positionY = prevSibling.positionY + distY;
+          console.log("positionY set to ", node.positionY);
           node.mod = children[0].positionY;
+          console.log("mod changed to:", node.mod);
         }
       } //end if one child
-      else {
+      else { //if more than one child
+        console.log("more than one child of node:", node.name);
         /*var leftChild = node.GetLeftMostChild();
         var rightChild = node.GetRightMostChild();
         var mid = (leftChild.X + rightChild.X) / 2;
@@ -361,11 +370,15 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
         //console.log("prevSibling:", prevSibling);
 
         if (!prevSibling) { //if node is leftmost(upmost)
-          //console.log("no previous siblings for node:", node);
+          console.log("no previous siblings for node:", node.name);
           node.positionY = mid;
+          console.log("positionY set to ", node.positionY);
         } else {
           node.positionY = prevSibling.positionY + distY;
+          console.log("positionY set to ", node.positionY);
           node.mod = node.positionY - mid;
+          console.log("set positionY to:", node.positionY);
+          console.log("set mod to:", node.mod);
         }
       } //end if several children
 
@@ -382,24 +395,33 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
 
     function checkForConflicts(node) {
       console.log("Checking for conflicts ....", node);
-      var minDist = distY;
+      var minDistance = distY;
       var shiftValue = 0;
 
       var nodeContour = {}; //create new dictionary
       nodeContour = getLeftContour(node, 0, nodeContour);
 
-      console.log("nodeContour:", nodeContour);
+
 
       var sibling = getLeftMostSibling(node);
+      //console.log("LeftMostSibling:", sibling);
 
       while (sibling != null && sibling != node) {
         var siblingContour = {};
         siblingContour = getRightContour(sibling, 0, siblingContour);
 
+        console.log("nodeContour:", nodeContour);
+        console.log("siblingContour:", siblingContour);
+
         var siblingkeysmax = Object.keys(siblingContour).reduce(function(a, b){ return siblingContour[a] > siblingContour[b] ? a : b });
         var nodekeysmax = Object.keys(nodeContour).reduce(function(a, b){ return nodeContour[a] > nodeContour[b] ? a : b });
 
-        for (var level = node.positionX + distX; level <= Math.min(siblingkeysmax, nodekeysmax); level++) {
+        console.log("siblingkeysmax:", siblingkeysmax);
+        console.log("nodekeysmax:", nodekeysmax);
+        console.log("init level:", node.positionX + distX);
+        //for (var level = node.positionX + distX; level <= Math.min(siblingkeysmax, nodekeysmax); level++) {
+        for (var level = node.positionX + distX; level <= siblingkeysmax; level++) {
+          console.log("level:", level);
           var distance = nodeContour[level] - siblingContour[level];
           if (distance + shiftValue < minDistance)
               shiftValue = minDistance - distance;
@@ -465,6 +487,7 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
 
       if (shiftAmount > 0) {
           node.positionY += shiftAmount;
+          console.log("positionY set to ", node.positionY);
           node.mod += shiftAmount;
       }
       /*var nodeContour = new Dictionary<int, float>();
@@ -575,8 +598,9 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
 
     //get previous sibling
     function getPrevSibling(node) {
+      //console.log("getPrevSibling function for node...", node.name);
       var parentNode = getParent (node.nodeid, nodes, links);
-      //console.log("parentNode:", parentNode);
+      //console.log("   parentNode:", parentNode);
       if (parentNode) {
         var siblings =  getChildren (parentNode.nodeid, nodes, links);
         //console.log("siblings:", siblings);
@@ -604,7 +628,6 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
       }
     }
 
-
     //takes an array of nodes as an input, returns the maximum level for that array
     function getMaxLevels(domainObj) {
       //console.log("maxlevel domainnodes:", domainObj.nodes);
@@ -617,6 +640,7 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
       return maxlevel;
     }
 
+    //MAIN FLOW STARTS HERE
     var domarray = getDomainArray();
 
     calcDomainPositionsX(domarray);
@@ -665,6 +689,21 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
     var elemEnter = elem.enter()
         //.attr("transform", function(d){return "translate("+d.x+",80)"})
 
+    function getNodeIndexByName(nodename) {
+      //console.log("getNodeIndexByName function...");
+      //console.log("nodes:", nodes);
+      //console.log("nodename:", nodename);
+      for (var j = 0; j < nodes.length; j++) {
+        //console.log("domainelement.nodes[j].id:", domainelement.nodes[j].nodeid, "nodeid:", nodeid);
+        if (nodename == nodes[j].name) {
+          //iterate within that domain and count how many nodes are there at that level
+            //console.log("return nodeindex:", j);
+            return j;
+        }
+      }
+//      return null;
+    }
+
     function getChildren(nodeindex, nodes, links) {
     //Given a node index, returns a list of children for this node
         //go through each link
@@ -675,11 +714,12 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
             //check level of nodes[link.source] - if level is lower than current node (nodes[nodeindex]), then add to the children list
         children = [];
         //console.log("current node", nodes[nodeindex].name);
+        //console.log("links:", links);
         for (var j = 0; j < links.length; j++) {
           link = links[j];
           //console.log(link);
-          source = link.source;
-          target = link.target;
+          source = getNodeIndexByName(link.source);
+          target = getNodeIndexByName(link.target);
           if (nodes[target].domain == nodes[nodeindex].domain && nodes[source].domain == nodes[nodeindex].domain) {
             if (source == nodeindex) {
               //console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
@@ -688,12 +728,6 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
                 children.push(nodes[target]);
             }//if
             if (target == nodeindex) {
-              /*console.log("nodeindex:",nodeindex);
-              console.log("nodes:",nodes);
-              console.log("nodes[nodeindex].name",nodes[nodeindex].name);
-              console.log("nodes[source].name",nodes[source].name);
-              console.log(nodeindex,nodes[nodeindex].name, nodes[source].name, nodes[source].level);
-              */
               if (nodes[source].level > nodes[nodeindex].level)
                 //put into children list
                 children.push(nodes[source]);
@@ -709,8 +743,8 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
       var parent = null;
       for (j = 0; j < links.length; j++) {
         link = links[j];
-        source = link.source;
-        target = link.target;
+        source = getNodeIndexByName(link.source);
+        target = getNodeIndexByName(link.target);
         if (source == nodeindex) {
           //console.log(link);
           //console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
@@ -1053,10 +1087,10 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
       links.forEach(function(link){
           //console.log(link, link.source, nodes[link.source].name, nodes[link.source].positionX);
           var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20}];//arbitrary
-          lineData[0].x = nodes[link.source].positionX
-          lineData[0].y = nodes[link.source].positionY
-          lineData[1].x = nodes[link.target].positionX
-          lineData[1].y = nodes[link.target].positionY
+          lineData[0].x = nodes[getNodeIndexByName(link.source)].positionX
+          lineData[0].y = nodes[getNodeIndexByName(link.source)].positionY
+          lineData[1].x = nodes[getNodeIndexByName(link.target)].positionX
+          lineData[1].y = nodes[getNodeIndexByName(link.target)].positionY
           //console.log("lineData", lineData);
 
           /*var lineFunction = d3.svg.line.radial()
@@ -1097,8 +1131,8 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
          var lineGraph = elemEnter.append("path")
                                      .attr('d', linkVertical(lineData)) //THIS IS BEING TESTED
                                      //.attr("id", "source:" + link.source + "," + "target:" + link.target)
-                                     .attr("source", link.source)
-                                     .attr("target", link.target)
+                                     .attr("source", getNodeIndexByName(link.source))
+                                     .attr("target", getNodeIndexByName(link.target))
                                      .attr("class", "edges")
                                      .attr("stroke", "blue")
                                      .attr("stroke-width", 2)
