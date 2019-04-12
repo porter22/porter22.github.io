@@ -141,11 +141,31 @@
     { "source": "weight sensor 45", "target": "mechanical switch 22" },
     { "source": "weight sensor 45", "target": "spring 23" },
     { "source": "line tracker 47", "target": "tape line 24" },
-    { "source": "line tracker 47", "target": "tracking sensor 25" },
-    { "source": "robot 56", "target": "to store bottles 0" }
+    { "source": "line tracker 47", "target": "tracking sensor 25" }
   ],
   "traces": [
-    { "nodeids":"57,52,34,0,16,22" },
-    { "nodeids":"10,8,4" }
+    { "nodeids":"54,21" },
+    { "nodeids":"40,13" },
+    { "nodeids":"45,13" },
+    { "nodeids":"14,46" },
+    { "nodeids":"15,47" },
+    { "nodeids":"15,48" },
+    { "nodeids":"15,52" },
+    { "nodeids":"16,53" },
+    { "nodeids":"17,56" },
+    { "nodeids":"18,58" },
+    { "nodeids":"19,57" },
+    { "nodeids":"20,54" },
+    { "nodeids":"22,54" },
+    { "nodeids":"23,54" },
+    { "nodeids":"24,63" },
+    { "nodeids":"25,59" },
+    { "nodeids":"26,60" },
+    { "nodeids":"27,61" },
+    { "nodeids":"27,38" },
+    { "nodeids":"27,39" },
+    { "nodeids":"28,59" }
+
+
   ]
 }
