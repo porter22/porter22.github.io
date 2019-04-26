@@ -7,33 +7,22 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
     var viewerWidth = $(document).width();
     var viewerHeight = $(document).height();
 
-    var zoomWidth = 800;
-    var zoomHeight = 600;
-
     // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-    var zoomListener = d3.behavior.zoom().scaleExtent([0.01, 3]).on("zoom", zoom);
+    var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
 
     // define the baseSvg, attaching a class for styling and the zoomListener
-    var baseSvg = d3.select("#tree-container").append("svg")
+    var baseSvg = d3.selectAll(".tree-container").append("svg")
         .attr("width", viewerWidth)
         .attr("height", viewerHeight)
         .attr("class", "overlay")
         .call(zoomListener);
-        //.call(zoomListener);
-        //.attr("transform", "translate("+zoomWidth+","+zoomHeight+")" + "scale(0.8,0.8)");
-
-    baseSvg.on("dblclick.zoom", null);
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
     var svgGroup = baseSvg.append("g");
 
-    svgGroup.attr("transform", "translate(" + 70 + "," + 100 + ")scale(0.7,0.7)")
-            .call(zoomListener);
-
     function zoom() {
         svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
-
 
     var radius = 10;
 
@@ -1391,7 +1380,7 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
           domainmaxlevel = getDomainElement(nodedomain,domarray).maxlevel;
           //d.positionX = viewerWidth - domainstartX - hsep*(domainmaxlevel - nodelevel);
           //console.log("domainstartX:",  domainstartX, "posX:",  d.positionX );
-          return d.positionX + radius + 2;
+          return d.positionX + 5;
       })
       .attr("dy", function(d, i) {
           return d.positionY;
@@ -1405,6 +1394,5 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
           //return d.name + " pos:" + d.positionY + " spaceY:" + d.spaceY})
           return d.name + ":" + d.nodeid})
       .attr("stroke", "black")
-      .attr("stroke-width", 1)
-      .style("font-size", 22);
+      .attr("stroke-width", 1);
 });
