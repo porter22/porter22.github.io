@@ -45,31 +45,55 @@
 	#responseButton {
 		display: none;
 	}
+
+	#tempStorage {
+		display: none;
+	}
+
+	#radiowrapper {
+		display: none;
+	}
+
+	#numberwrapper {
+		display: none;
+	}
+
+
 </style>
 <body>
 	<p>Instructions for the experiment.
 		<a href="#" id="startExperiment">Start Experiment</a>
 	</p>
 
-		<div id="trial1" class="trialDiv">
-			<p>Trial 1 text. </p>
-    	<div id="tree-container1"></div>
+		<button type="button" id="responseButton">Submit current answer</button>
+
+		<div id="trial0" class="trialDiv">
+			<p>Trial 0 text. </p>
+    	<div id="tree-container0"></div>
 		</div>
 
-		<div id="trial2" class="trialDiv">
-			<p>Trial 2 text. </p>
-    	<div id="tree-container2"></div>
+		<div id="tempStorage">
+			<p>tempStorage </p>
 		</div>
 
-		<div id="trial3" class="trialDiv">
-			<p>Trial 3 text. </p>
-    	<div id="tree-container3"></div>
+		<div id="radiowrapper">
+		  <label for="yes_no_radio">Please select answer below:</label>
+			<p>
+				<input type="radio" name="yes_no">Yes</input>
+			</p>
+			<p>
+				<input type="radio" name="yes_no">No</input>
+			</p>
+		</div>
+
+		<div id="numberwrapper">
+			<input type="number" name="quantity" min="0" max="50" />
 		</div>
 
 		<button type="button" id="responseButton">Response Button</button>
 
 </body>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.0.0/d3.min.js"></script>
 <script>
 
@@ -234,47 +258,803 @@ var json = {
 		{ "nodeids":"22,54" },
 		{ "nodeids":"23,54" },
 		{ "nodeids":"24,63" },
-		{ "nodeids":"25,59" },
+		{ "nodeids":"25,62" },
 		{ "nodeids":"26,60" },
 		{ "nodeids":"27,61" },
 		{ "nodeids":"27,38" },
 		{ "nodeids":"27,39" },
-		{ "nodeids":"28,59" }
+		{ "nodeids":"28,59" },
+		{ "nodeids":"0,27" },
+    { "nodeids":"1,20" },
+    { "nodeids":"1,21" },
+    { "nodeids":"1,22" },
+    { "nodeids":"1,15" },
+    { "nodeids":"1,16" },
+    { "nodeids":"2,26" },
+    { "nodeids":"3,23" },
+    { "nodeids":"4,28" },
+    { "nodeids":"6,14" },
+    { "nodeids":"9,15" }
 
 	]
 }
 
 var clickedElemList = [];
-var curTrial = 1;
-var nTrials = 4;
+var curTrial = 0;
+var nTrials = 5;
 var taskType = 5;
+var taskTypes = 5;
 var startTrialTime;
-function buttonClicked() {
+
+var nodes = json.nodes;
+var treelinks = json.links;
+var traces = json.traces;
+
+//TODO: fix tracing - it stops when it reaches Requirements domain
+//in task 2 - make sure that answers yes and no are 50/50
+//in task 5 - make sure that rootNodes are not in the question, because the users will have to click on all of them
+
+var globaldomains = ["structural","functional","requirements"];
+
+//add IDs to nodes
+for (j = 0; j < nodes.length; j++) {
+	nodes[j].nodeid = j;
+}
+
+console.log("initial nodes:", nodes);
+
+var userTraces = getTracesFromFile(); //return global array of unordered full traces
+//trace1: source, p1, p2, p3,..., target
+//trace2: source, p1, p2, p3,..., target
+
+//TODO: write function that combines traces
+//var srtTraces = sortTracesByDomainAndLevel(userTraces);
+
+//console.log("srtTraces: ", srtTraces);
+
+//var srtlvlTraces = sortTracesByLevels(srtTraces);
+//var cmbTraces = combineAllTraces(srtTraces);
+
+//combineTraces(srtTraces);
+//getTracingDictFullArrayTwo(userTraces, nodes);
+
+//dictionary, where key = nodeID, value = list of connected nodes from traces
+//var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
+var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
+var tracingDictFullTwo = getTracingDictFullArrayTwo(userTraces, nodes)
+console.log("tracingDictFull: ", tracingDictFull);
+
+//TODO: combine traces within tracingDictFullTwo array
+//first, sort by domains and levels
+//second, find common trace slices, add nodes in those slices to tracingDictFullTwo[j]
+var sortedTracingDictFullTwo = sortTracesByDomainAndLevel(tracingDictFullTwo);
+
+var sortedMergedTracingDictFullTwo = mergeTracesWithinTracingDictFullTwo(sortedTracingDictFullTwo);
+
+//array of links from all traces
+//var tracelinks = getLinksFromTraces(userTraces);
+var tracelinks = getLinksFromTraces(userTraces);
+console.log("all tracelinks:", tracelinks);
+
+//console.log("all treelinks: ", treelinks);
+//we distinguish between hierarchical links and links that are generated from the traces
+//rewrite this so that it adds only links that are not present in treelinks
+var links = treelinks.concat(tracelinks);
+
+links = inverseLinks(links);
+//var links = mergeLinks(treelinks, tracelinks);
+
+//console.log("merged links: ", links);
+//inverse links, if their source is larger level, that target
+//and if within same domain
+function inverseLinks(links) {
+	var resultlinks = [];
+	for (var i = 0; i < links.length; i++) {
+		source = getNodeIndexByName(links[i].source);
+		target = getNodeIndexByName(links[i].target);
+		//console.log("current link:", links[i]);
+		if (nodes[source].domain == nodes[target].domain && nodes[source].level > nodes[target].level) {
+			links[i].source = nodes[target].name;
+			links[i].target = nodes[source].name;
+			//console.log("link: " + links[i] + " have changed")
+		}
+	}
+	return links;
+}
+
+//combine separate traces to create long traces
+function mergeTracesWithinTracingDictFullTwo(tracingDictFull) {
+console.log("mergeTracesWithinTracingDictFullTwo...");
+//go through each item in the tracingDictFull
+	var resultDict = [];
+	for (var i = 0; i < tracingDictFull.length; i++) {
+		resultDict[i] = [];
+		var nodetrace1 = tracingDictFull[i];
+		for (var j = 0; j < tracingDictFull.length; j++) {
+			if (i==j)
+				continue;
+			var nodetrace2 = tracingDictFull[j];
+		//for each domain in nodetrace dict,
+			for (var k = 0; k < globaldomains.length; k++) {
+				var curdomain = globaldomains[k];
+				/*console.log("curdomain:", curdomain);
+				console.log("nodetrace1[curdomain]:", nodetrace1[curdomain]);
+				console.log("nodetrace2[curdomain]:", nodetrace2[curdomain]);*/
+				if (nodetrace1[curdomain] == nodetrace2[curdomain]) {
+					var merged = mergeTwoTraces(nodetrace1, nodetrace2);
+				}
+			}
+		}
+		resultDict[i].push(merged);
+	}
+	return resultDict;
+
+	/*for (var l = 0; l < globaldomains.length; l++) {
+		for (var j = 0; j < sortedTraces.length; j++) {
+			var trace1 = sortedTraces[j];
+			console.log("trace1[globaldomains[l]]", trace1[globaldomains[l]]);
+			for (var k = 0; k < sortedTraces.length; k++) {
+				var trace2 = sortedTraces[k];
+				console.log("trace2[globaldomains[l]]", trace2[globaldomains[l]]);
+				if (trace1[globaldomains[l]] == trace2[globaldomains[l]] && j!=k && trace1[globaldomains[l]] != []) {
+					mergeTwoTraces(trace1, trace2);
+				}
+			}
+		}
+	}*/
+}
+
+function mergeTwoTraces(trace1, trace2) {
+	console.log("mergeTwoTraces...");
+	//console.log("trace1:", trace1);
+	//console.log("trace2:", trace2);
+}
+
+function sortTracesByDomainAndLevel(tracingDict) { //second version of sortByDomain
+	console.log("sortTracesByDomainAndLevel...");
+	var resultedarray = [];
+	//this sorts only by domains, but not by levels
+	for (var j = 0; j < tracingDict.length; j++) {
+		//console.log("traceArray[j]:",traceArray[j]);
+		var tracedomnodes = {};
+		for (var k = 0; k < globaldomains.length; k++) {
+			tracedomnodes[globaldomains[k]] = [];
+			for (var l = 0; l < tracingDict[j].length; l++) {
+				if (tracingDict[j][l].domain == globaldomains[k]) {
+					tracedomnodes[globaldomains[k]].push(tracingDict[j][l]);//array that contains nodes with one trace, belonging to one domain
+					//semiresultedarray.push(traceArray[j]);
+				}
+			}
+			tracedomnodes[globaldomains[k]].sort(compareLevels);
+		}
+		//console.log("tracedomnodes:",tracedomnodes);
+		resultedarray.push(tracedomnodes);
+	}
+	//console.log("resultedsortedarray:",resultedarray);
+	return resultedarray;
+} //end function
+
+//sorts nodes according to their levels
+//https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value
+//usage: objs.sort( compare );
+function compareLevels( a, b ) {
+  if ( a.level < b.level ){
+    return -1;
+  }
+  if ( a.level > b.level ){
+    return 1;
+  }
+  return 0;
+}
+
+//given full trace array, sorts by domains REQS - FUNCTIONS - STRUCTURE
+function sortByDomain(traceArray) {
+	//console.log("sortByDomain..");
+	//first, fill dict where key is domain name,
+	//value is array of nodes in that domain
+	var domaintraces = {};
+	//var resultarray = [];
+	for (var j = 0; j < traceArray.length; j++) {
+			if (domaintraces[traceArray[j].domain] != null) {
+				domaintraces[traceArray[j].domain].push(traceArray[j]);
+			} else {
+				domaintraces[traceArray[j].domain] = [];
+				domaintraces[traceArray[j].domain].push(traceArray[j]);
+			}
+	}
+	//console.log("domaintraces:", domaintraces);
+	//second, go through global array of domain names with correct order,
+	//create result array based on this order
+	var resultarray = domaintraces[globaldomains[0]];
+	if (resultarray == null) {
+		resultarray = [];
+	}
+	for (var j = 1; j < globaldomains.length; j++) {
+		//console.log("domaintraces[globaldomains[j]]", domaintraces[globaldomains[j]]);
+		//console.log("globaldomains[j]", globaldomains[j]);
+		resultarray = resultarray.concat(domaintraces[globaldomains[j]]);
+	}
+	resultarray.pop(); //HACK: remove last "undefined" element
+	/*for (var j = 0; j < resultarray.length; j++) {
+		if (resultarray[j] == null)
+			resultarray.pop();
+	}*/
+
+	console.log("sorted domaintraces:", resultarray);
+	return resultarray;
+}
+
+//function that returns an array of source-targets from the traces
+function getLinksFromTraces(userTraces) {
+	//console.log("getLinksFromTraces ... ");
+	var tracelinks = [];
+	for (var j = 0; j < userTraces.length; j++) {
+		var fulltraceArray = userTraces[j];
+		//sort by domains, so that edges go starting from right to left
+		fulltraceArray = sortByDomain(fulltraceArray);
+		//console.log("fulltraceArray:", fulltraceArray);
+
+		//for each node in trace, create link from this node, to next one
+		for (var k = 0; k < fulltraceArray.length - 1; k++) {
+			var tracelink = {};
+			tracelink.source = fulltraceArray[k].name;
+			tracelink.target = fulltraceArray[k+1].name;
+			tracelinks.push(tracelink);
+		}
+	}
+	return tracelinks;
+}
+
+function getTracingDictFullArrayTwo (userTraces, nodes) { //second version
+	var resultarray = [];
+	for (var j = 0; j < nodes.length; j++) {
+		resultarray[j] = [];
+		//iterate all traces, find traces that contain this node
+		//extract all nodes from these traces, merge them into one array
+		//remove duplicates
+		for (var k = 0; k < userTraces.length; k++) {
+			var trace = userTraces[k];
+			var tracenodeids = getNodeIDsFromTrace(trace);
+			//console.log("fulltraceArray:", fulltraceArray);
+			if (tracenodeids.indexOf(nodes[j].nodeid) != -1) { //if node is in trace, add all tracenodes to the resultarray[j]
+				for (var l = 0; l < tracenodeids.length; l++) {
+					if (resultarray[j].indexOf(nodes[tracenodeids[l]]) == -1) {
+						resultarray[j].push(nodes[tracenodeids[l]]); //we push node that corresponds to the nodeid in the trace
+					}
+				}
+			}
+		}
+	}
+	console.log("resultarray:", resultarray);
+	return resultarray;
+}
+
+//takes an array of full traces,
+// returns a dict, where key = nodeID, value = list of connected nodes from traces
+function getTracingDictFullArray (userTraces, nodes) {
+	//console.log("getTracingDictFullArray...");
+	//console.log("fulltraceArray:", fulltraceArray);
+	var resultarray = [];
+
+	for (var j = 0; j < nodes.length; j++) {
+		resultarray[j] = [];
+		for (var k = 0; k < userTraces.length; k++) {
+			var fulltraceArray = userTraces[k];
+			//console.log("fulltraceArray:", fulltraceArray);
+			var tracenodeids = getNodeIDsFromTrace(fulltraceArray);
+			//console.log("tracenodeids:", tracenodeids);
+
+			//if nodeid is in tracenodeid list, assign or push fullTraceArray
+			if (tracenodeids.indexOf(nodes[j].nodeid) != -1) {
+				//console.log("nodes[j]:", nodes[j], "is in tracenodeids", tracenodeids);
+				//console.log("resultarray[j]", resultarray[j]);
+				resultarray[j].push(fulltraceArray);
+			}
+		}
+	}
+	//console.log("resultarray:", resultarray);
+	return resultarray;
+}
+
+//gets a trace, returns an array of nodeids
+function getNodeIDsFromTrace(fulltrace) {
+	//console.log("getNodeIDsFromTrace...");
+	//console.log("fulltrace...", fulltrace);
+	var resultarray = [];
+	for (var j = 0; j < fulltrace.length; j++) {
+		resultarray.push(fulltrace[j].nodeid);
+	}
+	return resultarray;
+}
+
+//gets a trace array, returns an array of nodeids
+function getNodeIDsFromTraceArray(traceArray) {
+	console.log("getNodeIDsFromTraceArray...");
+	var resultarray = [];
+	for (var j = 0; j < traceArray.length; j++) {
+		for (var k = 0; k < traceArray[j].length; k++) {
+			resultarray.push(traceArray[j][k].nodeid);
+		}
+	}
+	return resultarray;
+}
+
+//takes strings of user defined traces from the file,
+//transforms them into array of full traces
+function getTracesFromFile () {
+	var resultarray = [];
+	for (var k = 0; k < traces.length; k++) {
+			//take each trace and make it full
+			tracenodes = traces[k].nodeids.split(",");
+			//console.log("tracenodes:", tracenodes);
+			var fulltrace = getFullTraceFromShortTrace(tracenodes);
+			//console.log("fulltrace:", fulltrace);
+			resultarray.push(fulltrace);
+	}
+	return resultarray;
+}
+
+//takes a user defined route in the form of array of two elements,
+//translates it to full route with all nodes along the route
+function getFullTraceFromShortTrace(traceArray) {
+	//console.log("getFullTraceArray...");
+	var fullTraceArray = [];
+	//we assume that array is sorted
+	for (var j = 0; j < traceArray.length; j++) {
+		var curnode = traceArray[j];
+		//console.log("current node:", curnode);
+		var domroot = getDomainRoot(nodes[curnode], []);
+		domroot.unshift(nodes[curnode]);
+		//console.log("domroot:", domroot);
+		//add all connected nodes within one domain to the overall tracing array
+		fullTraceArray = fullTraceArray.concat(domroot);
+	}
+	//console.log("fullTraceArray: ", fullTraceArray);
+	return fullTraceArray;
+}
+
+//returns an array of all the ancestors of that node within domain
+function getDomainRoot(node, resultarray) {
+	//console.log("getDomainRoot for node:", node);
+	//console.log("nodeid:", node.nodeid);
+	var parent = getParent(node.nodeid, nodes, treelinks);
+	//console.log("parent:", parent);
+	if (parent != null) {
+		//console.log("parent domain:", parent.domain,"node domain:", node.domain);
+		if (parent.domain == node.domain) {
+			resultarray.push(parent);
+			//console.log("resultarray after push:", resultarray);
+			resultarray = getDomainRoot(parent, resultarray);
+		}
+	}
+	return resultarray;
+}
+
+function getDomainArray() {
+	domarray = [];
+	domnames = [];
+	for (j = 0; j < nodes.length; j++) {
+		domindex = domnames.indexOf(nodes[j].domain);
+		if (domindex != -1) {
+			domarray[domindex].nodes.push(nodes[j]);
+	} else {
+			domnames.push(nodes[j].domain);
+			var domobj = {};
+			domobj.name = nodes[j].domain;
+			domobj.nodes = [];
+			domobj.nodes.push(nodes[j]);
+			domarray.push(domobj);
+			//console.log("domnames:", domnames);
+			//console.log("domarray:", domarray);
+		}
+	} //end for loop
+	//console.log("domarray:", domarray);
+	return domarray;
+}
+
+//sort domain array by levels, where each array element contains set of nodes for that level
+function sortDomainArray(domarray) {
+	//console.log("inarray", domarray);
+	var outarray = domarray;
+		for (var j = 0; j < domarray.length; j++) {
+			var domnodes = domarray[j].nodes;
+			//create array with maxlevel number of dimensions
+			var maxlvl = domarray[j].maxlevel;
+
+			var resultarray = createNDimArray([maxlvl,1]);
+			//console.log("resultarray:", resultarray);
+			for (var k = 0; k < domnodes.length; k++) {
+				var nodelevel =  domnodes[k].level;
+				if (resultarray[nodelevel - 1] == null) {
+					resultarray[nodelevel - 1] = [];//.push(domnodes[k]);
+				} else {
+					resultarray[nodelevel - 1].push(domnodes[k]);
+				}
+			}
+			//remove first null element
+			for (var k = 0; k < resultarray.length; k++)
+				resultarray[k].shift();//removes first null element
+			//console.log("domain:", domarray[j].name, "resultarray after", resultarray);
+			outarray[j].nodes = resultarray;
+		}
+		//console.log("outarray", outarray);
+		return outarray;
+}
+
+//stackoverflow.com/questions/12588618/javascript-n-dimensional-array-creation
+function createNDimArray(dimensions) {
+ var ret = undefined;
+ if(dimensions.length==1){
+		ret = new Array(dimensions[0]);
+		for (var i = 0; i < dimensions[0]; i++)
+				ret[i]=null; //or another value
+		return ret;
+ }
+ else{
+		//recursion
+		var rest = dimensions.slice(1);
+		ret = new Array(dimensions[0]);
+		for (var i = 0; i < dimensions[0]; i++)
+				ret[i]=createNDimArray(rest);
+		return ret;
+ }
+}
+
+function getParent(nodeindex, nodes, treelinks) {
+//  console.log("treelinks:", treelinks);
+//      console.log("nodeindex:", nodeindex);
+	var parent = null;
+	for (j = 0; j < treelinks.length; j++) {
+		link = treelinks[j];
+		source = getNodeIndexByName(link.source);
+		target = getNodeIndexByName(link.target);
+		if (source == nodeindex) {
+			//console.log(link);
+			//console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
+			if (nodes[target].level < nodes[nodeindex].level && nodes[target].domain == nodes[nodeindex].domain)
+				//put into children list
+				parent = nodes[target];
+				//console.log("node: ", nodes[nodeindex], "target: ", nodes[target]);
+		}//if
+		if (target == nodeindex) {
+			//console.log(link);
+			//console.log(nodeindex,nodes[nodeindex].name, nodes[source].name, nodes[source].level);
+			if (nodes[source].level < nodes[nodeindex].level && nodes[source].domain == nodes[nodeindex].domain)
+				//put into children list
+				parent = nodes[source];
+				//console.log("node: ", nodes[nodeindex], "source: ", nodes[source]);
+		}//if
+	}//for loop
+
+	//TODO: Make sure that parent belongs to the same domain as a child
+	return parent
+}
+
+function getNodeIndexByName(nodename) {
+	//console.log("getNodeIndexByName function...");
+	//console.log("nodes:", nodes);
+	//console.log("nodename:", nodename);
+	for (var j = 0; j < nodes.length; j++) {
+		//console.log("domainelement.nodes[j].id:", domainelement.nodes[j].nodeid, "nodeid:", nodeid);
+		if (nodename == nodes[j].name) {
+			//iterate within that domain and count how many nodes are there at that level
+				//console.log("return nodeindex:", j);
+				return j;
+		}
+	}
+//      return null;
+}
+
+function getChildren(nodeindex, nodes, treelinks) {
+//Given a node index, returns a list of children for this node
+		//go through each link
+			//if link.source == nodeindex
+				//check level of nodes[link.target]
+				//- if level is lower than current node (nodes[nodeindex]), then add to the children list
+			//if link.target == nodeindex
+				//check level of nodes[link.source] - if level is lower than current node (nodes[nodeindex]), then add to the children list
+		children = [];
+		//console.log("current node", nodes[nodeindex].name);
+		//console.log("treelinks:", treelinks);
+		for (var j = 0; j < treelinks.length; j++) {
+			link = treelinks[j];
+			//console.log(link);
+			source = getNodeIndexByName(link.source);
+			target = getNodeIndexByName(link.target);
+			if (nodes[target].domain == nodes[nodeindex].domain && nodes[source].domain == nodes[nodeindex].domain) {
+				if (source == nodeindex) {
+					//console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
+					if (nodes[target].level > nodes[nodeindex].level)
+						//put into children list
+						children.push(nodes[target]);
+				}//if
+				if (target == nodeindex) {
+					if (nodes[source].level > nodes[nodeindex].level)
+						//put into children list
+						children.push(nodes[source]);
+				}//if
+			}
+		}//for loop
+		//console.log("number of children", children.length);
+		return children
+}//function
+
+//TODO: check tracking from Requirements to Structure - does not track till the end
+
+function generateQuestions(nodes, links) {
+	var counter = 0;
+	var questions = [];
+	for (var i = 0; i < taskTypes; i++) {
+		var question = {};
+		//question.text = "Find node " + nodes[randomNode(0, nodes.length-1)].name;
+		switch(i) {
+		  case 0:
+				var qstnode = nodes[randomNode(0, nodes.length-1)]
+		    question.text = "Find node " + qstnode.name;
+				question.nodes = qstnode;
+		    break;
+		  case 1:
+				var pathpair = getPairWithPath();
+		    question.text = "Is there a link between node " + pathpair[0].name + " and node " + pathpair[1].name + "?";
+				question.nodes = pathpair;
+				//TODO: enable highlighting only for this task type
+		    break;
+		  case 2:
+				var qstnode = nodes[randomNode(0, nodes.length-1)]
+		    question.text = "How many incoming/outgoing edges does node " + qstnode.name + " have?";
+		    break;
+			case 3:
+				var pathpair = getPairWithPath();
+			  question.text = "Please mark all nodes on a path from node " + pathpair[0].name + " to node " + pathpair[1].name;
+				question.nodes = pathpair;
+			  break;
+			case 4:
+				var qstnode = nodes[randomNode(0, nodes.length-1)]
+			  question.text = "Please mark all nodes connected to node " + qstnode.name;
+			  break;
+		}
+		question.type = i;
+		questions[counter] = question;
+		counter++;
+	}
+	console.log("questions:", questions);
+	return questions;
+}
+
+console.log("start generating questions...");
+
+var generatedQs = generateQuestions(nodes, links); //array of generated questions
+
+//return a pair of nodes, between which a path exists
+function getPairWithPath() {
+	var pathExists = false;
+	var resultpair = [];
+	while (pathExists == false) {
+	//for (var i = 0; i < 150; i++) {
+		var nodea = nodes[randomNode(0, nodes.length-1)];
+		var nodeb = nodes[randomNode(0, nodes.length-1)];
+		//FORK HERE
+		//pathExists = checkPathExists(nodea, nodeb);
+		pathExists = checkPathExistsTwo(nodea, nodeb);
+		//console.log("Path between A:" + nodea.name + " B:" + nodeb.name + "exists:" + pathExists);
+		if (pathExists == true) {
+			resultpair.push(nodea);
+			resultpair.push(nodeb);
+			return resultpair;
+		}
+	}
+}
+
+//checks in node A and node B are connected (could be indirectly)
+function checkPathExists (nodea,nodeb){
+		if (nodea == nodeb)
+			return false;
+			//check tracingDictFull for node A contains node B
+		var nodetraces = tracingDictFull[nodea.nodeid];
+		//console.log("tracingDictFull:", tracingDictFull);
+		//console.log("nodea:", nodea);
+		//go through each trace
+		if (nodetraces != null) {
+			//console.log("nodetraces:",nodetraces);
+			for (var i = 0; i < nodetraces.length; i++) {
+				var trace = nodetraces[i]; //array of nodes
+				//console.log("trace:", trace);
+				//shuffle trace, because otherwise will always return higher level nodes
+				shuffleArray(trace);
+				//console.log("shuffled trace:", trace);
+				for (var j = 0; j < trace.length; j++) {
+					//console.log("is " + trace[j].nodeid + "equal to?" + nodeb.nodeid);
+					if (trace[j].nodeid == nodeb.nodeid)
+						return true;
+				}
+			}
+		}
+		return false;
+}
+
+function checkPathExistsTwo (nodea,nodeb){
+		if (nodea == nodeb)
+			return false;
+			//check tracingDictFull for node A contains node B
+		var nodetrace = tracingDictFullTwo[nodea.nodeid];
+		//console.log("tracingDictFull:", tracingDictFull);
+		//console.log("nodea:", nodea);
+		//go through each trace
+		if (nodetrace != null) {
+			//console.log("nodetraces:",nodetraces);
+			//shuffle trace, because otherwise will always return higher level nodes
+			shuffleArray(nodetrace);
+				//console.log("shuffled trace:", trace);
+				for (var j = 0; j < nodetrace.length; j++) {
+					//console.log("is " + trace[j].nodeid + "equal to?" + nodeb.nodeid);
+					if (nodetrace[j].nodeid == nodeb.nodeid)
+						return true;
+				}
+			}
+		return false;
+}
+
+//https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+function shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+//from here: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range/14790863
+function randomNode(bottom, top) {
+	return Math.floor(Math.random() * (+bottom - +top)) + +top;
+}
+
+function getRedNodesData() {
+	var svgGroup = d3.select('#svgGroup');
+	var rednodes = svgGroup.selectAll(".nodes")
+					.filter(function(d,i){
+						var nodecolor = d3.select(this).attr('fill');
+						return nodecolor == 'red';
+					});
+	return rednodes.data();
+}
+
+function buttonClicked() { //click on "responseButton"
+
+	//remember answer, store it somewhere
+	var answerTaskType = generatedQs[curTrial].type;
+	var answers = []; //array of answers for each question
+	//console.log("curTrial:", curTrial);
+	switch(answerTaskType) {
+		case 0:
+		//	question.text = "Find node " + qstnode.name;
+		//find and store all selected/red nodes
+		var rednodesdata = getRedNodesData();
+		answers[curTrial] = rednodesdata;
+		console.log("answers so far:", answers);
+		case 1:
+		//	question.text = "Is there a link between node " + pathpair[0].name + " and node " + pathpair[1].name + "?";
+		//store Yes/No radiobutton
+		//$('#radiowrapper').show();
+		//$('#numberwrapper').hide();
+		//console.log(document.getElementById("radiowrapper").getElementsByTagName('p')[0].getElementsByTagName('input')[0].checked);
+		//console.log(document.getElementById("radiowrapper").getElementsByTagName('p')[1].getElementsByTagName('input')[0].checked);
+		if (document.getElementById("radiowrapper").getElementsByTagName('p')[0].getElementsByTagName('input')[0].checked) {
+			answers[curTrial] = 'yes';
+		} else if (document.getElementById("radiowrapper").getElementsByTagName('p')[1].getElementsByTagName('input')[0].checked) {
+			answers[curTrial] = 'no';
+		}
+		console.log("answers so far:", answers);
+		break;
+		//console.log(document.getElementById("radiowrapper").getElementsByTagName('p')[1]);
+		case 2:
+		//	question.text = "How many incoming/outgoing edges does node " + qstnode.name + " have?";
+		//store number input
+		//$('#radiowrapper').hide();
+		console.log(document.getElementById("numberwrapper").getElementsByTagName('input')[0].value);
+		break;
+		case 3:
+		//	question.text = "Please mark all nodes on a path from node " + pathpair[0].name + " to node " + pathpair[1].name;
+		//find and store ids of all red nodes
+		answers[curTrial] = getRedNodesData();
+		break;
+		case 4:
+		//	question.text = "Please mark all nodes connected to node " + qstnode.name;
+		//find and store ids of all red nodes
+		answers[curTrial] = getRedNodesData();
+		break;
+	}
+
 	var curTime = new Date();
+	//console.log("curTrial:",curTrial);
 	var rt = curTime - startTrialTime;
 	console.log(rt);
 	$('#trial' + curTrial).hide();
+	//$('#radiowrapper').hide();
+	//$('#numberwrapper').hide();
+
 	curTrial++;
 	//document.getElementById('tempStorage').innerHTML = curTrial;
-	if (curTrial > nTrials) {
+	if (curTrial > generatedQs.length) {
 		$('#submitButton').show();
 	} else {
+		//show it
 		$('#trial' + curTrial).show();
-		showTree(curTrial, taskType);
+
+		//FIELDS DISPLAY LOGIC
+		switch (generatedQs[curTrial].type) {
+			case 1:
+			$('#numberwrapper').hide();
+			$('#radiowrapper').show();
+			break;
+			case 2:
+			$('#radiowrapper').hide();
+			$('#numberwrapper').show();
+			break;
+			default:
+			$('#numberwrapper').hide();
+			$('#radiowrapper').hide();
+			break;
+		}
+		//TODO: generateTask function consists of two subfunctions:
+							//1. randomize between showTree and showMatrix
+							//2. randomize between taskType1 and taskType6
+
+		//change label on trial# element
+		console.log("innerHTML p:" + document.getElementById('trial' + curTrial).getElementsByTagName('p')[0].textContent);
+
+		document.getElementById('trial' + curTrial).getElementsByTagName('p')[0].innerHTML = generatedQs[curTrial].text;
+		//$("#trial2 > p").text('test');
+
+		showTree(curTrial, generatedQs[curTrial].type);
 		startTrialTime = new Date();
 	}
 }
 
 function showFirstTrial(){
-	$('#trial1').show();
+	$('#trial0').show();
 	$('#responseButton').show();
-	showTree(curTrial, taskType);
+
+	//TODO: generateTask function consists of two subfunctions:
+						//1. randomize between showTree and showMatrix
+						//2. randomize between taskType1 and taskType6
+
+	//for each question generate div with id=#trial+curTrial
+	for (var j = 1; j < generatedQs.length; j++) {
+		generateTrialDiv(j);
+	}
+	document.getElementById('trial0').getElementsByTagName('p')[0].innerHTML = generatedQs[0].text;
+
+	showTree(0, generatedQs[0].type);
 	startTrialTime = new Date();
 	$('#startExperiment').hide();
 }
 
 $('#startExperiment').click(showFirstTrial);
 $('#responseButton').click(buttonClicked);
+
+//generates div for trial in the following format
+/*
+<div id="trial1" class="trialDiv">
+	<p>Trial 1 text. </p>
+	<div id="tree-container1"></div>
+</div>
+*/
+//https://stackoverflow.com/questions/14004117/create-div-and-append-div-dynamically
+function generateTrialDiv (trialid) {
+	var iDiv = document.createElement('div');
+	iDiv.id = 'trial' + trialid;
+	iDiv.className = 'trialDiv';
+	var p = document.createElement('p');
+	p.textContent = 'Trial text';
+	var treeDiv = document.createElement('div');
+	treeDiv.id = 'tree-container' + trialid;
+	iDiv.appendChild(p);
+	iDiv.appendChild(treeDiv);
+	document.getElementsByTagName('body')[0].appendChild(iDiv);
+}
 
 function showTree (curTrial, taskType) {
 
@@ -298,7 +1078,8 @@ function showTree (curTrial, taskType) {
 			.call(zoomListener);
 
 	// Append a group which holds all nodes and which the zoom Listener can act upon.
-	var svgGroup = baseSvg.append("g");
+	var svgGroup = baseSvg.append("g")
+												.attr("id", "svgGroup");
 
 	function zoom() {
 			svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -309,276 +1090,8 @@ function showTree (curTrial, taskType) {
 	var distY = 30;
 	var distX = 200; //separation between levels within one domain
 
-	var nodes = json.nodes;
-	var treelinks = json.links;
-	var traces = json.traces;
 
-	var globaldomains = ["structural","functional","requirements"];
 
-	//add IDs to nodes
-	for (j = 0; j < nodes.length; j++) {
-		nodes[j].nodeid = j;
-	}
-
-	console.log("initial nodes:", nodes);
-
-	var userTraces = getTracesFromFile(); //global array of full traces
-	//trace1: source, p1, p2, p3,..., target
-	//trace2: source, p1, p2, p3,..., target
-	//console.log("userTraces: ", userTraces);
-
-	//dictionary, where key = nodeID, value = list of connected nodes from traces
-	var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
-
-	//array of links from all traces
-	var tracelinks = getLinksFromTraces(userTraces);
-	//console.log("all tracelinks:", tracelinks);
-
-	//console.log("all treelinks: ", treelinks);
-	//we distinguish between hierarchical links and links that are generated from the traces
-	//rewrite this so that it adds only links that are not present in treelinks
-	var links = treelinks.concat(tracelinks);
-
-	links = inverseLinks(links);
-	//var links = mergeLinks(treelinks, tracelinks);
-
-	//console.log("merged links: ", links);
-	//inverse links, if their source is larger level, that target
-	//and if within same domain
-	function inverseLinks(links) {
-		var resultlinks = [];
-		for (var i = 0; i < links.length; i++) {
-			source = getNodeIndexByName(links[i].source);
-			target = getNodeIndexByName(links[i].target);
-			//console.log("current link:", links[i]);
-			if (nodes[source].domain == nodes[target].domain && nodes[source].level > nodes[target].level) {
-				links[i].source = nodes[target].name;
-				links[i].target = nodes[source].name;
-				//console.log("link: " + links[i] + " have changed")
-			}
-		}
-		return links;
-	}
-
-	//given full trace array, sorts by domains REQS - FUNCTIONS - STRUCTURE
-	function sortByDomain(traceArray) {
-		//console.log("sortByDomain..");
-		//first, fill dict where key is domain name,
-		//value is array of nodes in that domain
-		var domaintraces = {};
-		//var resultarray = [];
-		for (var j = 0; j < traceArray.length; j++) {
-				if (domaintraces[traceArray[j].domain] != null) {
-					domaintraces[traceArray[j].domain].push(traceArray[j]);
-				} else {
-					domaintraces[traceArray[j].domain] = [];
-					domaintraces[traceArray[j].domain].push(traceArray[j]);
-				}
-		}
-		//console.log("domaintraces:", domaintraces);
-		//second, go through global array of domain names with correct order,
-		//create result array based on this order
-		var resultarray = domaintraces[globaldomains[0]];
-		for (var j = 1; j < globaldomains.length; j++) {
-			//console.log("domaintraces[globaldomains[j]]", domaintraces[globaldomains[j]]);
-			//console.log("globaldomains[j]", globaldomains[j]);
-			resultarray = resultarray.concat(domaintraces[globaldomains[j]]);
-		}
-		resultarray.pop(); //HACK: remove last "undefined" element
-		//console.log("sorted domaintraces:", resultarray);
-		return resultarray;
-	}
-
-	//function that returns an array of source-targets from the traces
-	function getLinksFromTraces(userTraces) {
-		//console.log("getLinksFromTraces ... ");
-		var tracelinks = [];
-		for (var j = 0; j < userTraces.length; j++) {
-			var fulltraceArray = userTraces[j];
-			//console.log("fulltraceArray:", fulltraceArray);
-			//sort by domains, so that edges go starting from right to left
-			fulltraceArray = sortByDomain(fulltraceArray);
-			//for each node in trace, create link from this node, to next one
-			for (var k = 0; k < fulltraceArray.length - 1; k++) {
-				var tracelink = {};
-				tracelink.source = fulltraceArray[k].name;
-				tracelink.target = fulltraceArray[k+1].name;
-				tracelinks.push(tracelink);
-			}
-		}
-		return tracelinks;
-	}
-
-	//takes an array of full traces,
-	// returns a dict, where key = nodeID, value = list of connected nodes from traces
-	function getTracingDictFullArray (userTraces, nodes) {
-		//console.log("getTracingDictFullArray...");
-		//console.log("fulltraceArray:", fulltraceArray);
-		var resultarray = [];
-
-		for (var j = 0; j < nodes.length; j++) {
-			resultarray[j] = [];
-			for (var k = 0; k < userTraces.length; k++) {
-				var fulltraceArray = userTraces[k];
-				//console.log("fulltraceArray:", fulltraceArray);
-				var tracenodeids = getNodeIDsFromTrace(fulltraceArray);
-				//console.log("tracenodeids:", tracenodeids);
-
-				//if nodeid is in tracenodeid list, assign or push fullTraceArray
-				if (tracenodeids.indexOf(nodes[j].nodeid) != -1) {
-					//console.log("nodes[j]:", nodes[j], "is in tracenodeids", tracenodeids);
-					//console.log("resultarray[j]", resultarray[j]);
-					resultarray[j].push(fulltraceArray);
-				}
-			}
-		}
-		//console.log("resultarray:", resultarray);
-		return resultarray;
-	}
-
-	//gets a trace, returns an array of nodeids
-	function getNodeIDsFromTrace(fulltrace) {
-		//console.log("getNodeIDsFromTrace...");
-		//console.log("fulltrace...", fulltrace);
-		var resultarray = [];
-		for (var j = 0; j < fulltrace.length; j++) {
-			resultarray.push(fulltrace[j].nodeid);
-		}
-		return resultarray;
-	}
-
-	//gets a trace array, returns an array of nodeids
-	function getNodeIDsFromTraceArray(traceArray) {
-		console.log("getNodeIDsFromTraceArray...");
-		var resultarray = [];
-		for (var j = 0; j < traceArray.length; j++) {
-			for (var k = 0; k < traceArray[j].length; k++) {
-				resultarray.push(traceArray[j][k].nodeid);
-			}
-		}
-		return resultarray;
-	}
-
-	//takes strings of user defined traces from the file,
-	//transforms them into array of full traces
-	function getTracesFromFile () {
-		var resultarray = [];
-		for (var k = 0; k < traces.length; k++) {
-				//take each trace and make it full
-				tracenodes = traces[k].nodeids.split(",");
-				//console.log("tracenodes:", tracenodes);
-				var fulltrace = getFullTraceFromShortTrace(tracenodes);
-				//console.log("fulltrace:", fulltrace);
-				resultarray.push(fulltrace);
-		}
-		return resultarray;
-	}
-
-	//takes a user defined route in the form of array of two elements,
-	//translates it to full route with all nodes along the route
-	function getFullTraceFromShortTrace(traceArray) {
-		//console.log("getFullTraceArray...");
-		var fullTraceArray = [];
-		//we assume that array is sorted
-		for (var j = 0; j < traceArray.length; j++) {
-			var curnode = traceArray[j];
-			//console.log("current node:", curnode);
-			var domroot = getDomainRoot(nodes[curnode], []);
-			domroot.unshift(nodes[curnode]);
-			//console.log("domroot:", domroot);
-			//add all connected nodes within one domain to the overall tracing array
-			fullTraceArray = fullTraceArray.concat(domroot);
-		}
-		//console.log("fullTraceArray: ", fullTraceArray);
-		return fullTraceArray;
-	}
-
-	//returns an array of all the ancestors of that node within domain
-	function getDomainRoot(node, resultarray) {
-		//console.log("getDomainRoot for node:", node);
-		//console.log("nodeid:", node.nodeid);
-		var parent = getParent(node.nodeid, nodes, treelinks);
-		//console.log("parent:", parent);
-		if (parent != null) {
-			//console.log("parent domain:", parent.domain,"node domain:", node.domain);
-			if (parent.domain == node.domain) {
-				resultarray.push(parent);
-				//console.log("resultarray after push:", resultarray);
-				resultarray = getDomainRoot(parent, resultarray);
-			}
-		}
-		return resultarray;
-	}
-
-	function getDomainArray() {
-		domarray = [];
-		domnames = [];
-		for (j = 0; j < nodes.length; j++) {
-			domindex = domnames.indexOf(nodes[j].domain);
-			if (domindex != -1) {
-				domarray[domindex].nodes.push(nodes[j]);
-		} else {
-				domnames.push(nodes[j].domain);
-				var domobj = {};
-				domobj.name = nodes[j].domain;
-				domobj.nodes = [];
-				domobj.nodes.push(nodes[j]);
-				domarray.push(domobj);
-				//console.log("domnames:", domnames);
-				//console.log("domarray:", domarray);
-			}
-		} //end for loop
-		//console.log("domarray:", domarray);
-		return domarray;
-	}
-
-	//sort domain array by levels, where each array element contains set of nodes for that level
-	function sortDomainArray(domarray) {
-		//console.log("inarray", domarray);
-		var outarray = domarray;
-			for (var j = 0; j < domarray.length; j++) {
-				var domnodes = domarray[j].nodes;
-				//create array with maxlevel number of dimensions
-				var maxlvl = domarray[j].maxlevel;
-
-				var resultarray = createNDimArray([maxlvl,1]);
-				//console.log("resultarray:", resultarray);
-				for (var k = 0; k < domnodes.length; k++) {
-					var nodelevel =  domnodes[k].level;
-					if (resultarray[nodelevel - 1] == null) {
-						resultarray[nodelevel - 1] = [];//.push(domnodes[k]);
-					} else {
-						resultarray[nodelevel - 1].push(domnodes[k]);
-					}
-				}
-				//remove first null element
-				for (var k = 0; k < resultarray.length; k++)
-					resultarray[k].shift();//removes first null element
-				//console.log("domain:", domarray[j].name, "resultarray after", resultarray);
-				outarray[j].nodes = resultarray;
-			}
-			//console.log("outarray", outarray);
-			return outarray;
-	}
-
-	//stackoverflow.com/questions/12588618/javascript-n-dimensional-array-creation
-	function createNDimArray(dimensions) {
-	 var ret = undefined;
-	 if(dimensions.length==1){
-			ret = new Array(dimensions[0]);
-			for (var i = 0; i < dimensions[0]; i++)
-					ret[i]=null; //or another value
-			return ret;
-	 }
-	 else{
-			//recursion
-			var rest = dimensions.slice(1);
-			ret = new Array(dimensions[0]);
-			for (var i = 0; i < dimensions[0]; i++)
-					ret[i]=createNDimArray(rest);
-			return ret;
-	 }
-	}
 
 	//calculates starting positions X for each domain, adds maxlevel parameter for each domain
 	function calcDomainPositionsX(domarray) {
@@ -677,7 +1190,7 @@ function showTree (curTrial, taskType) {
 
 			for (var j = 0; j < rootNodes.length; j++) {
 				//TODO: write function that vertically centers trees for each domain
-				console.log("root node:", rootNodes[j]);
+				//console.log("root node:", rootNodes[j]);
 				var domstartY = rootNodes[j].positionY;
 				vertAlignRootNode(rootNodes[j], domstartY, maxRootNodeY);
 
@@ -702,11 +1215,11 @@ function showTree (curTrial, taskType) {
 		//console.log("positionY set to ", node.positionY);
 		//node.positionX = depth + domainindex*distX*domainmaxlevel;
 		node.positionX = depth + prevdomainmaxlevel*distX*domainindex;
-		console.log("node:", node);
+		/*console.log("node:", node);
 		console.log("  depth:", depth);
 		console.log("  domainindex:", domainindex);
 		console.log("  prevdomainmaxlevel:", prevdomainmaxlevel);
-		console.log("  positionX:", node.positionX);
+		console.log("  positionX:", node.positionX);*/
 
 		node.mod = 0;
 
@@ -936,7 +1449,7 @@ function showTree (curTrial, taskType) {
 	} //end function
 
 	function checkAllChildrenOnScreen(node) {
-		console.log("Checking all children on screen ....", node);
+		//console.log("Checking all children on screen ....", node);
 		var nodeContour = {}; //create new dictionary
 		nodeContour = getLeftContour(node, 0, nodeContour);
 		//console.log("nodeContour:", nodeContour);
@@ -1160,84 +1673,7 @@ function showTree (curTrial, taskType) {
 	var elemEnter = elem.enter()
 			//.attr("transform", function(d){return "translate("+d.x+",80)"})
 
-	function getNodeIndexByName(nodename) {
-		//console.log("getNodeIndexByName function...");
-		//console.log("nodes:", nodes);
-		//console.log("nodename:", nodename);
-		for (var j = 0; j < nodes.length; j++) {
-			//console.log("domainelement.nodes[j].id:", domainelement.nodes[j].nodeid, "nodeid:", nodeid);
-			if (nodename == nodes[j].name) {
-				//iterate within that domain and count how many nodes are there at that level
-					//console.log("return nodeindex:", j);
-					return j;
-			}
-		}
-//      return null;
-	}
 
-	function getChildren(nodeindex, nodes, treelinks) {
-	//Given a node index, returns a list of children for this node
-			//go through each link
-				//if link.source == nodeindex
-					//check level of nodes[link.target]
-					//- if level is lower than current node (nodes[nodeindex]), then add to the children list
-				//if link.target == nodeindex
-					//check level of nodes[link.source] - if level is lower than current node (nodes[nodeindex]), then add to the children list
-			children = [];
-			//console.log("current node", nodes[nodeindex].name);
-			//console.log("treelinks:", treelinks);
-			for (var j = 0; j < treelinks.length; j++) {
-				link = treelinks[j];
-				//console.log(link);
-				source = getNodeIndexByName(link.source);
-				target = getNodeIndexByName(link.target);
-				if (nodes[target].domain == nodes[nodeindex].domain && nodes[source].domain == nodes[nodeindex].domain) {
-					if (source == nodeindex) {
-						//console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
-						if (nodes[target].level > nodes[nodeindex].level)
-							//put into children list
-							children.push(nodes[target]);
-					}//if
-					if (target == nodeindex) {
-						if (nodes[source].level > nodes[nodeindex].level)
-							//put into children list
-							children.push(nodes[source]);
-					}//if
-				}
-			}//for loop
-			//console.log("number of children", children.length);
-			return children
-	}//function
-
-	function getParent(nodeindex, nodes, treelinks) {
-	//  console.log("treelinks:", treelinks);
-//      console.log("nodeindex:", nodeindex);
-		var parent = null;
-		for (j = 0; j < treelinks.length; j++) {
-			link = treelinks[j];
-			source = getNodeIndexByName(link.source);
-			target = getNodeIndexByName(link.target);
-			if (source == nodeindex) {
-				//console.log(link);
-				//console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
-				if (nodes[target].level < nodes[nodeindex].level && nodes[target].domain == nodes[nodeindex].domain)
-					//put into children list
-					parent = nodes[target];
-					//console.log("node: ", nodes[nodeindex], "target: ", nodes[target]);
-			}//if
-			if (target == nodeindex) {
-				//console.log(link);
-				//console.log(nodeindex,nodes[nodeindex].name, nodes[source].name, nodes[source].level);
-				if (nodes[source].level < nodes[nodeindex].level && nodes[source].domain == nodes[nodeindex].domain)
-					//put into children list
-					parent = nodes[source];
-					//console.log("node: ", nodes[nodeindex], "source: ", nodes[source]);
-			}//if
-		}//for loop
-
-		//TODO: Make sure that parent belongs to the same domain as a child
-		return parent
-	}
 
 	function getAvgPositionY(children) {
 		sum = 0;
@@ -1362,8 +1798,8 @@ function showTree (curTrial, taskType) {
 			return d.positionY;
 
 		})
-		//.on("mouseover", handleMouseOver) //http://bl.ocks.org/WilliamQLiu/76ae20060e19bf42d774
-		//.on("mouseout", handleMouseOut)
+		.on("mouseover", handleMouseOver) //http://bl.ocks.org/WilliamQLiu/76ae20060e19bf42d774
+		.on("mouseout", handleMouseOut)
 		.call(cc)
 		//.on("dbclick",handleDoubleClick)
 		//.on("click", handleMouseClick)
@@ -1391,8 +1827,14 @@ function showTree (curTrial, taskType) {
 					//console.log(d, "index:", i, "tracingDictFull:", tracingDictFull[i]);
 
 					//find all nodes that share traces with the current node
+					//WE USE OTHER VARIANT HERE FOR TRACINGDICTTWO
 					curtrace = getNodeIDsFromTraceArray(tracingDictFull[i], nodes);
-					//console.log("curtrace:", curtrace, "indexOf:", curtrace.indexOf("26"));
+					curtracetwo = getNodeIDsFromTrace(tracingDictFullTwo[i]);
+					/*console.log("curtrace:", curtrace);
+					console.log("curtracetwo:", curtracetwo);
+					console.log("tracingDictFull[i]:", tracingDictFull[i]);
+					console.log("tracingDictFullTwo[i]:", tracingDictFullTwo[i]);
+					console.log("sortedTracingDictFullTwo[i]:", sortedTracingDictFullTwo[i]);*/
 					//var fulltrace = getFullTracingDict([13,47]);
 
 					//find nodes from trace, highlight them
@@ -1404,10 +1846,14 @@ function showTree (curTrial, taskType) {
 										//console.log("currentID:", currentID);
 										return curtrace.indexOf(parseInt(currentID)) != -1; //add to selection only if the id of the current node is in the tracelist for the clicked node
 										})
-									.attr({
-										fill: "orange"
+									.attr("fill", function(d) {
+											if (d3.select(this).attr('fill') == "red") {
+												return "red";
+											} else {
+												return "orange";
+											}
+										});
 						//r: radius * 2
-					});
 
 					//find edges where source and target are both in tracingDict[i]
 					svgGroup.selectAll(".edges")
@@ -1432,10 +1878,14 @@ function showTree (curTrial, taskType) {
 				r: radius
 			});*/ //THIS IS FOR ONE, CURRENT ELEMENT ONLY
 			//find nodes from trace, highlight them
-			svgGroup.selectAll(".nodes").attr({
-				fill: "lightsteelblue",
-				r: radius
-			});
+			svgGroup.selectAll(".nodes")
+			.attr("fill", function(d) {
+					if (d3.select(this).attr('fill') == "red") {
+						return "red";
+					} else {
+						return "lightsteelblue";
+					}
+				});
 
 			svgGroup.selectAll(".edges").attr({
 				stroke: "lightsteelblue"
@@ -1463,9 +1913,9 @@ function showTree (curTrial, taskType) {
 	var clickedElemData = clickedElem.data()[0];
 	console.log("clicked object:", clickedElemData);
 
-	if (clickedElem.attr("fill") == "orange") { //if already clicked
+	if (clickedElem.attr("fill") == "red") { //if already clicked
 		//repaint back
-		clickedElem.attr({fill: "lightsteelblue"});
+		clickedElem.attr({fill: "orange"});
 		//remove from the list of selected nodes
 		var index = clickedElemList.indexOf(clickedElem);
 		if (index > -1) {
@@ -1473,7 +1923,7 @@ function showTree (curTrial, taskType) {
 		}
 	} else {
 		//paint as highlighted
-		clickedElem.attr({fill: "orange"});
+		clickedElem.attr({fill: "red"});
 		//add to the list of selected nodes
 		clickedElemList.push(clickedElem);
 	}

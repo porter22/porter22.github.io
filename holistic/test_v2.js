@@ -61,10 +61,11 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
 
     //dictionary, where key = nodeID, value = list of connected nodes from traces
     var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
+    console.log("tracingDictFull:", tracingDictFull);
 
     //array of links from all traces
     var tracelinks = getLinksFromTraces(userTraces);
-    //console.log("all tracelinks:", tracelinks);
+    console.log("all tracelinks:", tracelinks);
 
     //console.log("all treelinks: ", treelinks);
     //we distinguish between hierarchical links and links that are generated from the traces
@@ -94,7 +95,8 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
 
     //given full trace array, sorts by domains REQS - FUNCTIONS - STRUCTURE
     function sortByDomain(traceArray) {
-      //console.log("sortByDomain..");
+      console.log("sortByDomain..");
+      console.log("traceArray:", traceArray);
       //first, fill dict where key is domain name,
       //value is array of nodes in that domain
       var domaintraces = {};
@@ -107,13 +109,18 @@ treeJSON = d3.json("graph_beerrobot.json", function(error, json) {
             domaintraces[traceArray[j].domain].push(traceArray[j]);
           }
       }
-      //console.log("domaintraces:", domaintraces);
+      console.log("domaintraces:", domaintraces);
       //second, go through global array of domain names with correct order,
       //create result array based on this order
+      //console.log("domaintraces:", domaintraces["requirements"]);
+      //console.log("globaldomains", globaldomains);
       var resultarray = domaintraces[globaldomains[0]];
+      if (resultarray == null) {
+        resultarray = [];
+      }
+      console.log("resultarray", resultarray);
       for (var j = 1; j < globaldomains.length; j++) {
-        //console.log("domaintraces[globaldomains[j]]", domaintraces[globaldomains[j]]);
-        //console.log("globaldomains[j]", globaldomains[j]);
+        console.log("domaintraces[globaldomains[j]]", domaintraces[globaldomains[j]]);
         resultarray = resultarray.concat(domaintraces[globaldomains[j]]);
       }
       resultarray.pop(); //HACK: remove last "undefined" element
