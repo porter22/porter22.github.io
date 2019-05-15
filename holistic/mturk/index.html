@@ -60,7 +60,7 @@
 
 
 	g.am-axis text {
-    font-size: 10px;
+    font-size: 12px;
   }
 
 	.background {
@@ -75,11 +75,42 @@
 	  fill: orange;
 	}
 
+	.introImages {
+		width:350px;
+		height:350px;
+		float: left;
+		border:0;
+	}
+
 </style>
 <body>
-	<p id="startExperiment">Instructions for the experiment.
-		<a href="#" >Start Experiment</a>
-	</p>
+	<div id="instructions"><b>Instructions for the experiment.</b>
+		<p>In this study, you will be asked to complete certain number of visual tasks using two visual representations of the same information: Matrix and combined Tree.</p>
+		<div style="float:left"> <p><b>Matrix</b></p>
+			<img src="matrix_intro.png" alt="matrix" class="introImages">
+		</div>
+		<div style="float:left; margin-left:150px"><p><b>Tree</b></p>
+			<img src="tree_intro.png" alt="tree" class="introImages">
+		</div>
+		<p style="clear:both"></p>
+		</br>
+		<p style="clear:both">Both visualisations have highlighting features enabled:</p>
+		<ul>
+			<li>When using Tree visualisation, you can hover the mouse on CIRCLE NODES and see which entities are connected to the selected nodes.</li>
+			<li>When using Matrix visualisation, you can hover the mouse on TEXT ON THE LEFT SIDE OF THE MATRIX and see which entities are connected to the selected entities.</li>
+		</ul>
+		<p></p>
+		<p></p>
+		<p>Depending on the task type, you will be asked either
+			<ul>
+			  <li>to select one entity (node). To do this, just click on the desired entity, it will change color to RED. If you want to select another entity, unselect RED entity and select new one.</li>
+			  <li>to select multiple entities (nodes). To do this, click on ALL the desired entities, so that they change their color to RED. If you want to select another entity, unselect RED entity and select new one.</li>
+			  <li>to enter a number</li>
+			  <li>to answer either Yes or No</li>
+			</ul>
+		</p>
+		<a href="#" id="startExperiment"><b>I understood, proceed to the experiment</b></a>
+	</div>
 
 
 
@@ -133,64 +164,64 @@ var json = {
 		{ "name": "autonomous driving", "level": 2, "domain": "requirements" },
 		{ "name": "capacity of 6 bottles", "level": 2, "domain": "requirements" },
 		{ "name": "beer delivery", "level": 1, "domain": "requirements" },
-		{ "name": "to store bottles 0", "level": 3, "domain": "functional" },
-		{ "name": "to absorb impact 1", "level": 3, "domain": "functional" },
-		{ "name": "to provide stable movement from A to B 2", "level": 3, "domain": "functional" },
-		{ "name": "to reduce speed 3", "level": 3, "domain": "functional" },
-		{ "name": "to provide energy 4", "level": 3, "domain": "functional" },
-		{ "name": "to transmit power 5", "level": 3, "domain": "functional" },
-		{ "name": "to store energy 6", "level": 3, "domain": "functional" },
-		{ "name": "to control speed 7", "level": 3, "domain": "functional" },
-		{ "name": "to control direction 8", "level": 3, "domain": "functional" },
-		{ "name": "to control braking 9", "level": 3, "domain": "functional" },
-		{ "name": "to interface between sensors and actors 10", "level": 3, "domain": "functional" },
-		{ "name": "to display information 11", "level": 3, "domain": "functional" },
-		{ "name": "to provide feedback 12", "level": 3, "domain": "functional" },
-		{ "name": "to avoid obstacles 13", "level": 3, "domain": "functional" },
-		{ "name": "to detect paths 14", "level": 3, "domain": "functional" },
-		{ "name": "to detect load 15", "level": 3, "domain": "functional" },
-		{ "name": "housing 16", "level": 2, "domain": "functional" },
-		{ "name": "undercarriage 17", "level": 2, "domain": "functional" },
-		{ "name": "power supply 18", "level": 2, "domain": "functional" },
-		{ "name": "control unit 19", "level": 2, "domain": "functional" },
-		{ "name": "HMI 20", "level": 2, "domain": "functional" },
-		{ "name": "sensors 21", "level": 2, "domain": "functional" },
-		{ "name": "robot 21x", "level": 1, "domain": "functional" },
-		{ "name": "mechanical switch 22", "level": 4, "domain": "structural" },
-		{ "name": "spring 23", "level": 4, "domain": "structural" },
-		{ "name": "tape line 24", "level": 4, "domain": "structural" },
-		{ "name": "tracking sensor 25", "level": 4, "domain": "structural" },
-		{ "name": "box 26", "level": 3, "domain": "structural" },
-		{ "name": "tray 27", "level": 3, "domain": "structural" },
-		{ "name": "base plate 28", "level": 3, "domain": "structural" },
-		{ "name": "labeling 29", "level": 3, "domain": "structural" },
-		{ "name": "door with hinge 30", "level": 3, "domain": "structural" },
-		{ "name": "lock 31", "level": 3, "domain": "structural" },
-		{ "name": "foam or hemp 32", "level": 3, "domain": "structural" },
-		{ "name": "wheels 33", "level": 3, "domain": "structural" },
-		{ "name": "axle 34", "level": 3, "domain": "structural" },
-		{ "name": "platform 35", "level": 3, "domain": "structural" },
-		{ "name": "shaft 36", "level": 3, "domain": "structural" },
-		{ "name": "coupler 37", "level": 3, "domain": "structural" },
-		{ "name": "e-motor 38", "level": 3, "domain": "structural" },
-		{ "name": "brakes 39", "level": 3, "domain": "structural" },
-		{ "name": "arduino 40", "level": 3, "domain": "structural" },
-		{ "name": "charging control unit 41", "level": 3, "domain": "structural" },
-		{ "name": "solar panel 42", "level": 3, "domain": "structural" },
-		{ "name": "battery pack 43", "level": 3, "domain": "structural" },
-		{ "name": "wires/cables 44", "level": 3, "domain": "structural" },
-		{ "name": "weight sensor 45", "level": 3, "domain": "structural" },
-		{ "name": "ultrasonic sensor 46", "level": 3, "domain": "structural" },
-		{ "name": "line tracker 47", "level": 3, "domain": "structural" },
-		{ "name": "acoustic signal 48", "level": 3, "domain": "structural" },
-		{ "name": "LCD with I2C 49", "level": 3, "domain": "structural" },
-		{ "name": "housing 50", "level": 2, "domain": "structural" },
-		{ "name": "undercarriage 51", "level": 2, "domain": "structural" },
-		{ "name": "power supply 52", "level": 2, "domain": "structural" },
-		{ "name": "control unit 53", "level": 2, "domain": "structural" },
-		{ "name": "HMI 54", "level": 2, "domain": "structural" },
-		{ "name": "sensors 55", "level": 2, "domain": "structural" },
-		{ "name": "robot 56", "level": 1, "domain": "structural" }
+		{ "name": "to store bottles", "level": 3, "domain": "functional" },
+		{ "name": "to absorb impact", "level": 3, "domain": "functional" },
+		{ "name": "to provide stable movement from A to B", "level": 3, "domain": "functional" },
+		{ "name": "to reduce speed", "level": 3, "domain": "functional" },
+		{ "name": "to provide energy", "level": 3, "domain": "functional" },
+		{ "name": "to transmit power", "level": 3, "domain": "functional" },
+		{ "name": "to store energy", "level": 3, "domain": "functional" },
+		{ "name": "to control speed", "level": 3, "domain": "functional" },
+		{ "name": "to control direction", "level": 3, "domain": "functional" },
+		{ "name": "to control braking", "level": 3, "domain": "functional" },
+		{ "name": "to interface between sensors and actors", "level": 3, "domain": "functional" },
+		{ "name": "to display information", "level": 3, "domain": "functional" },
+		{ "name": "to provide feedback", "level": 3, "domain": "functional" },
+		{ "name": "to avoid obstacles", "level": 3, "domain": "functional" },
+		{ "name": "to detect paths", "level": 3, "domain": "functional" },
+		{ "name": "to detect load", "level": 3, "domain": "functional" },
+		{ "name": "housing functions", "level": 2, "domain": "functional" },
+		{ "name": "undercarriage functions", "level": 2, "domain": "functional" },
+		{ "name": "power supply functions", "level": 2, "domain": "functional" },
+		{ "name": "control unit functions", "level": 2, "domain": "functional" },
+		{ "name": "HMI functions", "level": 2, "domain": "functional" },
+		{ "name": "sensors functions", "level": 2, "domain": "functional" },
+		{ "name": "robot functions", "level": 1, "domain": "functional" },
+		{ "name": "mechanical switch", "level": 4, "domain": "structural" },
+		{ "name": "spring", "level": 4, "domain": "structural" },
+		{ "name": "tape line", "level": 4, "domain": "structural" },
+		{ "name": "tracking sensor", "level": 4, "domain": "structural" },
+		{ "name": "box", "level": 3, "domain": "structural" },
+		{ "name": "tray", "level": 3, "domain": "structural" },
+		{ "name": "base plate", "level": 3, "domain": "structural" },
+		{ "name": "labeling", "level": 3, "domain": "structural" },
+		{ "name": "door with hinge", "level": 3, "domain": "structural" },
+		{ "name": "lock", "level": 3, "domain": "structural" },
+		{ "name": "foam or hemp", "level": 3, "domain": "structural" },
+		{ "name": "wheels", "level": 3, "domain": "structural" },
+		{ "name": "axle", "level": 3, "domain": "structural" },
+		{ "name": "platform", "level": 3, "domain": "structural" },
+		{ "name": "shaft", "level": 3, "domain": "structural" },
+		{ "name": "coupler", "level": 3, "domain": "structural" },
+		{ "name": "e-motor", "level": 3, "domain": "structural" },
+		{ "name": "brakes", "level": 3, "domain": "structural" },
+		{ "name": "arduino", "level": 3, "domain": "structural" },
+		{ "name": "charging control unit", "level": 3, "domain": "structural" },
+		{ "name": "solar panel", "level": 3, "domain": "structural" },
+		{ "name": "battery pack", "level": 3, "domain": "structural" },
+		{ "name": "wires/cables", "level": 3, "domain": "structural" },
+		{ "name": "weight sensor", "level": 3, "domain": "structural" },
+		{ "name": "ultrasonic sensor", "level": 3, "domain": "structural" },
+		{ "name": "line tracker", "level": 3, "domain": "structural" },
+		{ "name": "acoustic signal", "level": 3, "domain": "structural" },
+		{ "name": "LCD with I2C", "level": 3, "domain": "structural" },
+		{ "name": "housing module", "level": 2, "domain": "structural" },
+		{ "name": "undercarriage module", "level": 2, "domain": "structural" },
+		{ "name": "power supply module", "level": 2, "domain": "structural" },
+		{ "name": "control unit module", "level": 2, "domain": "structural" },
+		{ "name": "HMI module", "level": 2, "domain": "structural" },
+		{ "name": "sensors module", "level": 2, "domain": "structural" },
+		{ "name": "robot structure", "level": 1, "domain": "structural" }
 	],
 	"links": [
 		{ "source": "beer delivery", "target": "delivery in 10 minutes" },
@@ -205,63 +236,63 @@ var json = {
 		{ "source": "capacity of 6 bottles", "target": "thermal insulation" },
 		{ "source": "capacity of 6 bottles", "target": "damping" },
 		{ "source": "capacity of 6 bottles", "target": "compact sizing" },
-		{ "source": "robot 56", "target": "housing 50" },
-		{ "source": "robot 56", "target": "undercarriage 51" },
-		{ "source": "robot 56", "target": "power supply 52" },
-		{ "source": "robot 56", "target": "control unit 53" },
-		{ "source": "robot 56", "target": "HMI 54" },
-		{ "source": "robot 56", "target": "sensors 55" },
-		{ "source": "housing 50", "target": "box 26" },
-		{ "source": "housing 50", "target": "tray 27" },
-		{ "source": "housing 50", "target": "base plate 28" },
-		{ "source": "housing 50", "target": "labeling 29" },
-		{ "source": "housing 50", "target": "door with hinge 30" },
-		{ "source": "housing 50", "target": "lock 31" },
-		{ "source": "housing 50", "target": "foam or hemp 32" },
-		{ "source": "undercarriage 51", "target": "wheels 33" },
-		{ "source": "undercarriage 51", "target": "axle 34" },
-		{ "source": "undercarriage 51", "target": "platform 35" },
-		{ "source": "undercarriage 51", "target": "shaft 36" },
-		{ "source": "undercarriage 51", "target": "coupler 37" },
-		{ "source": "undercarriage 51", "target": "e-motor 38" },
-		{ "source": "undercarriage 51", "target": "brakes 39" },
-		{ "source": "control unit 53", "target": "arduino 40" },
-		{ "source": "control unit 53", "target": "charging control unit 41" },
-		{ "source": "power supply 52", "target": "solar panel 42" },
-		{ "source": "power supply 52", "target": "battery pack 43" },
-		{ "source": "power supply 52", "target": "wires/cables 44" },
-		{ "source": "sensors 55", "target": "weight sensor 45" },
-		{ "source": "sensors 55", "target": "ultrasonic sensor 46" },
-		{ "source": "sensors 55", "target": "line tracker 47" },
-		{ "source": "HMI 54", "target": "acoustic signal 48" },
-		{ "source": "HMI 54", "target": "LCD with I2C 49" },
+		{ "source": "robot structure", "target": "housing module" },
+		{ "source": "robot structure", "target": "undercarriage module" },
+		{ "source": "robot structure", "target": "power supply module" },
+		{ "source": "robot structure", "target": "control unit module" },
+		{ "source": "robot structure", "target": "HMI module" },
+		{ "source": "robot structure", "target": "sensors module" },
+		{ "source": "housing module", "target": "box" },
+		{ "source": "housing module", "target": "tray" },
+		{ "source": "housing module", "target": "base plate" },
+		{ "source": "housing module", "target": "labeling" },
+		{ "source": "housing module", "target": "door with hinge" },
+		{ "source": "housing module", "target": "lock" },
+		{ "source": "housing module", "target": "foam or hemp" },
+		{ "source": "undercarriage module", "target": "wheels" },
+		{ "source": "undercarriage module", "target": "axle" },
+		{ "source": "undercarriage module", "target": "platform" },
+		{ "source": "undercarriage module", "target": "shaft" },
+		{ "source": "undercarriage module", "target": "coupler" },
+		{ "source": "undercarriage module", "target": "e-motor" },
+		{ "source": "undercarriage module", "target": "brakes" },
+		{ "source": "control unit module", "target": "arduino" },
+		{ "source": "control unit module", "target": "charging control unit" },
+		{ "source": "power supply module", "target": "solar panel" },
+		{ "source": "power supply module", "target": "battery pack" },
+		{ "source": "power supply module", "target": "wires/cables" },
+		{ "source": "sensors module", "target": "weight sensor" },
+		{ "source": "sensors module", "target": "ultrasonic sensor" },
+		{ "source": "sensors module", "target": "line tracker" },
+		{ "source": "HMI module", "target": "acoustic signal" },
+		{ "source": "HMI module", "target": "LCD with I2C" },
 
-		{ "source": "robot 21x", "target": "housing 16" },
-		{ "source": "robot 21x", "target": "undercarriage 17" },
-		{ "source": "robot 21x", "target": "power supply 18" },
-		{ "source": "robot 21x", "target": "control unit 19" },
-		{ "source": "robot 21x", "target": "HMI 20" },
-		{ "source": "robot 21x", "target": "sensors 21" },
-		{ "source": "housing 16", "target": "to store bottles 0" },
-		{ "source": "housing 16", "target": "to absorb impact 1" },
-		{ "source": "undercarriage 17", "target": "to provide stable movement from A to B 2" },
-		{ "source": "undercarriage 17", "target": "to reduce speed 3" },
-		{ "source": "power supply 18", "target": "to provide energy 4" },
-		{ "source": "power supply 18", "target": "to transmit power 5" },
-		{ "source": "power supply 18", "target": "to store energy 6" },
-		{ "source": "control unit 19", "target": "to control speed 7" },
-		{ "source": "control unit 19", "target": "to control direction 8" },
-		{ "source": "control unit 19", "target": "to control braking 9" },
-		{ "source": "control unit 19", "target": "to interface between sensors and actors 10" },
-		{ "source": "HMI 20", "target": "to display information 11" },
-		{ "source": "HMI 20", "target": "to provide feedback 12" },
-		{ "source": "sensors 21", "target": "to avoid obstacles 13" },
-		{ "source": "sensors 21", "target": "to detect paths 14" },
-		{ "source": "sensors 21", "target": "to detect load 15" },
-		{ "source": "weight sensor 45", "target": "mechanical switch 22" },
-		{ "source": "weight sensor 45", "target": "spring 23" },
-		{ "source": "line tracker 47", "target": "tape line 24" },
-		{ "source": "line tracker 47", "target": "tracking sensor 25" }
+		{ "source": "robot functions", "target": "housing functions" },
+		{ "source": "robot functions", "target": "undercarriage functions" },
+		{ "source": "robot functions", "target": "power supply functions" },
+		{ "source": "robot functions", "target": "control unit functions" },
+		{ "source": "robot functions", "target": "HMI functions" },
+		{ "source": "robot functions", "target": "sensors functions" },
+		{ "source": "housing functions", "target": "to store bottles" },
+		{ "source": "housing functions", "target": "to absorb impact" },
+		{ "source": "undercarriage functions", "target": "to provide stable movement from A to B" },
+		{ "source": "undercarriage functions", "target": "to reduce speed" },
+		{ "source": "power supply functions", "target": "to provide energy" },
+		{ "source": "power supply functions", "target": "to transmit power" },
+		{ "source": "power supply functions", "target": "to store energy" },
+		{ "source": "control unit functions", "target": "to control speed" },
+		{ "source": "control unit functions", "target": "to control direction" },
+		{ "source": "control unit functions", "target": "to control braking" },
+		{ "source": "control unit functions", "target": "to interface between sensors and actors" },
+		{ "source": "HMI functions", "target": "to display information" },
+		{ "source": "HMI functions", "target": "to provide feedback" },
+		{ "source": "sensors functions", "target": "to avoid obstacles" },
+		{ "source": "sensors functions", "target": "to detect paths" },
+		{ "source": "sensors functions", "target": "to detect load" },
+		{ "source": "weight sensor", "target": "mechanical switch" },
+		{ "source": "weight sensor", "target": "spring" },
+		{ "source": "line tracker", "target": "tape line" },
+		{ "source": "line tracker", "target": "tracking sensor" }
 	],
 	"traces": [
 		{ "nodeids":"54,21" },
@@ -779,7 +810,7 @@ function getChildren(nodeindex, nodes, treelinks) {
 				//check level of nodes[link.source] - if level is lower than current node (nodes[nodeindex]), then add to the children list
 		children = [];
 		//console.log("current node", nodes[nodeindex].name);
-		//console.log("treelinks:", treelinks);
+		//console.log("getChildren:");
 		for (var j = 0; j < treelinks.length; j++) {
 			link = treelinks[j];
 			//console.log(link);
@@ -816,27 +847,27 @@ function generateQuestions(nodes, links) {
 			switch(i) {
 			  case 0:
 					var qstnode = nodes[randomNode(0, nodes.length-1)]
-			    question.text = "Find entity named \"" + qstnode.name + "\". \r For matrix, click on the entity name to the left of the matrix. For tree, click on the node itself. After the desired answer is marked with RED color, press \"Submit current answer\" button";
+			    question.text = "Find entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain. \r For matrix, click on the entity name to the left of the matrix. For tree, click on the node itself. After the desired answer is marked with RED color, press \"Submit current answer\" button";
 					question.nodes = qstnode;
 			    break;
 			  case 1:
 					var pathpair = getPairWithPath();
-			    question.text = "Is there a link (either direct or indirect) between entity \"" + pathpair[0].name + "\" and entity " + pathpair[1].name + "\"? Choose either Yes or No in field above and press \"Submit current answer\" button";
+			    question.text = "Is there a link (either direct or indirect) between entity \"" + pathpair[0].name.toString().toUpperCase() + "\" in the \"" + pathpair[0].domain.toString().toUpperCase() + "\" domain and entity \"" + pathpair[1].name.toString().toUpperCase() + "\" in the \"" + pathpair[1].domain.toString().toUpperCase() + "\" domain? Choose either Yes or No in field above and press \"Submit current answer\" button";
 					question.nodes = pathpair;
 					//TODO: enable highlighting only for this task type
 			    break;
 			  case 2:
 					var qstnode = nodes[randomNode(0, nodes.length-1)]
-			    question.text = "How many degrees does entity \"" + qstnode.name + " have? Enter the number in the field above and press \"Submit current answer\" button";
+			    question.text = "How many degrees does entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain have? Enter the number in the field above and press \"Submit current answer\" button";
 			    break;
 				case 3:
 					var pathpair = getPairWithPath();
-				  question.text = "Please mark ALL entities on a path from entity \"" + pathpair[0].name + "\" to entity \"" + pathpair[1].name + "\". After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
+				  question.text = "Please mark ALL entities on a path from entity \"" + pathpair[0].name.toString().toUpperCase() + "\" in the \"" + pathpair[0].domain.toString().toUpperCase() + "\" domain to entity \"" + pathpair[1].name.toString().toUpperCase() + "\" in the \"" + pathpair[1].domain.toString().toUpperCase() + "\" domain. After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
 					question.nodes = pathpair;
 				  break;
 				case 4:
 					var qstnode = nodes[randomNode(0, nodes.length-1)]
-				  question.text = "Please mark ALL entities DIRECTLY (within one link) connected to entity \"" + qstnode.name + "\". After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
+				  question.text = "Please mark ALL entities DIRECTLY (within one link) connected to entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain. After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
 				  break;
 			}
 			question.type = i;
@@ -1138,23 +1169,58 @@ function displayFields(questiontype) {
 
 }
 
+function getFirstLevelNodes() {
+	var resultarray = [];
+	for (var j = 0; j < nodes.length; j++) {
+		if (nodes[j].level == 1)
+			resultarray.push(nodes[j]);
+	}
+	return resultarray;
+}
+
 //adapted from https://bl.ocks.org/emeeks/15c005cba60aad26e11a
 function showMatrix(curTrial, taskType) {
 	//alert('showMatrix with taskType:' + taskType);
 	//console.log('original links:', links);
 
+
+	//var matrixnodes = sortNodesByLevels(nodes);
+//	var matrixnodes = sortNodesByTree(nodes);
+
+	var firstlevels = getFirstLevelNodes();
+
+	//for each rootnode in tree
+	var treelist = []; //array R1-1.1-1.2-2-2.1-2.2 - F1-1.1
+
+	for (var j = 0; j < firstlevels.length; j++) {
+		console.log("firstlevels[j]:", firstlevels[j]);
+		var rootNode = firstlevels[j];
+		treelist.push(rootNode);
+
+		getTreelist(rootNode);
+
+		function getTreelist(node) {
+			var children = getChildren(node.nodeid, nodes, treelinks);
+			children.forEach(function(child) {
+				//console.log("child:", child);
+				treelist.push(child);
+				getTreelist(child);
+			});
+		}
+	}
+
+	console.log("treelist:", treelist);
+
+
 	//convert links into index format
 	var matrixlinks = getMatrixLinks(links);
-
-	var matrixnodes = sortNodesByDomains(nodes);
-
-	var adjacencyMatrix = d3.layout.adjacencyMatrix()
+	/*var adjacencyMatrix = d3.layout.adjacencyMatrix()
 		  .size([1000,1000])
 		  .nodes(nodes)
 		  .links(matrixlinks)
 		  .directed(false)
 		  .nodeID(function (d) {return d.name});
-
+*/
 	//var matrixData = adjacencyMatrix();
 	var matrix = [];
 
@@ -1166,18 +1232,20 @@ function showMatrix(curTrial, taskType) {
 	//var x = d3.scaleBand().range([0, width]).paddingOuter(0.25),
 			//c = d3.scaleOrdinal(d3.schemeCategory20c).domain([25,0]); //TODO bind color range limit to actual data
 
-	var matrixwidth = 1000;
-	var matrixheight = 1000;
-	var margin = {top: 80, right: 40, bottom: 40, left: 80};
+	var margin = {top: 80, right: 40, bottom: 40, left: 120};
+	var textmargin = 250; //TODO: calculate by the longest word
+	var matrixwidth = 800;
+	var matrixheight = 800;
 
 	var x = d3.scale.ordinal()
-									.domain(d3.range(nodes.length))
+									.domain(d3.range(treelist.length))
 									.rangeRoundBands([0, matrixwidth], 0.05);
 
 	var baseSvg = d3.select("#tree-container" + curTrial).append("svg")
 									.attr("width", matrixwidth + margin.left + margin.right)
 									.attr("height", matrixheight + margin.top + margin.bottom)
 									.attr("class", "matrix")
+									//.attr("transform", "translate(" + textmargin + "," + textmargin + ")")
 									.style("margin-left", margin.left + "px")
 									.style("margin-top", margin.top + "px")
 									 .append("g")
@@ -1190,10 +1258,11 @@ function showMatrix(curTrial, taskType) {
 	//.attr("height", viewerHeight);
 	//.attr("class", "overlay");
 
-	nodes.forEach(function(node, i) {
+	//nodes.forEach(function(node, i) {
+	treelist.forEach(function(node, i) {
 		node.index = i;
 		node.count = 0;
-		matrix[i] = d3.range(nodes.length).map(function(j) { return {x: j, y: i, z: 0}; });
+		matrix[i] = d3.range(treelist.length).map(function(j) { return {x: j, y: i, z: 0}; });
 	});
 
 	matrixlinks.forEach(function(link) {
@@ -1205,8 +1274,8 @@ function showMatrix(curTrial, taskType) {
 		matrix[link.target][link.source].z += link.value;
 		matrix[link.source][link.source].z += link.value;
 		matrix[link.target][link.target].z += link.value;
-		nodes[link.source].count += link.value;
-		nodes[link.target].count += link.value;
+		treelist[link.source].count += link.value;
+		treelist[link.target].count += link.value;
 	});
 
 	//console.log("matrix:", matrix);
@@ -1228,12 +1297,13 @@ function showMatrix(curTrial, taskType) {
 	  			.attr("x2", matrixwidth);
 
 	  	row.append("text")
-	  			.attr("x", -6)
+	  			//.attr("x", -6)
+	  			.attr("x", function(d, i) { return treelist[i].level*(-10) ; })
 	  			.attr("y", x.rangeBand() / 2)
 	  			.attr("dy", ".32em")
 	  			.attr("text-anchor", "end")
-	  			.style("font-size", "10px")
-	  			.text(function(d, i) { return nodes[i].name; })
+	  			.style("font-size", "12px")
+	  			.text(function(d, i) { return treelist[i].name; })
 					.attr("id", function(d, i) { return i; })
 					.on('click', handleTextMouseClick)
 					.on("mouseover", textmouseover)
@@ -1254,8 +1324,8 @@ function showMatrix(curTrial, taskType) {
 	  			.attr("y", x.rangeBand() / 2)
 	  			.attr("dy", ".32em")
 	  			.attr("text-anchor", "start")
-	  			.style("font-size", "10px")
-	  			.text(function(d, i) { return nodes[i].name; })
+	  			.style("font-size", "12px")
+	  			.text(function(d, i) { return treelist[i].name; })
 					.attr("id", function(d, i) { return i; })
 					.on("mouseover", textmouseover)
 					.on("mouseout", textmouseout);
@@ -1435,9 +1505,26 @@ function handleMouseOverMatrix(d, i) {  // Add interactivity
 
 		}
 
-function sortNodesByDomains(inputnodes) {
+function sortNodesByLevels(inputnodes) {
+	var resultnodes = [];
+	for (var i = globaldomains.length-1; i >= 0; i--) {
+		for (var j = 1; j < 5; j++) {
+			for (var k = 0; k < inputnodes.length; k++) {
+				if (inputnodes[k].level == j && inputnodes[k].domain == globaldomains[i]) {
+					resultnodes.push(inputnodes[k]);
+					//console.log("current inputnode:", inputnodes[j]);
+					//console.log("k:", k);
+				}
+			}
+		}
+	}
+	return resultnodes;
+}
+
+function sortNodesByTree(inputnodes) {
 
 }
+
 
 function getMatrixLinks(inputlinks) {
 	//for each inputlink, return new link, where source: inputlinks.source.id,target: inputlinks.target.id
@@ -1475,6 +1562,7 @@ function showFirstTrial(){
 
 	startTrialTime = new Date();
 	$('#startExperiment').hide();
+	$('#instructions').hide();
 }
 
 $('#startExperiment').click(showFirstTrial);
@@ -2004,7 +2092,7 @@ function showTree (curTrial, taskType) {
 
 	var sortedDomarray = sortDomainArray(domarray);
 
-	//console.log("sorted domarray:", sortedDomarray);
+	console.log("sorted domarray:", sortedDomarray);
 
 	calcNodePositionsY(sortedDomarray);
 
@@ -2526,9 +2614,17 @@ function hideInParent(nodeSelection) {
 		.attr("class", "labels")
 		.text(function(d){
 				//console.log(d);
-				//return d.name + " pos:" + d.positionY + " spaceY:" + d.spaceY})
-				return d.name + ":" + d.nodeid})
+				//return d.name + ":" + d.nodeid})
+				var returnstring = d.name;
+				if (d.level == 1)
+					returnstring = returnstring.toUpperCase();
+
+				/*if (returnstring.length > 17)
+					returnstring = returnstring.slice(0,17) + "\r\n" + returnstring.slice(17)
+				*/
+				return returnstring})
 		.attr("stroke", "black")
+		.attr("text-transform", "uppercase")
 		.attr("stroke-width", 1);
 }
 </script>
