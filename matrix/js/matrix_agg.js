@@ -159,6 +159,8 @@ console.log(typeof brushedYears);
   		group: d3.range(n).sort(function(a, b) { return nodes[b].group - nodes[a].group; })
   	};
 
+    console.log("matrix:", matrix);
+
   	// The default sort order.
   	x.domain(orders.name);
 
