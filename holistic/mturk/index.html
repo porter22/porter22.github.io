@@ -360,7 +360,7 @@ var clickedElemList = [];
 var curTrial = 0;
 var nTrials = 5;
 var taskType = 5;
-var taskTypes = 5;
+var taskTypes = 4;
 var startTrialTime;
 
 var viewerWidth = $(document).width();
@@ -879,7 +879,7 @@ function generateQuestions(nodes, links) {
 				    break;
 				  case 1:
 						var pathpair = getPairWithPath();
-				    question.text = "Is there a link (either direct or indirect) between entity \"" + pathpair[0].name.toString().toUpperCase() + "\" in the \"" + pathpair[0].domain.toString().toUpperCase() + "\" domain and entity \"" + pathpair[1].name.toString().toUpperCase() + "\" in the \"" + pathpair[1].domain.toString().toUpperCase() + "\" domain? Choose either Yes or No in field above and press \"Submit current answer\" button";
+				    question.text = "Is there a link between entity \"" + pathpair[0].name.toString().toUpperCase() + "\" in the \"" + pathpair[0].domain.toString().toUpperCase() + "\" domain and entity \"" + pathpair[1].name.toString().toUpperCase() + "\" in the \"" + pathpair[1].domain.toString().toUpperCase() + "\" domain? Choose either Yes or No in field above and press \"Submit current answer\" button";
 						question.nodes = pathpair;
 						//TODO: enable highlighting only for this task type
 				    break;
@@ -887,14 +887,14 @@ function generateQuestions(nodes, links) {
 						var qstnode = nodes[randomNode(0, nodes.length-1)]
 				    question.text = "How many connections does entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain have? Enter the number in the field above and press \"Submit current answer\" button";
 				    break;
-					case 3:
+					/*case 3:
 						var pathpair = getPairWithPath();
 					  question.text = "Please mark ALL entities on a path from entity \"" + pathpair[0].name.toString().toUpperCase() + "\" in the \"" + pathpair[0].domain.toString().toUpperCase() + "\" domain to entity \"" + pathpair[1].name.toString().toUpperCase() + "\" in the \"" + pathpair[1].domain.toString().toUpperCase() + "\" domain. After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
 						question.nodes = pathpair;
-					  break;
-					case 4:
+					  break;*/
+					case 3:
 						var qstnode = nodes[randomNode(0, nodes.length-1)]
-					  question.text = "Please mark ALL entities DIRECTLY (within one link) connected to entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain. After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
+					  question.text = "Please mark ALL entities connected to entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain. After you have marked all the desired entities with RED color, " + "press \"Submit current answer\" button";
 					  break;
 				}
 				question.type = i;
@@ -1108,12 +1108,12 @@ function buttonClicked() { //click on "responseButton"
 		answers.push(document.getElementById("numberwrapper").getElementsByTagName('input')[0].value);
 		document.getElementById("numberwrapper").getElementsByTagName('input')[0].value = 0;
 		break;
-		case 3:
+		/*case 3:
 		//	question.text = "Please mark all nodes on a path from node " + pathpair[0].name + " to node " + pathpair[1].name;
 		//find and store ids of all red nodes
-		answers.push(getRedNodesData(answerVizType));
+		answers.push(getRedNodesData(answerVizType));*/
 		break;
-		case 4:
+		case 3:
 		//	question.text = "Please mark all nodes connected to node " + qstnode.name;
 		//find and store ids of all red nodes
 		answers.push(getRedNodesData(answerVizType));
@@ -1234,7 +1234,7 @@ function showMatrix(curTrial, taskType) {
 	//console.log('original links:', links);
 
 	d3.select("#tree-container" + curTrial)
-		.style("margin-top", -80 + "px");
+		.style("margin-top", -80 + "px")
 
 	//var matrixnodes = sortNodesByLevels(nodes);
 //	var matrixnodes = sortNodesByTree(nodes);
@@ -1401,7 +1401,7 @@ for (var j = 0; j < firstlevels.length; j++) {
 					.enter().append("rect")
 						.attr("class", "cell")
 						.attr("x", function(d) {
-							return x(d.x); })
+							return x(findSortedIndex(d.x)); })
 							//return mybandwidth*d.x; })
 						.attr("width", x.rangeBand())
 						.attr("height", x.rangeBand())
@@ -1429,7 +1429,9 @@ for (var j = 0; j < firstlevels.length; j++) {
 									//replace 20 with index*20
 									var sortedindex = findSortedIndex(i);
 									//console.log("sortedindex:", sortedindex);
-									return "translate(" + x(sortedindex) +")rotate(-90)"; });
+									var translatestring = "translate(" + x(sortedindex) +")rotate(-90)";
+									console.log("translatestring:", translatestring);
+									return translatestring; });
 								//return "translate(" + sortedindex*x.rangeBand() +",0)"; });
 
 								baseSvg.append("text")
