@@ -94,6 +94,15 @@
 		</div>
 		<p style="clear:both"></p>
 		</br>
+		<p style="clear:both">Presented in visualisations is a breakdown of the knowledge that surrounds the development of a basic autonomous robot. This knowledge is broken down into three main domains:
+			<ul>
+				<li>REQUIREMENTS - represent requirements from customers, engineers and other stakeholders</li>
+				<li>FUNCTIONS - represent functions of the robot that help to accomplish those requirements</li>
+				<li>STRUCTURE - represent physical modules and parts of the robot</li>
+			</ul>
+			</p>
+		<p style="clear:both"></p>
+		</br>
 		<p style="clear:both">Both visualisations have highlighting features enabled:</p>
 		<ul>
 			<li>When using Tree visualisation, you can hover the mouse on CIRCLE NODES and see which entities are connected to the selected nodes.</li>
@@ -110,6 +119,7 @@
 			</ul>
 		</p>
 		<a href="#" id="startExperiment"><b>I understood, proceed to the experiment</b></a>
+		</br></br></br></br>
 	</div>
 
 
@@ -1214,6 +1224,8 @@ function showMatrix(curTrial, taskType) {
 
 	//convert links into index format
 	var matrixlinks = getMatrixLinks(links);
+	console.log("matrixlinks:", matrixlinks);
+
 	/*var adjacencyMatrix = d3.layout.adjacencyMatrix()
 		  .size([1000,1000])
 		  .nodes(nodes)
@@ -1304,7 +1316,7 @@ function showMatrix(curTrial, taskType) {
 	  			.attr("text-anchor", "end")
 	  			.style("font-size", "12px")
 	  			.text(function(d, i) { return treelist[i].name; })
-					.attr("id", function(d, i) { return i; })
+					.attr("id", function(d, i) { return treelist[i].nodeid; })
 					.on('click', handleTextMouseClick)
 					.on("mouseover", textmouseover)
 					.on("mouseout", textmouseout);
@@ -1326,7 +1338,7 @@ function showMatrix(curTrial, taskType) {
 	  			.attr("text-anchor", "start")
 	  			.style("font-size", "12px")
 	  			.text(function(d, i) { return treelist[i].name; })
-					.attr("id", function(d, i) { return i; })
+					.attr("id", function(d, i) { return treelist[i].nodeid; })
 					.on("mouseover", textmouseover)
 					.on("mouseout", textmouseout);
 				/*	row.exit().remove()
@@ -1344,9 +1356,9 @@ function showMatrix(curTrial, taskType) {
 						.attr("height", x.rangeBand())
 						//.style("fill-opacity", function(d) { return z(d.z); })
 						//.style("fill", function(d) { return nodes[d.x].group == nodes[d.y].group ? c(nodes[d.x].group) : null; })
-						.style("fill", "blue")
-						.on("mouseover", mouseover)
-						.on("mouseout", mouseout);
+						.style("fill", "blue");
+						//.on("mouseover", mouseover)
+						//.on("mouseout", mouseout);
 			}
 
 			function mouseover(p) {
@@ -1360,14 +1372,16 @@ function showMatrix(curTrial, taskType) {
 
 			function handleTextMouseClick(p, selectedindex) {
 				console.log("handleTextMouseClick");
-				console.log("selectedindex:", selectedindex);
-				console.log("p:", p);
+				//console.log("selectedindex:", selectedindex);
+				//console.log("p:", p);
 
 				var clickedElem = baseSvg.selectAll(".row text")
 					.filter(function(d,i){
 						if (i == selectedindex)
 							return d;
 					})
+
+					console.log("clickedElem.data()[0]:", clickedElem.data()[0]);
 
 				var clickedElemCol = baseSvg.selectAll(".column text")
 					.filter(function(d,i){
@@ -1410,12 +1424,16 @@ function showMatrix(curTrial, taskType) {
 
 			function textmouseover(p, selectedindex) {
 				//console.log("selectedindex:", selectedindex);
-				curtrace = getNodeIDsFromTraceArray(tracingDictFull[selectedindex], nodes);
-				//console.log("cutrace:", curtrace);
+				console.log("original node:", treelist[selectedindex]);
+				var orignodeID = treelist[selectedindex].nodeid;
+				//console.log("p:", p);
+				curtrace = getNodeIDsFromTraceArray(tracingDictFull[orignodeID], nodes);
+				console.log("cutrace:", curtrace);
 				//curtracetwo = getNodeIDsFromTrace(tracingDictFullTwo[i]);
 				baseSvg.selectAll(".row text")
 								.filter(function(d,i){
-									if (curtrace.indexOf(i) != -1)
+									//if (curtrace.indexOf(i) != -1)
+									if (curtrace.indexOf(treelist[i].nodeid) != -1)
 										return d;
 									})
 								.attr("fill", function(d) {
@@ -1428,7 +1446,7 @@ function showMatrix(curTrial, taskType) {
 
 				baseSvg.selectAll(".column text")
 							.filter(function(d,i){
-								if (curtrace.indexOf(i) != -1)
+								if (curtrace.indexOf(treelist[i].nodeid) != -1)
 									return d;
 								})
 							.attr("fill", function(d) {

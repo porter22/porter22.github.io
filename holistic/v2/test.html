@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style type="text/css">
+
+	.node {
+    cursor: pointer;
+  }
+
+  .overlay{
+      background-color: white;
+  }
+
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font-size:12px;
+    font-family:sans-serif;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+
+  .additionalParentLink {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+  }
+
+  .templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+  }
+
+  .ghostCircle.show{
+      display:block;
+  }
+
+  .ghostCircle, .activeDrag .ghostCircle{
+       display: none;
+  }
+
+	#mainwrapper {
+		position: relative;
+	}
+
+	#infodiv {
+		position: absolute;
+	  top: 0;
+	  right: 0;
+	}
+
+</style>
+<script src="jquery-1.10.2.min.js"></script>
+<script src="d3.v3.min.js"></script>
+<script src="test_v2_after_fork.js"></script>
+<script src="require.js"></script>
+
+<body>
+    <div id="mainwrapper">
+    	<div id="tree-container"></div>
+    	<div id="infodiv"></div>
+		</div>
+</body>
+</html>
