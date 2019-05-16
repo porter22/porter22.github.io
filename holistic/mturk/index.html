@@ -109,19 +109,20 @@
 				<li>STRUCTURE - represent physical modules and parts of the robot</li>
 			</ul>
 			</p>
-		<p style="clear:both"></p>
+		<p style="clear:both"> Blue squares on a Matrix represent that there is a connection between the intersecting row and a column.</p>
+		<p style="clear:both"> With Trees, these connections are represented as curved lines (edges) between the nodes.</p>
 		</br>
 		<p style="clear:both">Both visualisations have highlighting features enabled:</p>
 		<ul>
 			<li>When using Tree visualisation, you can hover the mouse on CIRCLE NODES and see which entities are connected to the selected nodes.</li>
-			<li>When using Matrix visualisation, you can hover the mouse on TEXT ON THE LEFT SIDE OF THE MATRIX and see which entities are connected to the selected entities.</li>
+			<li>When using Matrix visualisation, you can hover the mouse on TEXT ON THE LEFT SIDE OF THE MATRIX and see which entities are connected to the selected entities. </li>
 		</ul>
-		<p></p>
+		<p>Connected entities will be highlighted using <font color="orange">ORANGE.</font></p>
 		<p></p>
 		<p>Depending on the task type, you will be asked either
 			<ul>
-			  <li>to select one entity (node). To do this, just click on the desired entity, it will change color to RED. If you want to select another entity, unselect RED entity and select new one.</li>
-			  <li>to select multiple entities (nodes). To do this, click on ALL the desired entities, so that they change their color to RED. If you want to select another entity, unselect RED entity and select new one.</li>
+			  <li>to select one entity (node). To do this, just click on the desired entity, it will change color to <font color="red">RED</font>. If you want to select another entity, unselect <font color="red">RED</font> entity first and select new one.</li>
+			  <li>to select multiple entities (nodes). To do this, click on ALL the desired entities, so that they change their color to <font color="red">RED</font>. If you want to select another entity, unselect <font color="red">RED</font> entity and select new one.</li>
 			  <li>to enter a number</li>
 			  <li>to answer either Yes or No</li>
 			</ul>
@@ -885,7 +886,7 @@ function generateQuestions(nodes, links) {
 				    break;
 				  case 2:
 						var qstnode = nodes[randomNode(0, nodes.length-1)]
-				    question.text = "How many connections does entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain have? Enter the number in the field above and press \"Submit current answer\" button";
+				    question.text = "How many edges are DIRECTLY connected to entity \"" + qstnode.name.toString().toUpperCase() + "\" in the \"" + qstnode.domain.toString().toUpperCase() + "\" domain? Enter the number in the field above and press \"Submit current answer\" button";
 				    break;
 					/*case 3:
 						var pathpair = getPairWithPath();
