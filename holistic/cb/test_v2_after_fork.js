@@ -12,7 +12,7 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
   var treelinks = json.links;
   var traces = json.traces;
 
-  var globaldomains = ["structural","requirements","usecases","stakeholders"];
+  var globaldomains = ["A","B","C","D","E"];
 
   //add IDs to nodes
   for (var j = 0; j < nodes.length; j++) {
@@ -21,7 +21,11 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
   console.log("initial nodes:", nodes);
 
-  var mergedTraces = mergeFileTraces();
+  //rewrite getTracingDictFullArray so that it shows connections only that are present in matrix + hierarchical connections for each pair
+
+
+
+  /*var mergedTraces = mergeFileTraces();
 
   traces = mergeTwoArrays(traces,mergedTraces);
 
@@ -33,12 +37,96 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
   //dictionary, where key = nodeID, value = list of connected nodes from traces
   //var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
   var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
-  //var tracingDictFullTwo = getTracingDictFullArrayTwo(userTraces, nodes)
+  //var tracingDictFullTwo = getTracingDictFullArrayTwo(userTraces, nodes)*/
+
+  //var tracingDictFull = getTracingDictFullArray(userTraces, nodes);
+
+  var pairTracelinks = getPairTracelinks(traces);
+  console.log("pairTracelinks: ", pairTracelinks);
+
+  var tracingDictFull = getNewTracingDict(pairTracelinks, nodes);
   console.log("tracingDictFull: ", tracingDictFull);
 
 
   //make sure that for each trace, there are no traces with the same domain and level
   //var uniqueDomainTDFull = getUniqueDomainTDFull();
+
+  function getPairTracelinks (traces){
+    var resultarray = [];
+    for (var i = 0; i < traces.length; i++) {
+      tracenodes = traces[i].nodeids.split(",");
+      var tracelink = {};
+      //console.log("tracenodes:", tracenodes);
+      tracelink.source = tracenodes[0];
+      tracelink.target = tracenodes[1];
+      resultarray.push(tracelink);
+    }
+    return resultarray;
+  }
+
+  //takes an array of full traces,
+  // returns a dict, where key = nodeID, value = list of connected nodes from traces
+  function getNewTracingDict (tracelinks, nodes) {
+    console.log("tracelinks:", tracelinks);
+    var resultarray = [];
+
+    for (var j = 0; j < nodes.length; j++) {
+      resultarray[j] = [];
+      var curnode = nodes[j];
+      console.log("current node:", curnode.nodeid);
+      for (var k = 0; k < tracelinks.length; k++) {
+        //find traces with current node
+        //0. push this node's ancestors to fullTraceArray
+        //1. push both source and target to fullTraceArray
+        //2. push all ancestors of both source and target to fullTraceArray
+        if (curnode.nodeid == tracelinks[k].source || curnode.nodeid == tracelinks[k].target) {
+          resultarray[j].push(tracelinks[k].source);
+          resultarray[j].push(tracelinks[k].target);
+          var nodeAncestors = getDomainRoot(curnode, []);
+          var sourceAncestors = getDomainRoot(nodes[tracelinks[k].source], []);
+          var targetAncestors = getDomainRoot(nodes[tracelinks[k].target], []);
+          console.log("nodeAncestors:", nodeAncestors);
+          console.log("sourceAncestors:", sourceAncestors);
+          console.log("targetAncestors:", targetAncestors);
+          nodeAncestors.forEach(function(entry) {
+            resultarray[j].push(entry.nodeid.toString());
+          });
+          sourceAncestors.forEach(function(entry) {
+            resultarray[j].push(entry.nodeid.toString());
+          });
+          targetAncestors.forEach(function(entry) {
+            resultarray[j].push(entry.nodeid.toString());
+          });
+
+          console.log("getDomainRoot25:", getDomainRoot(nodes[25], []));
+          //console.log("domroot:", domroot);
+        }
+      }
+    }
+
+    for (var j = 0; j < resultarray.length; j++) {
+      resultarray[j] = uniq_fast(resultarray[j]);
+    }
+    //console.log("resultarray:", resultarray);
+    return resultarray;
+  }
+
+  //remove duplicates from an array
+  //https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+  function uniq_fast(a) {
+    var seen = {};
+    var out = [];
+    var len = a.length;
+    var j = 0;
+    for(var i = 0; i < len; i++) {
+         var item = a[i];
+         if(seen[item] !== 1) {
+               seen[item] = 1;
+               out[j++] = item;
+         }
+    }
+    return out;
+}
 
 
   //
@@ -107,12 +195,12 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
       var nodedomain = nodes[id].domain;
       var nodelevel = nodes[id].level;
       var pairnodes = findPairNodes(id);
-      console.log("lvl 1 pairnodes:", pairnodes);
+      //console.log("lvl 1 pairnodes:", pairnodes);
       for (var i = 0; i < pairnodes.length; i++) {
         var lvlonepairnode = pairnodes[i];
-        console.log("  lvl 1 pairnode:", lvlonepairnode);
+        //console.log("  lvl 1 pairnode:", lvlonepairnode);
         var lvltwopairnodes = findPairNodes(lvlonepairnode);
-        console.log("   lvl 2 pairnodes:", lvltwopairnodes);
+        //console.log("   lvl 2 pairnodes:", lvltwopairnodes);
 
         for (var j = 0; j < lvltwopairnodes.length; j++) {
           //construct object {nodeids: "id,pairnodelvl2"}
@@ -125,13 +213,13 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
           console.log("   nodelevel:", nodelevel);
           */
           if (othernode.domain == nodedomain && othernode.level == nodelevel) {
-            console.log("   condition holds..");
+            //console.log("   condition holds..");
             continue;
           } else {
             var traceobj = {}
             //"{nodeids: \"" + id + "," + lvltwopairnodes[j] + "\"}";
             traceobj.nodeids = id + "," + lvltwopairnodes[j];
-            console.log(traceobj);
+            //console.log(traceobj);
             resultarray.push(traceobj);
           }
         }
@@ -157,15 +245,15 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
   */
   //array of links from all traces
   //var tracelinks = getLinksFromTraces(userTraces);
-  var tracelinks = getLinksFromTraces(userTraces);
+  //var tracelinks = getLinksFromTraces(userTraces);
   //console.log("all tracelinks:", tracelinks);
 
   //console.log("all treelinks: ", treelinks);
   //we distinguish between hierarchical links and links that are generated from the traces
   //rewrite this so that it adds only links that are not present in treelinks
-  var links = treelinks.concat(tracelinks);
+  //var links = treelinks.concat(tracelinks);
 
-  links = inverseLinks(links);
+  //links = inverseLinks(links);
   //var links = mergeLinks(treelinks, tracelinks);
 
   //console.log("merged links: ", links);
@@ -273,24 +361,6 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
   				domaintraces[traceArray[j].domain].push(traceArray[j]);
   			}
   	}
-  	//console.log("domaintraces:", domaintraces);
-  	//second, go through global array of domain names with correct order,
-  	//create result array based on this order
-  	/*var resultarray = domaintraces[globaldomains[0]];
-  	if (resultarray == null) {
-  		resultarray = [];
-  	}
-  	for (var j = 1; j < globaldomains.length; j++) {
-  		//console.log("domaintraces[globaldomains[j]]", domaintraces[globaldomains[j]]);
-  		//console.log("globaldomains[j]", globaldomains[j]);
-      if (globaldomains) //CONTINUE HERE:
-  		resultarray = resultarray.concat(domaintraces[globaldomains[j]]);
-  	}
-  	//resultarray.pop(); //HACK: remove last "undefined" element
-  	/*for (var j = 0; j < resultarray.length; j++) {
-  		if (resultarray[j] == null)
-  			resultarray.pop();
-  	}*/
 
     var resultarray = [];
 
@@ -522,17 +592,17 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
   }
 
   function getParent(nodeindex, nodes, treelinks) {
-    console.log("treelinks:", treelinks);
-        console.log("nodeindex:", nodeindex);
+    /*console.log("treelinks:", treelinks);
+    console.log("nodeindex:", nodeindex); */
   	var parent = null;
   	for (j = 0; j < treelinks.length; j++) {
   		link = treelinks[j];
   		source = getNodeIndexByName(link.source);
   		target = getNodeIndexByName(link.target);
-      console.log("source origin:",link.source);
+      /*console.log("source origin:",link.source);
       console.log("target origin:",link.target);
       console.log("source:",source);
-      console.log("target:",target);
+      console.log("target:",target); */
   		if (source == nodeindex) {
   			//console.log(link);
   			//console.log(nodeindex,nodes[nodeindex].name, nodes[target].name, nodes[target].level);
@@ -742,7 +812,8 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
   //https://rachel53461.wordpress.com/2014/04/20/algorithm-for-drawing-trees/
   function calcInitNodeY(node) {
-    //console.log("Calculating Initial Positions for node:", node.name);
+    //if (node.domain == "B")
+    //  console.log("Calculating Initial Positions for node:", node.name);
     //console.log("lvlnode:",node);
     var children = getChildren(node.nodeid,nodes, treelinks);
     //console.log("children:", children);
@@ -757,41 +828,51 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
     //if no children
     if (children.length == 0) {
-      //console.log("no children for node:", node.name);
+      //if (node.domain == "B")
+        //console.log("no children for node:", node.name);
       //if there is a previous sibling
       if (prevSibling) {
-        //console.log("has prevSibling");
+        //if (node.domain == "B")
+          //console.log("has prevSibling");
         node.positionY = getPrevSibling(node).positionY + distY;
       } else { //if node is the first sibling/topmost node
-        //console.log("no prevSiblings");
+        //if (node.domain == "B")
+        //  console.log("no prevSiblings, set posY to 0");
         node.positionY = 0;
       }
-      //console.log("set positionY to:", node.positionY);
+      //if (node.domain == "B")
+      //  console.log("set positionY to:", node.positionY);
     } //end if no children
     else if (children.length == 1){
       //console.log("1 child code.. ");
       // if this is the first node in a set, set it's X value equal to it's child's X value
 
       if (!prevSibling) {
-        node.positionY = 0;
+        //node.positionY = 0;
+        node.positionY = children[0].positionY;
         //console.log("positionY set to ", node.positionY);
       } else {
         node.positionY = prevSibling.positionY + distY;
         //console.log("positionY set to ", node.positionY);
-        node.mod = children[0].positionY;
+        //node.mod = children[0].positionY;
+        node.mod = node.positionY - children[0].positionY;
         //console.log("mod changed to:", node.mod);
       }
     } //end if one child
     else { //if more than one child
-      //console.log("more than one child of node:", node.name);
+      //if (node.domain == "B")
+        //console.log("more than one child of node:", node.name);
 
       //console.log("Several children code.. ", node);
       var leftChild = getLeftMostChild(node);
       var rightChild = getRightMostChild(node);
       var mid = (leftChild.positionY + rightChild.positionY) / 2;
-      //console.log("leftmost child: ",leftChild);
-      //console.log("rightmost child: ",rightChild);
-      //console.log("mid: ",mid);
+
+      /*if (node.domain == "B") {
+        console.log("leftmost child: ",leftChild);
+        console.log("rightmost child: ",rightChild);
+        console.log("mid: ",mid);
+      } */
 
       //console.log("prevSibling:", prevSibling);
 
@@ -1121,7 +1202,7 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
 	// define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
 	var zoomListener = d3.behavior.zoom()
-																.scaleExtent([0.2, 3])
+																.scaleExtent([0.1, 3])
 																.on("zoom", zoom);
 
 	/*//get current trial number
@@ -1145,9 +1226,9 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
 
 	function zoom() {
-			//svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+			svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       console.log("zoom event triggered..");
-			baseSvg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+			//baseSvg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 	}
 
 	svgGroup.attr("transform","translate(25,50)scale(.7,.7)");
@@ -1170,7 +1251,7 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 	//MAIN FLOW STARTS HERE
 	var domarray = getDomainArray();
 
-	//console.log('domainarray:', domarray);
+	console.log('domainarray:', domarray);
 
 	calcDomainPositionsX(domarray);
 
@@ -1381,7 +1462,9 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
 					//find all nodes that share traces with the current node
 					//WE USE OTHER VARIANT HERE FOR TRACINGDICTTWO
-					curtrace = getNodeIDsFromTraceArray(tracingDictFull[i], nodes);
+					//curtrace = getNodeIDsFromTraceArray(tracingDictFull[i], nodes);
+					curtrace = tracingDictFull[i];
+          console.log("tracingDictFull[i]:", tracingDictFull[i]);
 					//curtracetwo = getNodeIDsFromTrace(tracingDictFullTwo[i]);
 					/*console.log("curtrace:", curtrace);
 					console.log("curtracetwo:", curtracetwo);
@@ -1397,7 +1480,7 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 										//console.log("selected:", d);
 										currentID = d3.select(this).attr('id');
 										//console.log("currentID:", currentID);
-										return curtrace.indexOf(parseInt(currentID)) != -1; //add to selection only if the id of the current node is in the tracelist for the clicked node
+										return curtrace.indexOf(currentID) != -1; //add to selection only if the id of the current node is in the tracelist for the clicked node
 										})
 									.attr("fill", function(d) {
 											if (d3.select(this).attr('fill') == "red") {
@@ -1414,7 +1497,8 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 										//console.log("filtering edges...");
 										edgeSource = d3.select(this).attr('source');
 										edgeTarget = d3.select(this).attr('target');
-										return (curtrace.indexOf(parseInt(edgeSource)) != -1 && curtrace.indexOf(parseInt(edgeTarget)) != -1);
+										//return (curtrace.indexOf(parseInt(edgeSource)) != -1 && curtrace.indexOf(parseInt(edgeTarget)) != -1);
+										return (curtrace.indexOf(edgeSource) != -1 && curtrace.indexOf(edgeTarget) != -1);
 									})
 									.attr({
 									stroke: "orange"
@@ -1596,7 +1680,7 @@ treeJSON = d3.json("graph_cb.json", function(error, json) {
 
 	//DRAWING EDGES
 		//http://bl.ocks.org/milkbread/5902470
-		links.forEach(function(link){
+		treelinks.forEach(function(link){
 				//console.log(link, link.source, nodes[link.source].name, nodes[link.source].positionX);
 				var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20}];//arbitrary
 				lineData[0].x = nodes[getNodeIndexByName(link.source)].positionX
