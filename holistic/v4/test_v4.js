@@ -1306,14 +1306,20 @@ treeJSON = d3.json("graph_july3_from_matrix.json", function(error, json) {
 		cc.on('click', handleMouseClick); //in this case not data, but mouseevent is passed
 		cc.on('dblclick', handleDoubleClick); //in this case not data, but mouseevent is passed
 
+    var isSomethingClicked = false;
+
 		//http://bl.ocks.org/WilliamQLiu/76ae20060e19bf42d774
-		// Create Event Handlers for mouse
+		// highlight selected node, connected nodes and edges into red
 		function handleMouseClick(d, i) {
 			console.log("mouse click event:", d);
 
       var clickedElem = d3.select(d.srcElement);
     	var clickedElemData = clickedElem.data()[0];
     	console.log("clicked object:", clickedElemData);
+
+      curtrace = getNodeIDsFromTraceArray(tracingDictFull[clickedElemData.nodeid], nodes);
+
+      console.log("clicked curtrace:", curtrace);
 
       if (clickedElem.attr("fill") == "red") { //if already clicked
     		//repaint back
@@ -1324,8 +1330,13 @@ treeJSON = d3.json("graph_july3_from_matrix.json", function(error, json) {
     			clickedElemList.splice(index, 1);
     		}
     	} else {
-    		//paint as highlighted
+    		//paint node as highlighted
     		clickedElem.attr({fill: "red"});
+        //isSomethingClicked = true;
+        //TODO: paint edges as red too
+        highlightEdges(svgGroup, curtrace, "red");
+        //highlight connected nodes as red
+        highlightNodes(svgGroup, curtrace, "red");
     		//add to the list of selected nodes
     		clickedElemList.push(clickedElem);
     	}
@@ -1365,8 +1376,44 @@ treeJSON = d3.json("graph_july3_from_matrix.json", function(error, json) {
 
 		}
 
-    //highlight all nodes from trace
-    function highlightNodes(curtrace) {
+    //highlight all nodes from trace into given color
+    function highlightNodes(svgGroup, curtrace, paint) {
+      //find nodes from trace, highlight them
+      svgGroup.selectAll(".nodes")
+              .filter(function(d,i){
+                //return d3.select(this).attr('id') > 4;
+                //console.log("selected:", d);
+                currentID = d3.select(this).attr('id');
+                //console.log("currentID:", currentID);
+                return curtrace.indexOf(parseInt(currentID)) != -1; //add to selection only if the id of the current node is in the tracelist for the clicked node
+                })
+              .attr("fill", function(d) {
+                if (d3.select(this).attr('fill') == "red") {
+      						return "red";
+      					} else {
+      						return paint;
+      					}
+                });
+    }
+
+    //highlight all edges from trace
+    function highlightEdges(svgGroup, curtrace, paint) {
+      //find edges where source and target are both in tracingDict[i]
+      svgGroup.selectAll(".edges")
+              .filter(function(d,i){
+                //console.log("filtering edges...");
+                edgeSource = d3.select(this).attr('source');
+                edgeTarget = d3.select(this).attr('target');
+                return (curtrace.indexOf(parseInt(edgeSource)) != -1 && curtrace.indexOf(parseInt(edgeTarget)) != -1);
+              })
+              .attr("stroke", function(d) {
+                if (d3.select(this).attr('stroke') == "red") {
+                  return "red";
+                } else {
+                  return paint;
+                }
+        					}
+        				);
 
     }
 
@@ -1386,35 +1433,10 @@ treeJSON = d3.json("graph_july3_from_matrix.json", function(error, json) {
 					console.log("sortedTracingDictFullTwo[i]:", sortedTracingDictFullTwo[i]);*/
 					//var fulltrace = getFullTracingDict([13,47]);
 
-					//find nodes from trace, highlight them
-					svgGroup.selectAll(".nodes")
-									.filter(function(d,i){
-										//return d3.select(this).attr('id') > 4;
-										//console.log("selected:", d);
-										currentID = d3.select(this).attr('id');
-										//console.log("currentID:", currentID);
-										return curtrace.indexOf(parseInt(currentID)) != -1; //add to selection only if the id of the current node is in the tracelist for the clicked node
-										})
-									.attr("fill", function(d) {
-											if (d3.select(this).attr('fill') == "red") {
-												return "red";
-											} else {
-												return "orange";
-											}
-										});
-						//r: radius * 2
+          highlightNodes(svgGroup, curtrace, "orange");
 
-					//find edges where source and target are both in tracingDict[i]
-					svgGroup.selectAll(".edges")
-									.filter(function(d,i){
-										//console.log("filtering edges...");
-										edgeSource = d3.select(this).attr('source');
-										edgeTarget = d3.select(this).attr('target');
-										return (curtrace.indexOf(parseInt(edgeSource)) != -1 && curtrace.indexOf(parseInt(edgeTarget)) != -1);
-									})
-									.attr({
-									stroke: "orange"
-					});
+          highlightEdges(svgGroup, curtrace, "orange");
+
 
 					//IMPLEMENT DOMAINS, ENABLE TRACEBILITY BETWEEN DOMAINS
 
@@ -1436,9 +1458,17 @@ treeJSON = d3.json("graph_july3_from_matrix.json", function(error, json) {
 					}
 				});
 
-			svgGroup.selectAll(".edges").attr({
+			svgGroup.selectAll(".edges")
+      .attr("stroke", function(d) {
+					if (d3.select(this).attr('stroke') == "red") {
+						return "red";
+					} else {
+						return "lightsteelblue";
+					}
+				});
+      /*.attr({
 				stroke: "lightsteelblue"
-			});
+			});*/
 
 			// Select text by id and then remove
 			//d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
