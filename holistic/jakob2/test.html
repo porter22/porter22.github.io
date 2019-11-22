@@ -1,0 +1,108 @@
+<!-- Copyright (c) 2013-2016, Rob Schmuecker
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* The name Rob Schmuecker may not be used to endorse or promote products
+  derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL MICHAEL BOSTOCK BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style type="text/css">
+
+	.node {
+    cursor: pointer;
+  }
+
+  .overlay{
+      background-color: white;
+  }
+
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font-size: 28px;
+    font-family:sans-serif;
+  }
+
+	.labels {
+		font-size: 26px;
+    font-family:sans-serif;
+	}
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+
+  .additionalParentLink {
+    fill: none;
+    stroke: blue;
+    stroke-width: 1.5px;
+  }
+
+  .templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+  }
+
+  .ghostCircle.show{
+      display:block;
+  }
+
+  .ghostCircle, .activeDrag .ghostCircle{
+       display: none;
+  }
+
+	#mainwrapper {
+		position: relative;
+	}
+
+	#infodiv {
+		position: absolute;
+	  top: 0;
+	  right: 0;
+		width: 20%;
+	}
+
+</style>
+<head>
+</head>
+<script src="scripts/jquery-1.10.2.min.js"></script>
+<script src="scripts/d3.v3.min.js"></script>
+<!-- <script type="module" src="scripts/test_v5.js"></script> -->
+<script data-main="scripts/test_v4" src="scripts/require.js"></script>
+<!-- <script src="scripts/utils.js"></script> -->
+
+<body>
+    <div id="mainwrapper">
+    	<div id="tree-container"></div>
+    	<div id="infodiv"></div>
+		</div>
+</body>
+</html>
